@@ -25,6 +25,15 @@ Player::Player(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::ve
     }
 
 
+    scene::IMeshBuffer* cannonUpper = this->cannon->getMesh()->getMeshBuffer(0);
+    scene::IMeshBuffer* cannonLower = this->cannon->getMesh()->getMeshBuffer(1);
+
+    for(unsigned int i = 0; i < cannonUpper->getVertexCount(); i++){
+//        cannonUpper->getPosition(i).rotateYZBy(-15.f,core::vector3df(0,0,0));// up and down
+//        cannonUpper->getPosition(i).rotateXZBy(-5.f,core::vector3df(0,0,0)); //left right, should be minimal
+    }
+            cannonUpper->recalculateBoundingBox();
+
 
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
