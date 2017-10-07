@@ -1,0 +1,2 @@
+ENGINE_PATH = "/home/singh/Documents/projects/Castle_Battle/Engine/include/irrlicht.h"
+Battle: g++ -o main main.cpp $(ENGINE_PATH)

@@ -1,0 +1,67 @@
+# Blender MTL File: 'Elm_Tree.lwo'
+# Material Count: 5
+
+newmtl Branch1
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DISP.png
+map_Kd /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DIFFUSE.png
+map_Ks /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_SPECULAR.png
+
+newmtl Branch2
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DISP.png
+map_Kd /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DIFFUSE.png
+map_Ks /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_SPECULAR.png
+
+newmtl Branch3
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DISP.png
+map_Kd /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DIFFUSE.png
+map_Ks /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_SPECULAR.png
+
+newmtl Branch4
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DISP.png
+map_Kd /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DIFFUSE.png
+map_Ks /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_SPECULAR.png
+
+newmtl Trunk
+Ns 1.960784
+Ka 0.000000 0.000000 0.000000
+Kd 0.560000 0.560000 0.560000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DISP.png
+map_Kd /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_DIFFUSE.png
+map_Ks /home/singh/Documents/envato/3docean-9791432-dead-elm-tree-file-and-license/Elm_Tree/Tree/Winter_Trunk_SPECULAR.png
