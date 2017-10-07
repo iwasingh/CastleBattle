@@ -1,6 +1,8 @@
 ./Castle_Battle.cbp
 ./obj
+./obj/*
 ./Castle_Battle.depend
 ./Castle_Battle.layout
-./*.swp
+*.swp
+*.o
 ./bin
