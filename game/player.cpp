@@ -1,8 +1,7 @@
 #include "player.h"
 #include <iostream>
-using namespace irr;
-
-Player::Player(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, PLAYER_TYPE type){
+using namespace KEYBOARD;
+Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, PLAYER_TYPE type){
     this->cannon = smgr->addAnimatedMeshSceneNode(
     smgr->getMesh("media/cannon/cannon.obj"),
     0,
@@ -34,8 +33,25 @@ Player::Player(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::ve
     }
             cannonUpper->recalculateBoundingBox();
 
-
+            this->initKeyboard(device);
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
+}
+void Player::initKeyboard(IrrlichtDevice* device){
+    device->setEventReceiver(&this->keyboard);
+}
+void Player::loop(){
+    Key* key = this->keyboard.IsKeyDown();
+    ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
+    switch(action){
+        case INCLINATE_UP: std::cout<<"asd"<<std::endl;break;
+        case INCLINATE_DOWN: break;
+        case INCLINATE_LEFT: break;
+        case INCLINATE_RIGHT: break;
+        case MOVE_LEFT: break;
+        case MOVE_RIGHT: break;
+        case MOVE_UP: break;
+        case MOVE_DOWN: break;
+    }
 }

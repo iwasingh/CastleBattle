@@ -42,7 +42,7 @@ int main() {
     Sky* sky = new Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
     HUD::HUD* hud = new HUD::HUD(device,driver);
 
-    Player* player = new Player(smgr,driver,terrain->getCenter(), Player::HUMAN);
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::HUMAN);
 
     terrain->collisionResponseAnimator(smgr,player->getNode());
 //    smgr->addCameraSceneNodeFPS()->setPosition(terrain->getCenter());
@@ -51,6 +51,7 @@ int main() {
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
+
     while(device->run() && device) {
 
         if(device->isWindowActive()){
@@ -58,6 +59,8 @@ int main() {
             driver->beginScene(true, true, video::SColor(255,200,200,200));
             smgr->drawAll();
             hud->env->drawAll();
+                            player->loop();
+
             driver->endScene();
             int fps = driver->getFPS();
             if(lastFPS != fps)
