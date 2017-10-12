@@ -22,18 +22,12 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
         this->camera->setRotation(core::vector3df(0,0,0));
         this->camera->setFarValue(3000.f);
     }
+    this->initKeyboard(device);
 
-
-    scene::IMeshBuffer* cannonUpper = this->cannon->getMesh()->getMeshBuffer(0);
-    scene::IMeshBuffer* cannonLower = this->cannon->getMesh()->getMeshBuffer(1);
-
-    for(unsigned int i = 0; i < cannonUpper->getVertexCount(); i++){
-//        cannonUpper->getPosition(i).rotateYZBy(-15.f,core::vector3df(0,0,0));// up and down
-//        cannonUpper->getPosition(i).rotateXZBy(-5.f,core::vector3df(0,0,0)); //left right, should be minimal
-    }
-            cannonUpper->recalculateBoundingBox();
-
-            this->initKeyboard(device);
+    this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
+    this->wagon = this->cannon->getMesh()->getMeshBuffer(1);
+    this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+    this->driver = driver;
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -44,14 +38,64 @@ void Player::initKeyboard(IrrlichtDevice* device){
 void Player::loop(){
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
-    switch(action){
-        case INCLINATE_UP: std::cout<<"asd"<<std::endl;break;
-        case INCLINATE_DOWN: break;
-        case INCLINATE_LEFT: break;
-        case INCLINATE_RIGHT: break;
-        case MOVE_LEFT: break;
-        case MOVE_RIGHT: break;
-        case MOVE_UP: break;
-        case MOVE_DOWN: break;
+    this->inclinate(action);
+}
+void Player::inclinate(ACTION_KEYBOARD action){
+    core::aabbox3df box = this->barrel->getBoundingBox();
+    core::aabbox3df lower = this->wagon->getBoundingBox();
+    irr::core::matrix4 m;
+
+    core::line3df cannonline = core::line3df(this->barrel->getPosition(1),this->barrel->getPosition(this->barrel->getVertexCount()-1));
+    this->driver->setTransform(video::ETS_WORLD, this->cannon->getAbsoluteTransformation());
+
+    this->driver->draw3DLine(cannonline.start,cannonline.end, video::SColor(0,255,0,0));
+    box.MaxEdge.rotateYZBy()
+    for(unsigned int i = 0; i < this->barrel->getVertexCount(); i++){
+
+        switch(action){
+
+            case INCLINATE_UP:
+
+                this->barrel->getPosition(i).rotateYZBy(
+                    -0.5f * INCLINATE_FACTOR,
+                    core::vector3df(0,0,0)
+                );// up and down
+//                    box.MaxEdge.rotateXZBy(2.f, core::vector3df(0,0,0));
+//                    box.MinEdge.rotateYZBy(2.f, core::vector3df(0,0,0));
+
+
+                cannonline = core::line3df(this->barrel->getPosition(1),this->barrel->getPosition(this->barrel->getVertexCount()-1));
+                box = this->barrel->getBoundingBox();
+
+                f32 angle = cannonline.getVector().dotProduct(box.MaxEdge);
+                std::cout<<angle<<std::endl;
+
+//                std::cout
+//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().X
+//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().Y
+//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().Z
+//                <<std::endl;
+//                std::cout
+//                <<" "<<box.MaxEdge.X
+//                <<" "<<box.MaxEdge.Y
+//                <<" "<<box.MaxEdge.Z
+//                <<std::endl;
+
+//                std::cout
+//                <<" "<<cannonline.getVector().getHorizontalAngle().X
+//                <<" "<<cannonline.getVector().getHorizontalAngle().Y
+//                <<" "<<cannonline.getVector().getHorizontalAngle().Z
+//                <<std::endl;
+
+            break;
+        }
+//        cannonUpper->getPosition(i).rotateXZBy(-5.f,core::vector3df(0,0,0)); //left right, should be minimal
     }
+
+
+
+
+
+    this->barrel->recalculateBoundingBox();
+
 }
