@@ -32,12 +32,12 @@ Key* Keyboard::IsKeyDown(){
 //    else (EKEY_CODE)0x0;
 
 };
-void Keyboard::mapKeyboard( const Key*keys){
+void Keyboard::mapKeyboard(const std::vector<Key> keys){
 
 //        if(keys == 0) this->mapKeys.push_back(Key(INCLINATE_UP, KEY_KEY_W));
-//            std::cout<<(keys+2)->action<<std::endl;
+//            std::cout<<" "<<keys[0].action<<" "<<keys[1].action<<" "<<keys[2].action<<" "<<keys[3].action<<std::endl;
             this->mapKeys.clear();
-            this->mapKeys.assign(keys,keys+sizeof(keys));
-            std::cout<<this->mapKeys.size()<<std::endl;
+            this->mapKeys = keys;
+//            std::cout<<this->mapKeys.size()<<std::endl;
 };
 
