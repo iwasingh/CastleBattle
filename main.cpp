@@ -42,10 +42,10 @@ int main() {
     Sky* sky = new Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
     HUD::HUD* hud = new HUD::HUD(device,driver);
 
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::AI);
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::HUMAN);
 
     terrain->collisionResponseAnimator(smgr,player->getNode());
-    smgr->addCameraSceneNodeFPS(0,100.f,0.005f)->setPosition(terrain->getCenter());
+//    smgr->addCameraSceneNodeFPS(0,100.f,0.005f)->setPosition(terrain->getCenter());
 
 //    terrain->addCollisionNode(smgr,);
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();

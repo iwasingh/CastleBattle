@@ -7,7 +7,9 @@ using namespace irr;
 using namespace KEYBOARD;
 
 const f32 INCLINATE_FACTOR = 0.5f;
-const f32 MAX_ANGLE = 50.f;
+const f32 MAX_ANGLE_BOTTOM = 115.f;
+const f32 MAX_ANGLE_TOP = 148.f;
+
 class Player{
     private:
         scene::ISceneManager* smgr;
@@ -17,6 +19,7 @@ class Player{
         Keyboard keyboard;
         scene::IMeshBuffer* barrel;
         scene::IMeshBuffer* wagon;
+        f32 angle;
     public:
         enum PLAYER_TYPE{
         HUMAN=0,
@@ -27,5 +30,7 @@ class Player{
         void initKeyboard(IrrlichtDevice* device);
         void loop();
         void inclinate(ACTION_KEYBOARD action);
+        f32 refreshAngle();
+        core::matrix4 getInclinateValues(ACTION_KEYBOARD key);
 };
 #endif

@@ -21,6 +21,8 @@ bool Keyboard::OnEvent(const SEvent& event) {
 Key* Keyboard::IsKeyDown(){
 
    for(std::vector<Key>::const_iterator it = this->mapKeys.begin(); it != this->mapKeys.end(); ++it){
+//               std::cout<<it->k<<std::endl;
+
           if(this->keyDown[it->key]) return new Key(it->action,it->key);
     }
     return 0; // null
@@ -33,10 +35,9 @@ Key* Keyboard::IsKeyDown(){
 void Keyboard::mapKeyboard( const Key*keys){
 
 //        if(keys == 0) this->mapKeys.push_back(Key(INCLINATE_UP, KEY_KEY_W));
-
-            std::cout<<keys->action;
+//            std::cout<<(keys+2)->action<<std::endl;
             this->mapKeys.clear();
-            this->mapKeys.assign(keys,keys + sizeof(keys) / sizeof(keys[0]));
-
+            this->mapKeys.assign(keys,keys+sizeof(keys));
+            std::cout<<this->mapKeys.size()<<std::endl;
 };
 
