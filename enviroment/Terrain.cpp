@@ -29,19 +29,19 @@ core::vector3df Terrain::getCenter(){
         }
 void Terrain::collisionResponseAnimator(scene::ISceneManager* smgr,scene::ISceneNode* obj){
 
-        scene::ITriangleSelector* selector = 0;
-        selector = smgr->createTerrainTriangleSelector(this->terrain);
-        this->terrain->setTriangleSelector(selector);
-
-    if(selector){
-       const core::aabbox3d<f32>& box = this->terrain->getBoundingBox();
-        core::vector3df radius = box.MaxEdge - box.getCenter();
-        scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-            selector,obj,core::vector3df(radius.X,1.f,radius.Z), core::vector3df(0,-5.f,0));
-            selector->drop();
-            obj->addAnimator(anim);
-            anim->drop();
-    }
+//        scene::ITriangleSelector* selector = 0;
+//        selector = smgr->createTerrainTriangleSelector(this->terrain);
+//        this->terrain->setTriangleSelector(selector);
+//
+//    if(selector){
+//       const core::aabbox3d<f32>& box = this->terrain->getBoundingBox();
+//        core::vector3df radius = box.MaxEdge - box.getCenter();
+//        scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
+//            selector,obj,core::vector3df(radius.X,1.f,radius.Z), core::vector3df(0,-5.f,0));
+//            selector->drop();
+//            obj->addAnimator(anim);
+//            anim->drop();
+//    }
 
 
 }
@@ -50,4 +50,7 @@ void Terrain::addCollisionNode(scene::ISceneManager* smgr,scene::IAnimatedMeshSc
         obj->setTriangleSelector(selector);
         selector->drop();
 
+}
+core::aabbox3df Terrain::getTerrainBox(){
+    return this->terrain->getBoundingBox();
 }

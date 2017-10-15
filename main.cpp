@@ -3,9 +3,12 @@
 #include "enviroment/Sky.h"
 #include "hud/hud.h"
 #include "game/player.h"
-
+#include <btBulletCollisionCommon.h>
+#include <btBulletDynamicsCommon.h>
+#include <cstdlib>
+#include <list>
+#include "game/physics.h"
 using namespace irr;
-
 /*
 There are 5 sub namespaces in the Irrlicht Engine. Take a look at them, you can
 read a detailed description of them in the documentation by clicking on the top
@@ -29,6 +32,35 @@ Need a GameManager class and a Application class ----- further update
 
 
 */
+
+
+
+//void UpdateRender(btRigidBody *TObject) {
+//	scene::ISceneNode *Node = static_cast<scene::ISceneNode *>(TObject->getUserPointer());
+//
+//	// Set position
+//	btVector3 Point = TObject->getCenterOfMassPosition();
+//	Node->setPosition(core::vector3df((f32)Point[0], (f32)Point[1], (f32)Point[2]));
+//
+//	// Set rotation
+////	vector3df Euler;
+////	const btQuaternion& TQuat = TObject->getOrientation();
+////	quaternion q(TQuat.getX(), TQuat.getY(), TQuat.getZ(), TQuat.getW());
+////	q.toEuler(Euler);
+////	Euler *= RADTODEG;
+////	Node->setRotation(Euler);
+//}
+//void UpdatePhysics(u32 TDeltaTime) {
+//
+//	World->stepSimulation(TDeltaTime * 0.001f, 60);
+//
+//	// Relay the object's orientation to irrlicht
+//	for(std::list<btRigidBody *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
+//
+//		UpdateRender(*Iterator);
+//	}
+//}
+
 int main() {
 
     IrrlichtDevice* device = createDevice(video::EDT_OPENGL,core::dimension2d<u32>(800,600),16, false,false,false,0);
@@ -37,24 +69,69 @@ int main() {
     driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
     scene::ISceneManager* smgr = device->getSceneManager();
 
-    core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
+       core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
     Terrain* terrain = new Terrain(smgr,driver,pathTexture,core::vector3df(250.f,0.0001f, 250.f));
     Sky* sky = new Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
+
+    /********************BULLET INIT***************************/
+
+    Physics* physics = new Physics(terrain->getTerrainBox());
+
+//    btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
+//	btBroadphaseInterface *broadPhase = new btAxisSweep3(toBulletVector(terrain->getTerrainBox().MinEdge), toBulletVector(terrain->getTerrainBox().MaxEdge));
+//	btCollisionDispatcher *dispatcher = new btCollisionDispatcher(collisionConfiguration);
+//	btSequentialImpulseConstraintSolver *solver = new btSequentialImpulseConstraintSolver();
+//    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
+//    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
+//    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI = btRigidBody::btRigidBodyConstructionInfo(0, groundMotionState, groundShape, btVector3(0, 0, 0));
+//    groundRigidBodyCI.m_restitution = 0.8f;
+//    groundRigidBodyCI.m_friction = 1.5f;
+//    btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
+//
+//    World->addRigidBody(groundRigidBody);
+
+    /********************END BULLET INIT**********************/
+
     HUD::HUD* hud = new HUD::HUD(device,driver);
 
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::HUMAN);
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::AI);
+    core::vector3df position  = player->getNode()->getPosition();
+    scene::ISceneNode *sphere = smgr->addSphereSceneNode(1,32,0,-1,core::vector3df((position.X,position.Y, position.Z)));
+    sphere->setMaterialFlag(video::EMF_LIGHTING,false);
+    sphere->setMaterialTexture(0, driver->getTexture("media/cannon/cannonballtex.png"));
 
-    terrain->collisionResponseAnimator(smgr,player->getNode());
-//    smgr->addCameraSceneNodeFPS(0,100.f,0.005f)->setPosition(terrain->getCenter());
+    physics->createCannonBall(sphere);
+
+//    btTransform transformer;
+//    transformer.setIdentity();
+//    transformer.setOrigin(btVector3(position.X,position.Y+100, position.Z));
+//    btDefaultMotionState *motion = new btDefaultMotionState(transformer);
+//    btCollisionShape *ball = new btSphereShape(1);
+//    btVector3 localInertia;
+//    ball->calculateLocalInertia(2.f, localInertia);
+//    btRigidBody::btRigidBodyConstructionInfo ballRigidBodyCI(100,motion,ball,localInertia);
+//    ballRigidBodyCI.m_friction = 10.f;
+//    ballRigidBodyCI.m_restitution = 0.1f;
+//    btRigidBody *rigidBody = new btRigidBody(ballRigidBodyCI);
+//    rigidBody->setUserPointer((void*)(sphere));
+//    World->addRigidBody(rigidBody);
+//    Objects.push_back(rigidBody);
+
+    smgr->addCameraSceneNodeFPS(0,100.f,0.005f)->setPosition(terrain->getCenter());
 
 //    terrain->addCollisionNode(smgr,);
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
+    u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
 
     while(device->run() && device) {
 
         if(device->isWindowActive()){
+
+            DeltaTime = device->getTimer()->getTime() - TimeStamp;
+            TimeStamp = device->getTimer()->getTime();
+            physics->UpdatePhysics(DeltaTime);
 
             driver->beginScene(true, true, video::SColor(255,200,200,200));
             smgr->drawAll();

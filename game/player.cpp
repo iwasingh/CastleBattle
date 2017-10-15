@@ -1,7 +1,9 @@
 #include "player.h"
 #include <iostream>
 #include <math.h>
+
 using namespace KEYBOARD;
+
 Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, PLAYER_TYPE type){
     this->cannon = smgr->addAnimatedMeshSceneNode(
     smgr->getMesh("media/cannon/cannon.obj"),
