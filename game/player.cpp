@@ -1,10 +1,25 @@
 #include "player.h"
 #include <iostream>
 #include <math.h>
-
+using namespace irr;
 using namespace KEYBOARD;
+void Player::shoot(){
+    core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
+    position.X+= this->barrel->getBoundingBox().MinEdge.X; // adjust offset
 
-Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, PLAYER_TYPE type){
+    this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
+
+    core::vector3df shoot = core::vector3df(0,
+        this->cannon->getBoundingBox().MaxEdge.getLength() + this->btBall->irrBall->getBoundingBox().MaxEdge.getLength(),
+        15);
+//    std::cout<<position.X<<" "<<position.Y<<" "<<position.Z<<std::endl;
+
+    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
+    this->btBall->btBall->applyCentralForce(toBulletVector(shoot));
+
+
+}
+Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type){
     this->cannon = smgr->addAnimatedMeshSceneNode(
     smgr->getMesh("media/cannon/cannon.obj"),
     0,
@@ -33,6 +48,9 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
     this->driver = driver;
     this->angle = this->refreshAngle();
+    this->btBall = 0;
+    this->physics = physics;
+    this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1);
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -44,10 +62,15 @@ void Player::loop(){
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
     this->inclinate(action);
+    switch(action){
+
+        case SHOOT:
+             this->shoot();
+        break;
+    };
 }
 f32 Player::refreshAngle(){
 
-//  std::cout<<acos(vec2.dotProduct(vec1) * core::reciprocal_squareroot(lenght)) * core::RADTODEG64<<std::endl;
     core::aabbox3df box2 = this->barrel->getBoundingBox();
     core::aabbox3df lower = this->wagon->getBoundingBox();
 //    core::vector3df vec1 = box2.MaxEdge.normalize();
@@ -63,7 +86,6 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
 
     irr::core::matrix4 m;
     f32 velocity = 1;
-    std::cout<<this->refreshAngle()<<std::endl;
     switch(key){
      case INCLINATE_UP:
                 if(this->refreshAngle() > MAX_ANGLE_TOP)
@@ -74,6 +96,7 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
                 }
 
                 m.setRotationDegrees(core::vector3df(-INCLINATE_FACTOR * velocity,0,0));
+                m.rotateVect(this->rotation);
 
             return m;
         break;
@@ -86,7 +109,7 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
                 }
 
             m.setRotationDegrees(core::vector3df(INCLINATE_FACTOR * velocity,0,0));
-
+            m.rotateVect(this->rotation);
             return m;
         break;
     }
@@ -94,24 +117,12 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
 }
 void Player::inclinate(ACTION_KEYBOARD action){
 
-
-//    core::line3df cannonline = core::line3df(this->barrel->getPosition(1),this->barrel->getPosition(this->barrel->getVertexCount()-1));
-
-//    vec1 = cannonline.getVector().normalize();
-//    f32 lenght = vec1.getLengthSQ() * vec2.getLengthSQ();
-////  std::cout<<acos(vec2.dotProduct(vec1) * core::reciprocal_squareroot(lenght)) * core::RADTODEG64<<std::endl;
-//    cannonline = core::line3df(this->barrel->getPosition(1),this->barrel->getPosition(this->barrel->getVertexCount()-1));
-//    box = this->barrel->getBoundingBox();
-//    f32 angle = cannonline.getVector().dotProduct(box.MaxEdge);
-//    std::cout<<angle<<std::endl;
-
-//    this->driver->setTransform(video::ETS_WORLD, this->cannon->getAbsoluteTransformation());
-//    this->driver->draw3DLine(cannonline.start,cannonline.end, video::SColor(0,255,0,0));
 // for optimization i will some instruction inside the switch that could go outside.In the switch it will not make useless calls
     switch(action){
 
             case INCLINATE_UP:
                   this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
+
             break;
 
             case INCLINATE_DOWN:
@@ -120,6 +131,7 @@ void Player::inclinate(ACTION_KEYBOARD action){
     }
 
     this->barrel->recalculateBoundingBox();
+
 
 }
 

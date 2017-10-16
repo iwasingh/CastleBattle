@@ -77,47 +77,12 @@ int main() {
 
     Physics* physics = new Physics(terrain->getTerrainBox());
 
-//    btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
-//	btBroadphaseInterface *broadPhase = new btAxisSweep3(toBulletVector(terrain->getTerrainBox().MinEdge), toBulletVector(terrain->getTerrainBox().MaxEdge));
-//	btCollisionDispatcher *dispatcher = new btCollisionDispatcher(collisionConfiguration);
-//	btSequentialImpulseConstraintSolver *solver = new btSequentialImpulseConstraintSolver();
-//    btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-//    btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-//    btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI = btRigidBody::btRigidBodyConstructionInfo(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-//    groundRigidBodyCI.m_restitution = 0.8f;
-//    groundRigidBodyCI.m_friction = 1.5f;
-//    btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-//
-//    World->addRigidBody(groundRigidBody);
-
     /********************END BULLET INIT**********************/
 
     HUD::HUD* hud = new HUD::HUD(device,driver);
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
 
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), Player::AI);
-    core::vector3df position  = player->getNode()->getPosition();
-    scene::ISceneNode *sphere = smgr->addSphereSceneNode(1,32,0,-1,core::vector3df((position.X,position.Y, position.Z)));
-    sphere->setMaterialFlag(video::EMF_LIGHTING,false);
-    sphere->setMaterialTexture(0, driver->getTexture("media/cannon/cannonballtex.png"));
-
-    physics->createCannonBall(sphere);
-
-//    btTransform transformer;
-//    transformer.setIdentity();
-//    transformer.setOrigin(btVector3(position.X,position.Y+100, position.Z));
-//    btDefaultMotionState *motion = new btDefaultMotionState(transformer);
-//    btCollisionShape *ball = new btSphereShape(1);
-//    btVector3 localInertia;
-//    ball->calculateLocalInertia(2.f, localInertia);
-//    btRigidBody::btRigidBodyConstructionInfo ballRigidBodyCI(100,motion,ball,localInertia);
-//    ballRigidBodyCI.m_friction = 10.f;
-//    ballRigidBodyCI.m_restitution = 0.1f;
-//    btRigidBody *rigidBody = new btRigidBody(ballRigidBodyCI);
-//    rigidBody->setUserPointer((void*)(sphere));
-//    World->addRigidBody(rigidBody);
-//    Objects.push_back(rigidBody);
-
-    smgr->addCameraSceneNodeFPS(0,100.f,0.005f)->setPosition(terrain->getCenter());
+    smgr->addCameraSceneNodeFPS(0,100.f,0.009f)->setPosition(terrain->getCenter());
 
 //    terrain->addCollisionNode(smgr,);
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();

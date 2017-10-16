@@ -13,5 +13,6 @@ class Terrain{
     void collisionResponseAnimator(scene::ISceneManager* smgr,scene::ISceneNode* obj);
     void addCollisionNode(scene::ISceneManager* smgr,scene::IAnimatedMeshSceneNode* obj);
     core::aabbox3df getTerrainBox();
+    scene::ITerrainSceneNode* getTerrain();
 
 };

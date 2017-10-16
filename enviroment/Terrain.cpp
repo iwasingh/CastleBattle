@@ -54,3 +54,4 @@ void Terrain::addCollisionNode(scene::ISceneManager* smgr,scene::IAnimatedMeshSc
 core::aabbox3df Terrain::getTerrainBox(){
     return this->terrain->getBoundingBox();
 }
+scene::ITerrainSceneNode* Terrain::getTerrain(){ return this->terrain; }

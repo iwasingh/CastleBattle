@@ -1,3 +1,5 @@
+#ifndef PHYSICS_H
+#define PHYSICS_H
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <irrlicht.h>
@@ -16,5 +18,6 @@ class Physics{
         void initWorld();
         void UpdatePhysics(u32 delta);
         void UpdateRender(btRigidBody* btbody);
-        btRigidBody* createCannonBall(scene::ISceneNode* node);
+        btRigidBody* createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius);
 };
+#endif

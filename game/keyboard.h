@@ -16,6 +16,7 @@ namespace KEYBOARD{
                 MOVE_RIGHT,
                 MOVE_UP,
                 MOVE_DOWN,
+                SHOOT,
                 ACTION_NULL
             };
 
@@ -40,7 +41,8 @@ namespace KEYBOARD{
         Key(INCLINATE_UP, KEY_KEY_W),
         Key(INCLINATE_DOWN, KEY_KEY_S),
         Key(INCLINATE_RIGHT, KEY_KEY_D),
-        Key(INCLINATE_LEFT, KEY_KEY_A)
+        Key(INCLINATE_LEFT, KEY_KEY_A),
+        Key(SHOOT, KEY_SPACE)
      };
     class Keyboard : public IEventReceiver{
 

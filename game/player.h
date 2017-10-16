@@ -2,14 +2,14 @@
 #define PLAYER_H
 #include <irrlicht.h>
 #include "keyboard.h"
-
+#include "ball.h"
 using namespace irr;
 using namespace KEYBOARD;
 
 const f32 INCLINATE_FACTOR = 0.5f;
 const f32 MAX_ANGLE_BOTTOM = 115.f;
 const f32 MAX_ANGLE_TOP = 148.f;
-
+const f32 MAX_CANNON_FORCE = 50.f;
 class Player{
     private:
         scene::ISceneManager* smgr;
@@ -20,16 +20,20 @@ class Player{
         scene::IMeshBuffer* barrel;
         scene::IMeshBuffer* wagon;
         f32 angle;
+        Ball* btBall;
+        Physics* physics;
+        core::vector3df rotation;
     public:
         enum PLAYER_TYPE{
         HUMAN=0,
         AI
         };
-        Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, PLAYER_TYPE type);
+        Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type);
         scene::IAnimatedMeshSceneNode* getNode();
         void initKeyboard(IrrlichtDevice* device);
         void loop();
         void inclinate(ACTION_KEYBOARD action);
+        void shoot();
         f32 refreshAngle();
         core::matrix4 getInclinateValues(ACTION_KEYBOARD key);
 };
