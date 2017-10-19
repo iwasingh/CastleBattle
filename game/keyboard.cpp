@@ -10,11 +10,14 @@ Keyboard::Keyboard(){
     for(u32 i = 0; i < KEY_KEY_CODES_COUNT; i++){
         this->keyDown[i] = false;
     }
+    this->lastkey = new Key(ACTION_NULL,irr::KEY_EREOF);
+
     this->mapKeyboard();
 }
 bool Keyboard::OnEvent(const SEvent& event) {
     if(event.EventType == EET_KEY_INPUT_EVENT)
-        this->keyDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+            this->keyDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
+
 
     return false;
 }
@@ -23,7 +26,11 @@ Key* Keyboard::IsKeyDown(){
    for(std::vector<Key>::const_iterator it = this->mapKeys.begin(); it != this->mapKeys.end(); ++it){
 //               std::cout<<it->k<<std::endl;
 
-          if(this->keyDown[it->key]) return new Key(it->action,it->key);
+          if(this->keyDown[it->key]) {
+            Key* lastkey = new Key(it->action,it->key);
+                if(this->lastkey->action == ACTION_NULL || this->lastkey->action != lastkey->action) this->lastkey->action = lastkey->action;
+            return lastkey;
+            }
     }
     return 0; // null
 
@@ -40,4 +47,8 @@ void Keyboard::mapKeyboard(const std::vector<Key> keys){
             this->mapKeys = keys;
 //            std::cout<<this->mapKeys.size()<<std::endl;
 };
+
+Key* Keyboard::getLastKey(){
+ return this->lastkey;
+}
 

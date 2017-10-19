@@ -3,19 +3,23 @@
 #include <math.h>
 using namespace irr;
 using namespace KEYBOARD;
-void Player::shoot(){
+void Player::shoot(f32 power){
+
+  if(this->btBall) return;
+    /*Calculate vector */
     core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
-    position.X+= this->barrel->getBoundingBox().MinEdge.X; // adjust offset
+    position.X += this->barrel->getBoundingBox().MinEdge.X; // adjust offset
+    core::vector3df edges[8];
+    this->barrel->getBoundingBox().getEdges(edges);
+    position.Y = edges[1].Y - 0.3f;
 
     this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
-
+    this->btBall->irrBall->setPosition(position);
     core::vector3df shoot = core::vector3df(0,
-        this->cannon->getBoundingBox().MaxEdge.getLength() + this->btBall->irrBall->getBoundingBox().MaxEdge.getLength(),
-        15);
-//    std::cout<<position.X<<" "<<position.Y<<" "<<position.Z<<std::endl;
-
+        power * MAX_RANGE_Y,
+        power * MAX_RANGE_X);
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
-    this->btBall->btBall->applyCentralForce(toBulletVector(shoot));
+    this->btBall->btBall->applyCentralForce(toBulletVector(core::vector3df(0, 50.f, 0)));
 
 
 }
@@ -46,6 +50,8 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
     this->wagon = this->cannon->getMesh()->getMeshBuffer(1);
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+//    this->cannon->setDebugDataVisible(scene::EDS_MESH_WIRE_OVERLAY);
+
     this->driver = driver;
     this->angle = this->refreshAngle();
     this->btBall = 0;
@@ -58,14 +64,18 @@ scene::IAnimatedMeshSceneNode* Player::getNode() {
 void Player::initKeyboard(IrrlichtDevice* device){
     device->setEventReceiver(&this->keyboard);
 }
-void Player::loop(){
+void Player::loop(HUD::HUD* hud){
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
     this->inclinate(action);
     switch(action){
-
         case SHOOT:
-             this->shoot();
+                hud->animatePower();
+        break;
+        default:
+            if(this->keyboard.getLastKey()->action == SHOOT){
+                this->shoot(hud->getPower());
+            }
         break;
     };
 }

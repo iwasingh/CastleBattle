@@ -22,7 +22,6 @@ namespace KEYBOARD{
 
     class Key{
         private:
-
         public:
           ACTION_KEYBOARD action;
             EKEY_CODE key;
@@ -49,12 +48,12 @@ namespace KEYBOARD{
     private:
         bool keyDown[KEY_KEY_CODES_COUNT];
         std::vector<Key> mapKeys;
-
+        Key* lastkey;
     public:
         Keyboard();
         void mapKeyboard(const std::vector<Key> keys = KEYBOARD_DEFAULT);
         virtual bool OnEvent(const SEvent& event);
-
+        Key* getLastKey();
         Key* IsKeyDown();
 
 };

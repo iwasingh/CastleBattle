@@ -21,6 +21,7 @@ namespace HUD{
                 this->power = this->env->addImage(pos_power,0,POWER_BAR);
                 this->power->setImage(image);
                 this->power->setScaleImage(true);
+                this->powerRatio = 0;
     }
     HUD::HUD(IrrlichtDevice* device, video::IVideoDriver* video){
                 this->device = device;
@@ -31,8 +32,7 @@ namespace HUD{
 
     }
     void HUD::animatePower(){
-                core::rect<s32> pos = this->power->getAbsoluteClippingRect();
-                core::rect<s32> power_pos = pos;
+                core::rect<s32> power_pos = this->power->getAbsoluteClippingRect();
 
                 if(this->velocity > 0){
                 power_pos.UpperLeftCorner.Y = power_pos.UpperLeftCorner.Y * this->velocity;
@@ -41,23 +41,15 @@ namespace HUD{
                 else
                      power_pos.UpperLeftCorner.Y = power_pos.UpperLeftCorner.Y * this->velocity;
                 if(power_pos.UpperLeftCorner.Y <= this->power_rect.UpperLeftCorner.Y) this->velocity =  SPEED_HIGH;
-
                 this->power->setRelativePosition(power_pos);
-
-//                core::line2di dynamicline = core::line2di(
-//                core::vector2di(power_pos.UpperLeftCorner),
-//                core::vector2di(power_rect.LowerRightCorner));
-//
-//                core::line2di fulline= core::line2di(
-//                core::vector2di(power_rect.UpperLeftCorner),
-//                core::vector2di(power_rect.LowerRightCorner));
-//                s32 percentage = (s32)(((f32)dynamicline.getLength()/(f32)fulline.getLength())*100);
-//                core::stringw percent ="";
-//                percent+=percentage;
-//                percent+=" %";
-//                this->powertext->setText(percent.c_str());
+                core::rect<s32> rect  = this->power->getAbsolutePosition();
+                this->powerRatio = ((f32)rect.getHeight() / (f32)MAX_HEIGHT);
 
         }
+
+    f32 HUD::getPower(){
+        return (this->powerRatio > 1) ? 1 : this->powerRatio;
+    }
 }
 
 
