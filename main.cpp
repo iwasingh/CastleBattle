@@ -9,57 +9,6 @@
 #include <list>
 #include "game/physics.h"
 using namespace irr;
-/*
-There are 5 sub namespaces in the Irrlicht Engine. Take a look at them, you can
-read a detailed description of them in the documentation by clicking on the top
-menu item 'Namespace List' or by using this link:
-http://irrlicht.sourceforge.net/docu/namespaces.html
-Like the irr namespace, we do not want these 5 sub namespaces now, to keep this
-example simple. Hence, we tell the compiler again that we do not want always to
-write their names.
-*/
-
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
-#endif
-/*
-@TODO
-Main Game class with all 3 main irrlicht classes(device,video,scene) to optimize code inside main()
-Optimize Player class
-Need a GameManager class and a Application class ----- further update
-
-
-*/
-
-
-
-//void UpdateRender(btRigidBody *TObject) {
-//	scene::ISceneNode *Node = static_cast<scene::ISceneNode *>(TObject->getUserPointer());
-//
-//	// Set position
-//	btVector3 Point = TObject->getCenterOfMassPosition();
-//	Node->setPosition(core::vector3df((f32)Point[0], (f32)Point[1], (f32)Point[2]));
-//
-//	// Set rotation
-////	vector3df Euler;
-////	const btQuaternion& TQuat = TObject->getOrientation();
-////	quaternion q(TQuat.getX(), TQuat.getY(), TQuat.getZ(), TQuat.getW());
-////	q.toEuler(Euler);
-////	Euler *= RADTODEG;
-////	Node->setRotation(Euler);
-//}
-//void UpdatePhysics(u32 TDeltaTime) {
-//
-//	World->stepSimulation(TDeltaTime * 0.001f, 60);
-//
-//	// Relay the object's orientation to irrlicht
-//	for(std::list<btRigidBody *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
-//
-//		UpdateRender(*Iterator);
-//	}
-//}
 
 int main() {
 

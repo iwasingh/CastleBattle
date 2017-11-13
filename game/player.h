@@ -3,6 +3,7 @@
 #include <irrlicht.h>
 #include "keyboard.h"
 #include "ball.h"
+#include "camera.h"
 #include <hud/hud.h>
 using namespace irr;
 using namespace KEYBOARD;
@@ -19,7 +20,7 @@ class Player{
         scene::ISceneManager* smgr;
         video::IVideoDriver* driver;
         scene::IAnimatedMeshSceneNode* cannon;
-        scene::ICameraSceneNode* camera;
+        Camera* camera;
         Keyboard keyboard;
         scene::IMeshBuffer* barrel;
         scene::IMeshBuffer* wagon;

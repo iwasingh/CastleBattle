@@ -5,7 +5,8 @@ using namespace irr;
 using namespace KEYBOARD;
 void Player::shoot(f32 power){
 
-  if(this->btBall) return;
+    if(this->btBall) return;
+
     /*Calculate vector */
     core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
     position.X += this->barrel->getBoundingBox().MinEdge.X; // adjust offset
@@ -20,9 +21,12 @@ void Player::shoot(f32 power){
         power * MAX_RANGE_X);
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
     this->btBall->btBall->applyCentralForce(toBulletVector(core::vector3df(0, 50.f, 0)));
-
+    this->btBall->setCamera(this->camera->getCamera());
 
 }
+/*
+* Init : ..
+*/
 Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type){
     this->cannon = smgr->addAnimatedMeshSceneNode(
     smgr->getMesh("media/cannon/cannon.obj"),
@@ -34,19 +38,18 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->cannon->setMaterialTexture(0,driver->getTexture("media/cannon/cannon_tex.png"));
     this->cannon->setMaterialTexture(1,driver->getTexture("media/cannon/cannonwagon_tex.png"));
     if(type == HUMAN){
-        this->camera = smgr->addCameraSceneNode(0,
-            core::vector3df(
-                this->cannon->getPosition().X,
-                this->cannon->getPosition().Y+this->cannon->getBoundingBox().MaxEdge.Y+0.6f,
-                this->cannon->getPosition().Z-2.f));
-        this->camera->setTarget(this->cannon->getAbsolutePosition());
-        this->camera->bindTargetAndRotation(true);
-        this->camera->setRotation(core::vector3df(0,0,0));
-        this->camera->setFarValue(3000.f);
+        core::vector3df offset =  core::vector3df(
+                0,
+                this->cannon->getBoundingBox().MaxEdge.Y+0.6f,
+                -2.f);
+
+        core::vector3df rotation = core::vector3df(0,0,0);
+        this->camera = new Camera(offset,rotation,smgr,cannon);
+
+
     }
     this->smgr = smgr;
     this->initKeyboard(device);
-
     this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
     this->wagon = this->cannon->getMesh()->getMeshBuffer(1);
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
@@ -56,7 +59,7 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->angle = this->refreshAngle();
     this->btBall = 0;
     this->physics = physics;
-    this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1);
+    this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1); //@deprecated
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -76,6 +79,8 @@ void Player::loop(HUD::HUD* hud){
             if(this->keyboard.getLastKey()->action == SHOOT){
                 this->shoot(hud->getPower());
             }
+            if(this->btBall)
+                this->btBall->moveCamera();
         break;
     };
 }
