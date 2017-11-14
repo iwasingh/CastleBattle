@@ -9,11 +9,14 @@ using namespace irr;
 using namespace KEYBOARD;
 
 const f32 INCLINATE_FACTOR = 0.5f;
-const f32 MAX_ANGLE_BOTTOM = 125.f;
-const f32 MAX_ANGLE_TOP = 148.f;
+const f32 MAX_ANGLE_BOTTOM = 10.f;
+const f32 MAX_ANGLE_TOP = 45.f;
+const f32 MAX_ANGLE_LEFT = -10.f;
+const f32 MAX_ANGLE_RIGHT = 10.f;
 const f32 MAX_CANNON_FORCE = 50.f;
 const f32 MAX_RANGE_X = 50.f;
-const f32 MAX_RANGE_Y = 25.f;
+const f32 MAX_RANGE_Y = 10.f;
+const f32 BARREL_RADIUS = 0.6f;
 
 class Player{
     private:
@@ -27,19 +30,23 @@ class Player{
         f32 angle;
         Ball* btBall;
         Physics* physics;
-        core::vector3df rotation;
+        core::vector3df rotation = core::vector3df(0,0,0);
+        core::vector3df initBarrelVector;
+        core::vector3df plane;
     public:
         enum PLAYER_TYPE{
         HUMAN=0,
         AI
         };
+        PLAYER_TYPE type;
         Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type);
         scene::IAnimatedMeshSceneNode* getNode();
         void initKeyboard(IrrlichtDevice* device);
         void loop(HUD::HUD* hud);
-        void inclinate(ACTION_KEYBOARD action);
+        void moveCannon(ACTION_KEYBOARD action);
         void shoot(f32 power);
         f32 refreshAngle();
+        void initAngles();
         core::matrix4 getInclinateValues(ACTION_KEYBOARD key);
 };
 #endif

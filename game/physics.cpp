@@ -34,9 +34,9 @@ void Physics::initWorld(){
     this->Objects.push_back(groundRigidBody);
 }
 
-void Physics::UpdatePhysics(u32 TDeltaTime) {
+void Physics::UpdatePhysics(u32 TDeltaTime, u32 fps) {
 
-	this->World->stepSimulation(TDeltaTime * 0.001f, 60);
+	this->World->stepSimulation(TDeltaTime * 0.001f, fps);
 
 	// Relay the object's orientation to irrlicht
 	for(std::list<btRigidBody *>::iterator Iterator = Objects.begin(); Iterator != Objects.end(); ++Iterator) {
@@ -53,7 +53,7 @@ void Physics::UpdateRender(btRigidBody *TObject) {
 	btVector3 Point = TObject->getCenterOfMassPosition();
 //	std::cout<<Point.getX()<<" "<<Point.getY()<<" "<<Point.getZ()<<std::endl;
 	Node->setPosition(core::vector3df((f32)Point[0], (f32)Point[1], (f32)Point[2]));
-
+    Node->updateAbsolutePosition();
 	// Set rotation ---testing
 	core::vector3df Euler;
 	const btQuaternion& TQuat = TObject->getOrientation();

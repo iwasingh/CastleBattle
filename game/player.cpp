@@ -3,28 +3,43 @@
 #include <math.h>
 using namespace irr;
 using namespace KEYBOARD;
+using namespace std;
 void Player::shoot(f32 power){
 
-    if(this->btBall) return;
-
     /*Calculate vector */
-    core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
-    position.X += this->barrel->getBoundingBox().MinEdge.X; // adjust offset
-    core::vector3df edges[8];
-    this->barrel->getBoundingBox().getEdges(edges);
-    position.Y = edges[1].Y - 0.3f;
+//    core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
+//    position.X += this->barrel->getBoundingBox().MinEdge.X; // adjust offset
+//    core::vector3df edges[8];
+//    this->barrel->getBoundingBox().getEdges(edges);
+//    position.Y = edges[1].Y - 0.3f;
+//
+//    this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
+//    this->btBall->irrBall->setPosition(position);
+//    core::vector3df shoot = core::vector3df(0,
+//        power * MAX_RANGE_Y + position.Y,
+//        power * MAX_RANGE_X);
+//    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
+//    if(this->type == HUMAN) this->btBall->setCamera(this->camera->getCamera());
+//    this->btBall->irrBall->updateAbsolutePosition();
+    core::vector3df position = core::vector3df(
+        this->cannon->getAbsolutePosition().X,
+        sin(this->refreshAngle()*core::DEGTORAD64) * this->initBarrelVector.getLength()
+        +BARREL_RADIUS
+        +0.3f,
+        this->cannon->getAbsolutePosition().Z+this->initBarrelVector.getLength()/2);
 
     this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
     this->btBall->irrBall->setPosition(position);
-    core::vector3df shoot = core::vector3df(0,
-        power * MAX_RANGE_Y,
-        power * MAX_RANGE_X);
-    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
-    this->btBall->btBall->applyCentralForce(toBulletVector(core::vector3df(0, 50.f, 0)));
-    this->btBall->setCamera(this->camera->getCamera());
+core::vector3df shoot = core::vector3df(0,
+power * MAX_RANGE_Y + position.Y,
+power * MAX_RANGE_X);
+this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
+if(this->type == HUMAN) this->btBall->setCamera(this->camera->getCamera());
+this->btBall->irrBall->updateAbsolutePosition();
+
 
 }
-/*
+/*drawline rotate irrlicht
 * Init : ..
 */
 Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type){
@@ -48,6 +63,7 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
 
 
     }
+    this->type = type;
     this->smgr = smgr;
     this->initKeyboard(device);
     this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
@@ -60,6 +76,7 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->btBall = 0;
     this->physics = physics;
     this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1); //@deprecated
+    this->initAngles();
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -68,9 +85,12 @@ void Player::initKeyboard(IrrlichtDevice* device){
     device->setEventReceiver(&this->keyboard);
 }
 void Player::loop(HUD::HUD* hud){
+this->refreshAngle();
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
-    this->inclinate(action);
+    this->moveCannon(action);
+     if(this->btBall && this->type == HUMAN)
+                this->btBall->moveCamera();
     switch(action){
         case SHOOT:
                 hud->animatePower();
@@ -79,28 +99,43 @@ void Player::loop(HUD::HUD* hud){
             if(this->keyboard.getLastKey()->action == SHOOT){
                 this->shoot(hud->getPower());
             }
-            if(this->btBall)
-                this->btBall->moveCamera();
+
         break;
     };
 }
-f32 Player::refreshAngle(){
-
+void Player::initAngles(){
     core::aabbox3df box2 = this->barrel->getBoundingBox();
     core::aabbox3df lower = this->wagon->getBoundingBox();
-//    core::vector3df vec1 = box2.MaxEdge.normalize();
-    core::line3df cannonline = core::line3df(this->barrel->getPosition(1),this->barrel->getPosition(this->barrel->getVertexCount()-1));
-    core::vector3df vec1 = cannonline.getVector().normalize();
-    core::vector3df vec2 = lower.MaxEdge.normalize();
+    core::vector3df med = this->barrel->getBoundingBox().getCenter();
+    core::vector3df init = this->barrel->getBoundingBox().MinEdge;
+    core::vector3df last;
+    init.X = med.X;
+    last = init;
+    last.Z = this->barrel->getBoundingBox().MaxEdge.Z;
+    last.Y+=last.Y;
+    this->initBarrelVector = core::line3df(init,last).getVector();
+    this->plane = core::vector3df(last.X,init.Y,last.Z) - init;
+
+}
+f32 Player::refreshAngle(){
+     // cout<<cannonline.getVector().X<< " "<< cannonline.getVector().Y<< " "<<cannonline.getVector().Z<<"     init "<<endl;
+//video::SMaterial material;
+//        material.Lighting = false;
+//        this->driver->draw3DLine(init,last);
+
+core::vector3df vec1 = this->initBarrelVector;
+    core::vector3df vec2 = this->plane;
+    vec1 = vec1.normalize();
+    vec2 = vec2.normalize();
     f32 length = vec1.getLengthSQ() * vec2.getLengthSQ();
-    return acos(vec2.dotProduct(vec1) * core::reciprocal_squareroot(length)) * core::RADTODEG64;
-
-
+    f32 angle = acos(vec2.dotProduct(vec1) * core::reciprocal_squareroot(length)) * core::RADTODEG64;
+    return angle;
 }
 core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
 
     irr::core::matrix4 m;
     f32 velocity = 1;
+    core::vector3df asd;
     switch(key){
      case INCLINATE_UP:
                 if(this->refreshAngle() > MAX_ANGLE_TOP)
@@ -110,8 +145,8 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
                     velocity = 1;
                 }
 
-                m.setRotationDegrees(core::vector3df(-INCLINATE_FACTOR * velocity,0,0));
-                m.rotateVect(this->rotation);
+        m.setRotationDegrees(core::vector3df(-INCLINATE_FACTOR * velocity,0,0));
+        m.rotateVect(this->initBarrelVector);
 
             return m;
         break;
@@ -122,15 +157,28 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
                     this->angle = this->refreshAngle();
                     velocity = 1;
                 }
-
             m.setRotationDegrees(core::vector3df(INCLINATE_FACTOR * velocity,0,0));
-            m.rotateVect(this->rotation);
+            m.rotateVect(this->initBarrelVector);
             return m;
         break;
+     case INCLINATE_LEFT:
+            if(this->cannon->getRotation().Y > MAX_ANGLE_LEFT)
+                velocity = 1;
+            else velocity = 0;
+
+            this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(-INCLINATE_FACTOR * velocity),0));
+     break;
+     case INCLINATE_RIGHT:
+                     if(this->cannon->getRotation().Y < MAX_ANGLE_RIGHT)
+                velocity = 1;
+            else velocity = 0;
+            this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(INCLINATE_FACTOR * velocity),0));
+
+     break;
     }
 
 }
-void Player::inclinate(ACTION_KEYBOARD action){
+void Player::moveCannon(ACTION_KEYBOARD action){
 
 // for optimization i will some instruction inside the switch that could go outside.In the switch it will not make useless calls
     switch(action){
@@ -142,6 +190,15 @@ void Player::inclinate(ACTION_KEYBOARD action){
 
             case INCLINATE_DOWN:
                   this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_DOWN));
+            break;
+
+            case INCLINATE_LEFT:
+                    this->getInclinateValues(INCLINATE_LEFT);
+                  //this->smgr->getMeshManipulator()->transform(this->cannon->getMesh(), this->getInclinateValues(INCLINATE_LEFT));
+            break;
+
+            case INCLINATE_RIGHT:
+                    this->getInclinateValues(INCLINATE_RIGHT);
             break;
     }
 

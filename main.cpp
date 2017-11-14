@@ -31,7 +31,6 @@ int main() {
     HUD::HUD* hud = new HUD::HUD(device,driver);
     Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::HUMAN);
 
-//    smgr->addCameraSceneNodeFPS(0,100.f,0.009f)->setPosition(terrain->getCenter());
 
 //    terrain->addCollisionNode(smgr,);
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();
@@ -42,17 +41,16 @@ int main() {
     while(device->run() && device) {
 
         if(device->isWindowActive()){
-
+            u32 fps = driver->getFPS();
             DeltaTime = device->getTimer()->getTime() - TimeStamp;
             TimeStamp = device->getTimer()->getTime();
-            physics->UpdatePhysics(DeltaTime);
+            physics->UpdatePhysics(DeltaTime,fps);
             driver->beginScene(true, true, video::SColor(255,200,200,200));
 
             smgr->drawAll();
             hud->env->drawAll();
             player->loop(hud);
             driver->endScene();
-            int fps = driver->getFPS();
             if(lastFPS != fps)
             {
                 core::stringw str =L"Castle Battle [";

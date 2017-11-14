@@ -16,7 +16,7 @@ class Physics{
     public:
         Physics(const core::aabbox3df irrBox);
         void initWorld();
-        void UpdatePhysics(u32 delta);
+        void UpdatePhysics(u32 delta, u32 fps);
         void UpdateRender(btRigidBody* btbody);
         btRigidBody* createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius);
 };

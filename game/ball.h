@@ -4,8 +4,9 @@
 #include "camera.h"
 using namespace irr;
 /* Public class */
-class Ball{
+const core::vector3df CAMERA_OFFSET_BALL = core::vector3df(0,1.f,-2.5f);
 
+class Ball{
 
     public:
         scene::ISceneManager* smgr;
