@@ -29,9 +29,9 @@ int main() {
     /********************END BULLET INIT**********************/
 
     HUD::HUD* hud = new HUD::HUD(device,driver);
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::HUMAN);
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
 
-
+    smgr->addCameraSceneNodeFPS(0,100.f,0.009f)->setPosition(terrain->getCenter());
 //    terrain->addCollisionNode(smgr,);
 //    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();
     smgr->setAmbientLight(video::SColor(0,255,255,204));

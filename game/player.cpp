@@ -5,39 +5,36 @@ using namespace irr;
 using namespace KEYBOARD;
 using namespace std;
 void Player::shoot(f32 power){
+    f32 angle = this->refreshAngle() * core::DEGTORAD64;
+    core::vector3d<f32> * edges = new core::vector3d<f32>[8];
+    core::aabbox3d<f32> boundingbox = this->barrel->getBoundingBox();
+    boundingbox.getEdges(edges);
+    f32 height = edges[0].Y + sin(angle) * this->initBarrelVector.getLength();
+    core::vector3df absolute = this->cannon->getAbsolutePosition();
+    core::vector3df tst =  this->cannon->getBoundingBox().MaxEdge;
 
-    /*Calculate vector */
-//    core::vector3df position = this->cannon->getPosition() + this->barrel->getBoundingBox().MaxEdge;
-//    position.X += this->barrel->getBoundingBox().MinEdge.X; // adjust offset
-//    core::vector3df edges[8];
-//    this->barrel->getBoundingBox().getEdges(edges);
-//    position.Y = edges[1].Y - 0.3f;
-//
-//    this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
-//    this->btBall->irrBall->setPosition(position);
-//    core::vector3df shoot = core::vector3df(0,
-//        power * MAX_RANGE_Y + position.Y,
-//        power * MAX_RANGE_X);
-//    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
-//    if(this->type == HUMAN) this->btBall->setCamera(this->camera->getCamera());
-//    this->btBall->irrBall->updateAbsolutePosition();
-    core::vector3df position = core::vector3df(
-        this->cannon->getAbsolutePosition().X,
-        sin(this->refreshAngle()*core::DEGTORAD64) * this->initBarrelVector.getLength()
-        +BARREL_RADIUS
-        +0.3f,
-        this->cannon->getAbsolutePosition().Z+this->initBarrelVector.getLength()/2);
+    core::matrix4 m;
+    m.setRotationDegrees(this->cannon->getRotation());
+
+    m.rotateVect(tst);
+core::vector3df position = core::vector3df(
+        absolute.X + tst.X,
+        height,
+        (absolute.Z + this->cannon->getBoundingBox().MaxEdge.Z) + tst.Z
+        );
+    cout<<tst.X<<" "<<tst.Y<<" "<<tst.Z<<endl;
 
     this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
     this->btBall->irrBall->setPosition(position);
-core::vector3df shoot = core::vector3df(0,
-power * MAX_RANGE_Y + position.Y,
-power * MAX_RANGE_X);
-this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
-if(this->type == HUMAN) this->btBall->setCamera(this->camera->getCamera());
-this->btBall->irrBall->updateAbsolutePosition();
 
+    f32 shoot_power = power * CANNON_POWER;
+    core::vector3df shoot = core::vector3df(0,
+        shoot_power * sin(angle),
+        shoot_power * cos(angle));
 
+    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
+    if(this->type == HUMAN) this->btBall->setCamera(this->camera->getCamera());
+    this->btBall->irrBall->updateAbsolutePosition();
 }
 /*drawline rotate irrlicht
 * Init : ..
@@ -69,7 +66,7 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
     this->wagon = this->cannon->getMesh()->getMeshBuffer(1);
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
-//    this->cannon->setDebugDataVisible(scene::EDS_MESH_WIRE_OVERLAY);
+   this->cannon->setDebugDataVisible(scene::EDS_BBOX);
 
     this->driver = driver;
     this->angle = this->refreshAngle();
@@ -85,7 +82,7 @@ void Player::initKeyboard(IrrlichtDevice* device){
     device->setEventReceiver(&this->keyboard);
 }
 void Player::loop(HUD::HUD* hud){
-this->refreshAngle();
+   this->refreshAngle();
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
     this->moveCannon(action);
@@ -115,15 +112,20 @@ void Player::initAngles(){
     last.Y+=last.Y;
     this->initBarrelVector = core::line3df(init,last).getVector();
     this->plane = core::vector3df(last.X,init.Y,last.Z) - init;
-
 }
 f32 Player::refreshAngle(){
-     // cout<<cannonline.getVector().X<< " "<< cannonline.getVector().Y<< " "<<cannonline.getVector().Z<<"     init "<<endl;
-//video::SMaterial material;
-//        material.Lighting = false;
-//        this->driver->draw3DLine(init,last);
 
-core::vector3df vec1 = this->initBarrelVector;
+
+
+     // cout<<cannonline.getVector().X<< " "<< cannonline.getVector().Y<< " "<<cannonline.getVector().Z<<"     init "<<endl;
+
+//        video::SMaterial material;
+//material.Lighting = false;
+//        driver->setTransform(video::ETS_WORLD, core::IdentityMatrix);
+//
+//this->driver->draw3DLine(this->cannon->getAbsolutePosition(),core::vector3df(this->cannon->getAbsolutePosition().X,this->cannon->getAbsolutePosition().Y,this->cannon->getAbsolutePosition().Z + this->barrel->getBoundingBox().getCenter().Z)
+//);
+    core::vector3df vec1 = this->initBarrelVector;
     core::vector3df vec2 = this->plane;
     vec1 = vec1.normalize();
     vec2 = vec2.normalize();
@@ -167,12 +169,17 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
             else velocity = 0;
 
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(-INCLINATE_FACTOR * velocity),0));
+            this->cannon->updateAbsolutePosition();
+            initAngles();
      break;
      case INCLINATE_RIGHT:
                      if(this->cannon->getRotation().Y < MAX_ANGLE_RIGHT)
                 velocity = 1;
             else velocity = 0;
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(INCLINATE_FACTOR * velocity),0));
+                        this->cannon->updateAbsolutePosition();
+
+            initAngles();
 
      break;
     }

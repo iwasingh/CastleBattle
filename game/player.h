@@ -9,13 +9,13 @@ using namespace irr;
 using namespace KEYBOARD;
 
 const f32 INCLINATE_FACTOR = 0.5f;
-const f32 MAX_ANGLE_BOTTOM = 10.f;
+const f32 MAX_ANGLE_BOTTOM = 5.f;
 const f32 MAX_ANGLE_TOP = 45.f;
-const f32 MAX_ANGLE_LEFT = -10.f;
-const f32 MAX_ANGLE_RIGHT = 10.f;
+const f32 MAX_ANGLE_LEFT = -20.f;
+const f32 MAX_ANGLE_RIGHT = 20.f;
 const f32 MAX_CANNON_FORCE = 50.f;
-const f32 MAX_RANGE_X = 50.f;
-const f32 MAX_RANGE_Y = 10.f;
+const f32 CANNON_POWER = 50.f;
+//const f32 MAX_RANGE_Y = 10.f;
 const f32 BARREL_RADIUS = 0.6f;
 
 class Player{
