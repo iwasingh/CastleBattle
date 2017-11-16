@@ -14,8 +14,9 @@ Ball::Ball(scene::ISceneManager* smgr,  video::IVideoDriver* driver, Physics* ph
 //}
 void Ball::setCamera(scene::ICameraSceneNode* camera){
     camera->setPosition(this->irrBall->getAbsolutePosition());
+
     core::vector3df offset = this->cameraStartPosition = camera->getAbsolutePosition();
-    this->camera = new Camera(offset,core::vector3df(0,0,0),this->smgr,0);
+    this->camera = new Camera(offset,camera->getRotation(),this->smgr,0);
 
 
 }
