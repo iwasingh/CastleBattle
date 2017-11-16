@@ -40,10 +40,10 @@ int main() {
 
     while(device->run() && device) {
 
-        if(device->isWindowActive()){
+//        if(device->isWindowActive()){
             u32 fps = driver->getFPS();
             DeltaTime = device->getTimer()->getTime() - TimeStamp;
-            TimeStamp = device->getTimer()->getTime();
+
             physics->UpdatePhysics(DeltaTime,fps);
             driver->beginScene(true, true, video::SColor(255,200,200,200));
 
@@ -51,6 +51,8 @@ int main() {
             hud->env->drawAll();
             player->loop(hud);
             driver->endScene();
+                        TimeStamp = device->getTimer()->getTime();
+
             if(lastFPS != fps)
             {
                 core::stringw str =L"Castle Battle [";
@@ -60,8 +62,9 @@ int main() {
                 device->setWindowCaption(str.c_str());
                 lastFPS = fps;
             }
-        } else
-            device->yield();
+//
+//        } else
+//            device->yield();
     }
 }
 

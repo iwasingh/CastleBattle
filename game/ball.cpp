@@ -7,6 +7,7 @@ Ball::Ball(scene::ISceneManager* smgr,  video::IVideoDriver* driver, Physics* ph
     this->irrBall->setMaterialFlag(video::EMF_LIGHTING, false);
     this->irrBall->setMaterialTexture(0,driver->getTexture("media/cannon/cannonballtex.png"));
     this->btBall = physics->createCannonBall(this->irrBall,position, radius);
+    this->btBall->activate(true);
 //    this->irrBall->setDebugDataVisible(scene::EDS_FULL);
     this->smgr = smgr;
 }

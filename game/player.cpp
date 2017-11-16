@@ -44,7 +44,7 @@ void Player::shoot(f32 power){
         adj.X,
         sin(angle),
         cos(angle)).normalize();
-
+    //this->btBall->btBall->applyImpulse(toBulletVector(shoot*shoot_power),this->btBall->btBall->getCenterOfMassPosition());
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot*shoot_power));
     if(this->type == HUMAN)
         this->btBall->setCamera(this->camera->getCamera());
