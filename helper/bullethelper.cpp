@@ -9,7 +9,11 @@ btVector3 toBulletVector(core::vector3df vec) {
     btVector3 vecBullet = btVector3((btScalar) vec.X,(btScalar) vec.Y,(btScalar) vec.Z);
     return vecBullet;
 }
-void QuaternionToEuler(const btQuaternion &TQuat, btVector3 &TEuler) {
+core::vector3df toIrrlichtVector(btVector3 vec){
+    return core::vector3df(vec.getX(), vec.getY(), vec.getZ());
+}
+core::vector3df QuaternionToEuler(const btQuaternion &TQuat) {
+    btVector3 TEuler;
     btScalar W = TQuat.getW();
     btScalar X = TQuat.getX();
     btScalar Y = TQuat.getY();
@@ -23,4 +27,5 @@ void QuaternionToEuler(const btQuaternion &TQuat, btVector3 &TEuler) {
     TEuler.setY(asinf(-2.0f * (X * Z - Y * W)));
     TEuler.setZ(atan2f(2.0f * (X * Y + Z * W), XSquared - YSquared - ZSquared + WSquared));
     TEuler *= core::RADTODEG;
+    return toIrrlichtVector(TEuler);
 }

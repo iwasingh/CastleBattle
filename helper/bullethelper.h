@@ -6,4 +6,5 @@ using namespace irr;
 
     btVector3 toBulletVector(core::vector3df vec);
 
-    void QuaternionToEuler(const btQuaternion &TQuat, btVector3 &TEuler);
+    core::vector3df QuaternionToEuler(const btQuaternion &TQuat);
+    core::vector3df toIrrlichtVector(btVector3 vec);

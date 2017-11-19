@@ -18,10 +18,6 @@ void Player::shoot(f32 power){
     core::aabbox3d<f32> boundingbox = this->barrel->getBoundingBox();
     boundingbox.getEdges(edges);
 
-    core::vector3d<f32> * edges2 = new core::vector3d<f32>[8]; //no use?
-    core::aabbox3d<f32> boundingbox2 = this->cannon->getBoundingBox();
-    boundingbox2.getEdges(edges2);
-
     f32 height = edges[0].Y + sin(angle) * this->initBarrelVector.getLength();
     core::vector3df absolute = this->cannon->getAbsolutePosition();
     f32 left_right_angle = this->cannon->getRotation().Y * core::DEGTORAD64;
@@ -44,7 +40,6 @@ void Player::shoot(f32 power){
         adj.X,
         sin(angle),
         cos(angle)).normalize();
-    //this->btBall->btBall->applyImpulse(toBulletVector(shoot*shoot_power),this->btBall->btBall->getCenterOfMassPosition());
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot*shoot_power));
     if(this->type == HUMAN)
         this->btBall->setCamera(this->camera->getCamera());
