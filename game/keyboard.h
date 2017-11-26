@@ -34,7 +34,7 @@ namespace KEYBOARD{
 //         Key(INCLINATE_RIGHT, KEY_KEY_D),
 //         Key(INCLINATE_LEFT, KEY_KEY_A)
 //    };
-
+//Maybe templates could be a bettere solution, but this is plain!
 //     const Key * KEYBOARD_DEFAULT = new Key[4];
      const std::vector<Key> KEYBOARD_DEFAULT {
         Key(INCLINATE_UP, KEY_KEY_W),
@@ -43,6 +43,7 @@ namespace KEYBOARD{
         Key(INCLINATE_LEFT, KEY_KEY_A),
         Key(SHOOT, KEY_SPACE)
      };
+
     class Keyboard : public IEventReceiver{
 
     private:
@@ -55,6 +56,7 @@ namespace KEYBOARD{
         virtual bool OnEvent(const SEvent& event);
         Key* getLastKey();
         Key* IsKeyDown();
+        void resetLastKey();
 
 };
 }

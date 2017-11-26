@@ -14,7 +14,6 @@ void MotionStateManager::setWorldTransform(const btTransform &worldTrans){
             this->node->setPosition(toIrrlichtVector(position));
             this->node->setRotation(QuaternionToEuler(rotation));
             this->initialPosition = worldTrans;
-                cout<<initialPosition.getOrigin()[0] << " "<< initialPosition.getOrigin()[1] << " " << initialPosition.getOrigin()[2]<<endl;
 
 }
 void MotionStateManager::getWorldTransform(btTransform &worldTrans) const{

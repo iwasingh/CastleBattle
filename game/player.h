@@ -3,6 +3,7 @@
 #include <irrlicht.h>
 #include "keyboard.h"
 #include "ball.h"
+#include "target.h"
 #include "camera.h"
 #include <hud/hud.h>
 using namespace irr;
@@ -15,7 +16,6 @@ const f32 MAX_ANGLE_LEFT = -20.f;
 const f32 MAX_ANGLE_RIGHT = 20.f;
 const f32 MAX_CANNON_FORCE = 50.f;
 const f32 CANNON_POWER = 50.f;
-//const f32 MAX_RANGE_Y = 10.f;
 const f32 BARREL_RADIUS = 0.6f;
 
 class Player{
@@ -33,6 +33,7 @@ class Player{
         core::vector3df rotation = core::vector3df(0,0,0);
         core::vector3df initBarrelVector;
         core::vector3df plane;
+        Target* target;
     public:
         enum PLAYER_TYPE{
         HUMAN=0,

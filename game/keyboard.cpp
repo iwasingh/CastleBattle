@@ -22,13 +22,12 @@ bool Keyboard::OnEvent(const SEvent& event) {
     return false;
 }
 Key* Keyboard::IsKeyDown(){
-
    for(std::vector<Key>::const_iterator it = this->mapKeys.begin(); it != this->mapKeys.end(); ++it){
 //               std::cout<<it->k<<std::endl;
 
           if(this->keyDown[it->key]) {
             Key* lastkey = new Key(it->action,it->key);
-                if(this->lastkey->action == ACTION_NULL || this->lastkey->action != lastkey->action) this->lastkey->action = lastkey->action;
+                if(this->lastkey->action == ACTION_NULL || this->lastkey->action != lastkey->action) this->lastkey = lastkey;
             return lastkey;
             }
     }
@@ -50,5 +49,8 @@ void Keyboard::mapKeyboard(const std::vector<Key> keys){
 
 Key* Keyboard::getLastKey(){
  return this->lastkey;
+}
+void Keyboard::resetLastKey(){
+ delete this->lastkey;
 }
 

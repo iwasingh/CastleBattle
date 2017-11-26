@@ -12,7 +12,6 @@ y′=y
 z′=xsinθ+zcosθ
 */
 void Player::shoot(f32 power){
-    if(this->btBall) return;
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
     core::vector3d<f32> * edges = new core::vector3d<f32>[8];
     core::aabbox3d<f32> boundingbox = this->barrel->getBoundingBox();
@@ -34,7 +33,7 @@ void Player::shoot(f32 power){
     this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
     f32 shoot_power = power * CANNON_POWER;
     /*
-    @TODO recalculation of the shoot vector based on the xyz barrel. This will improve shoot, but noew it works anyway
+    @TODO recalculation of the shoot vector based on the xyz barrel. This will improve shoot, but now it works anyway
     */
     core::vector3df shoot = core::vector3df(
         adj.X,
@@ -83,6 +82,8 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->physics = physics;
     this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1); //@deprecated
     this->initAngles();
+
+    this->target = new Target(core::vector3df(0,0,0),cannon->getAbsolutePosition()+core::vector3df(0,0,19.f), smgr, driver, physics);
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -103,6 +104,7 @@ void Player::loop(HUD::HUD* hud){
         default:
             if(this->keyboard.getLastKey()->action == SHOOT){
                 this->shoot(hud->getPower());
+                this->keyboard.resetLastKey();
             }
 
         break;

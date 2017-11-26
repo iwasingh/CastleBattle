@@ -32,8 +32,6 @@ int main() {
     Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
 
     smgr->addCameraSceneNodeFPS(0,100.f,0.009f)->setPosition(terrain->getCenter());
-//    terrain->addCollisionNode(smgr,);
-//    scene::ISceneCollisionManager* csmgr = smgr->getSceneCollisionManager();
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
     u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
