@@ -7,8 +7,7 @@ Target::Target( core::vector3df power, core::vector3df offset, scene::ISceneMana
     this->smgr = smgr;
     this->physics = physics;
     scene::IMesh* mesh = smgr->getMesh("media/chest/ChestCartoon.obj");
-//    core::vector3df pos = core::vector3df(power.X, 0.001, power.Z * 50.f);
-    core::vector3df pos = offset;
+    core::vector3df pos = power + offset;
     btVector3 ground = physics->getGround().getOrigin();
     core::vector3df scale = core::vector3df(1,1,1);
     this->irrTarget = smgr->addCubeSceneNode(1,0,-1,pos);

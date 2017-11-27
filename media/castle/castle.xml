@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--Testing castle 1-->
+		<castle>
+			<side position="f" distance="0"> <!--position is front/left/back/right and distance is the totale sum of the previus side -->
+				<block width="2.0" height="5.0">
+				<block width="2.0" height="5.0">
+				<block width="9.0" height="2.0">
+				<block width="2.0" height="5.0">
+				<block width="2.0" height="5.0">
+			</side>
+			<side position="l" distance="17">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+			</side>
+			<side position="b" distance="16">
+				<block width="2.0" height="5.0">
+				<block width="2.0" height="5.0">
+				<block width="9.0" height="2.0">
+				<block width="2.0" height="5.0">
+				<block width="2.0" height="5.0">
+
+			</side>
+			<side position="r" distance="17">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+				<block width="4.0" height="2.0">
+			</side>
+		</castle>

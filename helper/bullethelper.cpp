@@ -3,6 +3,7 @@
 #include <btBulletDynamicsCommon.h>
 #include <math.h>
 #include "bullethelper.h"
+#include <cstdlib>
 using namespace irr;
 
 btVector3 toBulletVector(core::vector3df vec) {
@@ -29,3 +30,25 @@ core::vector3df QuaternionToEuler(const btQuaternion &TQuat) {
     TEuler *= core::RADTODEG;
     return toIrrlichtVector(TEuler);
 }
+
+f32 getRand(f32 maxValue, f32 offset){
+ return (f32)(rand() % (int)maxValue + offset);
+}
+f32* getMeshSize(scene::ISceneNode* mesh){
+   core::vector3df * edges = new core::vector3df[8];
+   core::aabbox3df boundingbox = mesh->getTransformedBoundingBox();
+   boundingbox.getEdges(edges);
+
+   f32 height = edges[1].Y - edges[0].Y;
+
+   f32 width = edges[5].X - edges[1].X;
+
+   f32 depth = edges[2].Z - edges[0].Z;
+   f32* arr = new f32[3];
+   arr[0] = width;
+   arr[1] = height;
+   arr[2] = depth;
+   return arr;
+}
+
+

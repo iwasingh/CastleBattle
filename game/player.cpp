@@ -1,6 +1,6 @@
 #include "player.h"
 #include <iostream>
-#include <math.h>
+#include <cmath>
 using namespace irr;
 using namespace KEYBOARD;
 using namespace std;
@@ -38,8 +38,9 @@ void Player::shoot(f32 power){
     core::vector3df shoot = core::vector3df(
         adj.X,
         sin(angle),
-        cos(angle)).normalize();
-    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot*shoot_power));
+        cos(angle)).normalize() * shoot_power;
+        //cout<<shoot.X<<" "<<shoot.Y<<" "<<shoot.Z<<" "<<shoot.getLength()<<" "<<angle *core::RADTODEG<<" "<<position.Z<<endl;
+    this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
     if(this->type == HUMAN)
         this->btBall->setCamera(this->camera->getCamera());
     this->btBall->irrBall->updateAbsolutePosition();
@@ -82,8 +83,9 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->physics = physics;
     this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1); //@deprecated
     this->initAngles();
+    this->setTarget();
 
-    this->target = new Target(core::vector3df(0,0,0),cannon->getAbsolutePosition()+core::vector3df(0,0,19.f), smgr, driver, physics);
+
 }
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon;
@@ -192,6 +194,31 @@ core::matrix4 Player::getInclinateValues(ACTION_KEYBOARD key){
      break;
     }
 
+}
+void Player::setTarget(){
+    f32 angle = (MAX_ANGLE_TOP - getRand(10.f))* core::DEGTORAD64;
+    //f32 power = getRand(100)/100;
+    f32 shoot_power = MAX_CANNON_FORCE - getRand(20,1);
+
+    //getRand(MAX_CANNON_FORCE);
+//    cout<<"angle "<<angle<<" "<<shoot_power<<endl;
+    core::vector3df position = core::vector3df(
+        0,
+        sin(angle),
+        cos(angle)).normalize() * shoot_power;
+
+  f32 t = (
+    position.getLength() * sin(angle) +
+    sqrt(
+        (pow(position.getLength(),2)*
+        sin(angle)*sin(angle)+
+        2*(10)*5.f))
+        )/10;
+  f32 z = position.getLength()*cos(angle)*t;
+  position = core::vector3df(this->cannon->getAbsolutePosition().X, 0, this->cannon->getAbsolutePosition().Z + z);
+//this->cannon->getAbsolutePosition() + core::vector3df(0,0,)
+
+ this->target = new Target(position,core::vector3df(0,0,0),this->smgr,this->driver,this->physics);
 }
 void Player::moveCannon(ACTION_KEYBOARD action){
 

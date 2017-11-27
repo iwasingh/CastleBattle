@@ -48,6 +48,7 @@ class Player{
         void shoot(f32 power);
         f32 refreshAngle();
         void initAngles();
+        void setTarget();
         core::matrix4 getInclinateValues(ACTION_KEYBOARD key);
 };
 #endif

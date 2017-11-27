@@ -6,8 +6,10 @@
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <cstdlib>
+#include <time.h>
 #include <list>
 #include "game/physics.h"
+#include "enviroment/castle.h"
 using namespace irr;
 
 int main() {
@@ -29,13 +31,13 @@ int main() {
     /********************END BULLET INIT**********************/
 
     HUD::HUD* hud = new HUD::HUD(device,driver);
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
-
-    smgr->addCameraSceneNodeFPS(0,100.f,0.009f)->setPosition(terrain->getCenter());
+    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::HUMAN);
+    Castle* castle = new Castle(smgr,device,driver,terrain->getCenter() + core::vector3df(-15,0,175));
+    //smgr->addCameraSceneNodeFPS(0,100.f,0.04f)->setPosition(terrain->getCenter());
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
     u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
-
+      srand (time(NULL));
     while(device->run() && device) {
 
 //        if(device->isWindowActive()){
