@@ -9,7 +9,7 @@ class Physics{
     private:
         btDiscreteDynamicsWorld *World;
         std::list<btRigidBody *> Objects;
-         btDefaultCollisionConfiguration *collisionConfiguration;
+        btDefaultCollisionConfiguration *collisionConfiguration;
         btBroadphaseInterface *broadPhase;
         btCollisionDispatcher *dispatcher;
         btSequentialImpulseConstraintSolver *solver;
@@ -22,6 +22,6 @@ class Physics{
         void UpdateRender(btRigidBody* btbody);
         btRigidBody* createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius);
         btRigidBody* createTreasure(scene::ISceneNode* node, core::vector3df scale, core::vector3df position);
-
+        btRigidBody* createCastleBlock(scene::ISceneNode* node, core::vector3df rotation, core::vector3df scale, core::vector3df position);
 };
 #endif

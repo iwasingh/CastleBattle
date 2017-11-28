@@ -12,6 +12,7 @@ void MotionStateManager::setWorldTransform(const btTransform &worldTrans){
             btQuaternion rotation = worldTrans.getRotation();
             btVector3 position = worldTrans.getOrigin();
             this->node->setPosition(toIrrlichtVector(position));
+            this->node->updateAbsolutePosition();
             this->node->setRotation(QuaternionToEuler(rotation));
             this->initialPosition = worldTrans;
 

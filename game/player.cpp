@@ -97,8 +97,10 @@ void Player::loop(HUD::HUD* hud){
     Key* key = this->keyboard.IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action ;
     this->moveCannon(action);
-     if(this->btBall && this->type == HUMAN)
-                this->btBall->moveCamera();
+     if(this->btBall){
+
+                if(this->type == HUMAN) this->btBall->moveCamera();
+                    }
     switch(action){
         case SHOOT:
                 hud->animatePower();

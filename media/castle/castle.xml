@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--Testing castle 1-->
 		<castle>
-			<side position="f" distance="0"> <!--position is front/left/back/right and distance is the totale sum of the previus side -->
+			<side position="f" distance="0"> <!--position is front/left/back/right and distance is the totale sum of the previous side -->
 				<block width="2.0" height="5.0">
 				<block width="2.0" height="5.0">
 				<block width="9.0" height="2.0">

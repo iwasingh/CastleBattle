@@ -4,6 +4,8 @@
 #include <math.h>
 #include "bullethelper.h"
 #include <cstdlib>
+#include <iostream>
+using namespace std;
 using namespace irr;
 
 btVector3 toBulletVector(core::vector3df vec) {
@@ -12,6 +14,14 @@ btVector3 toBulletVector(core::vector3df vec) {
 }
 core::vector3df toIrrlichtVector(btVector3 vec){
     return core::vector3df(vec.getX(), vec.getY(), vec.getZ());
+}
+btQuaternion EulerToQuaternion(const core::vector3df &euler){
+    btMatrix3x3 mat;
+    mat.setIdentity();
+    mat.setEulerYPR(euler.X*core::DEGTORAD64, euler.Y*core::DEGTORAD64, euler.Z*core::DEGTORAD64);
+    btQuaternion quat;
+    mat.getRotation(quat);
+   return quat;
 }
 core::vector3df QuaternionToEuler(const btQuaternion &TQuat) {
     btVector3 TEuler;

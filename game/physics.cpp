@@ -53,11 +53,13 @@ void Physics::UpdatePhysics(u32 TDeltaTime, u32 fps) {
 
 
 }
-
+/*I know...Code duplication need a refactoring.... Maybe a superclass is necessary here---> but it is too late now---*/
 btRigidBody* Physics::createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius){
     btTransform transformer;
     transformer.setIdentity();
     transformer.setOrigin(toBulletVector(position));
+        std::cout<<position.Y<<std::endl;
+
 //    btDefaultMotionState *motion = new btDefaultMotionState(transformer);
     MotionStateManager *motion = new MotionStateManager(transformer, node);
     btCollisionShape *sphere = new btSphereShape(radius);
@@ -77,13 +79,41 @@ btRigidBody* Physics::createCannonBall(scene::ISceneNode* node, core::vector3df 
     this->World->addRigidBody(rigidBody);
     return rigidBody;
 }
+btRigidBody* Physics::createCastleBlock(scene::ISceneNode* node, core::vector3df rotation, core::vector3df scale, core::vector3df position){
+    btTransform transformer;
+    transformer.setIdentity();
+//    quat.setEuler(irr::core::DEGTORAD*rotation.X,irr::core::DEGTORAD*rotation.Y,irr::core::DEGTORAD*rotation.Z);
+    transformer.setRotation(EulerToQuaternion(rotation));
+    transformer.setOrigin(toBulletVector(position));
+    MotionStateManager* motion = new MotionStateManager(transformer,node);
+    core::vector3df extents = core::vector3df(scale.X,scale.Y,scale.Z)*0.5f;
+    btCollisionShape* box = new btBoxShape(toBulletVector(extents));
+    btVector3 localInertia;
+    btScalar mass = 1500.f;
+    box->calculateLocalInertia(mass, localInertia);
+
+    btRigidBody::btRigidBodyConstructionInfo blockInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
+    blockInfo.m_friction = 10.f;
+    blockInfo.m_restitution = 0.001f;
+    blockInfo.m_spinningFriction = 100.f;
+    blockInfo.m_linearDamping = 0.05f;
+    blockInfo.m_rollingFriction = 100.f;
+    blockInfo.m_angularDamping = 0.8f;
+    btRigidBody* rigidBody = new btRigidBody(blockInfo);
+    rigidBody->activate(true);
+    rigidBody->setUserPointer((void *) node);
+    this->Objects.push_back(rigidBody);
+    this->World->addRigidBody(rigidBody);
+    return rigidBody;
+
+}
 btRigidBody* Physics::createTreasure(scene::ISceneNode* node, core::vector3df scale, core::vector3df position){
     btTransform transformer;
     transformer.setIdentity();
     transformer.setOrigin(toBulletVector(position));
     MotionStateManager *motion = new MotionStateManager(transformer,node);
 
-    core::vector3df extent_vect = node->getBoundingBox().MaxEdge;
+    core::vector3df extent_vect = node->getBoundingBox().getExtent()*0.5f;
     btCollisionShape* box = new btBoxShape(toBulletVector(extent_vect));
     btVector3 localInertia;
     btScalar mass = 2000.f;

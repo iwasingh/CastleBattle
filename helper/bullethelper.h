@@ -7,7 +7,7 @@ using namespace irr;
 //namespace BulletWrap{
 
     btVector3 toBulletVector(core::vector3df vec);
-
+    btQuaternion EulerToQuaternion(const core::vector3df &euler);
     core::vector3df QuaternionToEuler(const btQuaternion &TQuat);
     core::vector3df toIrrlichtVector(btVector3 vec);
     f32 getRand(const f32 maxValue, const f32 offset = 0.f);
