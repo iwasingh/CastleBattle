@@ -60,5 +60,23 @@ f32* getMeshSize(scene::ISceneNode* mesh){
    arr[2] = depth;
    return arr;
 }
+video::SColor randomColor(){
+//get rgba with some randomness is not a good idea. Often you will get weird colors that not suit in the graphic scene
+    video::SColor colors[10] = {
+        video::SColor(255,0,0,255),
+        video::SColor(255,0,255,0),
+        video::SColor(255,255,0,0),
+        video::SColor(255,247,0,115),
+        video::SColor(255,29,171,226),
+        video::SColor(255,255,255,0),
+        video::SColor(255,0,255,255),
+        video::SColor(255,255,255,255),
+        video::SColor(255,255,123,0),
+        video::SColor(255,171,111,232)
+    };
+    cout<<(int)getRand(10)<<endl;
+        return colors[(int)getRand(10)];
+
+}
 
 

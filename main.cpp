@@ -1,3 +1,5 @@
+#ifndef MAIN
+#define MAIN
 #include <irrlicht.h>
 #include "enviroment/Terrain.h"
 #include "enviroment/Sky.h"
@@ -77,3 +79,4 @@ int main() {
 //    map_node->setMaterialTexture(0,driver->getTexture("./media/FirstMap.png"));
 //    //ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(400,800,-1400),video::SColor(0,255,255,204),2000.0f);
 //    smgr->setAmbientLight(video::SColor(0,255,255,204));
+#endif

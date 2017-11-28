@@ -13,6 +13,8 @@ Castle::Castle(scene::ISceneManager* smgr, Physics* physics, IrrlichtDevice* dev
     this->physics = physics;
     this->nodes.reserve(100);
     this->position = center;
+    this->COLOR_DARK = randomColor();
+    this->COLOR_LIGHT = randomColor();
     if(this->buildCastle(this->position)) this->addToPhysicsWorld();
 }
 
@@ -63,59 +65,33 @@ bool Castle::buildCastle(core::vector3df center){
 
                         switch(position[0]){
                             case 'f':
-
-                                    this->node = this->smgr->addCubeSceneNode(1,0,-1);
                                     pos = core::vector3df(
                                     center.X + offsets[0] +scale.X/2, scale.Y/2 , center.Z );
-                                    this->node->setPosition(pos);
-                                    this->node->setScale(scale);
+                                    this->createBlock(pos,scale, core::vector3df(0,0,0));
                                     offsets[0] += (width+BLOCKS_OFFSET);
-                                    this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
-                                    this->nodes.push_back(this->node);
-                                    this->physics->createCastleBlock(this->node,this->node->getRotation(),scale,pos);
-
                                     break;
                             case 'l':
-                                    this->node = this->smgr->addCubeSceneNode(1,0,-1);
-                                    this->node->setRotation(core::vector3df(0,90,0));
                                     pos = core::vector3df(
                                     center.X+scale.X/2, scale.Y/2 , scale.X/2+center.Z+offsets[1]);
-                                    this->node->setPosition(pos);
-                                    this->node->setScale(scale);
+                                    this->createBlock(pos,scale,core::vector3df(0,90,0));
                                     offsets[1] += (width+BLOCKS_OFFSET);
-                                    this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
-                                    this->nodes.push_back(this->node);
-                                    this->physics->createCastleBlock(this->node,this->node->getRotation(),scale,pos);
-
-
                             break;
                             case 'b':
-                                    this->node = this->smgr->addCubeSceneNode(1,0,-1);
-                                    this->node->setRotation(core::vector3df(0,0,0));
                                     pos = core::vector3df(
                                     center.X+scale.X/2+offsets[2], scale.Y/2,
                                     center.Z+distance+getMeshSize(nodes.at(nodes.size()-1))[0]+BLOCKS_OFFSET*5
                                     );
-                                    this->node->setPosition(pos);
-                                    this->node->setScale(scale);
+                                    this->createBlock(pos,scale,core::vector3df(0,0,0));
                                     offsets[2] += (width+BLOCKS_OFFSET);
-                                    this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
-                                    this->nodes.push_back(this->node);
-                                    this->physics->createCastleBlock(this->node,this->node->getRotation(),scale,pos);
+
 
 
                             break;
                             case 'r':
-                                    this->node = this->smgr->addCubeSceneNode(1,0,-1);
-                                    this->node->setRotation(core::vector3df(0,90,0));
                                     pos = core::vector3df(
                                     center.X+distance-getMeshSize(this->node)[2], scale.Y/2 , scale.X/2+center.Z+offsets[3]);
-                                    this->node->setPosition(pos);
-                                    this->node->setScale(scale);
+                                    this->createBlock(pos,scale,core::vector3df(0,90,0));
                                     offsets[3] += (width+BLOCKS_OFFSET);
-                                    this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
-                                    this->nodes.push_back(this->node);
-                                    this->physics->createCastleBlock(this->node,this->node->getRotation(),scale,pos);
 
 
                             break;
@@ -140,8 +116,21 @@ bool Castle::buildCastle(core::vector3df center){
         return true;
 
 }
+//useless?
 void Castle::addToPhysicsWorld(){
 
-    for(vector<scene::ISceneNode *>::iterator it = this->nodes.begin();it != nodes.end(); ++it){
+    for(vector<scene::IMeshSceneNode *>::iterator it = this->nodes.begin();it != nodes.end(); ++it){
     }
+}
+void Castle::createBlock(core::vector3df position, core::vector3df scale, core::vector3df rotation){
+      this->node = this->smgr->addCubeSceneNode(1,0,-1);
+      this->node->setPosition(position);
+      this->node->setScale(scale);
+      this->node->setMaterialFlag(video::EMF_LIGHTING,false);
+      this->smgr->getMeshManipulator()->setVertexColors(this->node->getMesh(),this->COLOR_DARK);
+      this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS); // debug mask
+      if(this->node){ // need an assert here.
+        this->nodes.push_back(this->node);
+        this->physics->createCastleBlock(this->node,rotation,scale,position);
+      }
 }
