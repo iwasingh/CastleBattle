@@ -21,7 +21,7 @@ class Physics{
         void UpdatePhysics(u32 delta, u32 fps);
         void UpdateRender(btRigidBody* btbody);
         btRigidBody* createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius);
-        btRigidBody* createTreasure(scene::ISceneNode* node, core::vector3df scale, core::vector3df position);
+        btRigidBody* createTreasure(scene::IMeshSceneNode* node, core::vector3df scale, core::vector3df position);
         btRigidBody* createCastleBlock(scene::ISceneNode* node, core::vector3df rotation, core::vector3df scale, core::vector3df position);
 };
 #endif

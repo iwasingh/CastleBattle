@@ -8,14 +8,18 @@ using namespace core;
 using namespace std;
 Castle::Castle(scene::ISceneManager* smgr, Physics* physics, IrrlichtDevice* device, video::IVideoDriver* driver, core::vector3df center){
     this->smgr = smgr;
+    this->nodes.clear();
     this->driver = driver;
     this->device = device;
     this->physics = physics;
-    this->nodes.reserve(100);
     this->position = center;
     this->COLOR_DARK = randomColor();
     this->COLOR_LIGHT = randomColor();
-    if(this->buildCastle(this->position)) this->addToPhysicsWorld();
+    this->position = center;
+    if(this->buildCastle(this->position)){
+        this->addToPhysicsWorld();
+        this->setTreasure();
+    }
 }
 
 bool Castle::buildCastle(core::vector3df center){
@@ -35,6 +39,7 @@ bool Castle::buildCastle(core::vector3df center){
         core::vector3df pos;
         core::aabbox3d<f32> box;
         core::matrix4 transformer;
+        std::multimap<char, scene::IMeshSceneNode*>::iterator first, last;
         //while there is more to read
         while (xml->read())
         {
@@ -44,6 +49,7 @@ bool Castle::buildCastle(core::vector3df center){
                 //we found a new element
                 case irr::io::EXN_ELEMENT:
                 {
+
                     //we currently are in the empty or mygame section and find the side tag so we set our current block
                     if (currentSection.empty() && sideTag.equals_ignore_case(xml->getNodeName()))
                     {
@@ -52,9 +58,13 @@ bool Castle::buildCastle(core::vector3df center){
                         distance = xml->getAttributeValueAsFloat(L"distance");
                         reading++;
                         // maybe a switch case is better
-                        if(reading == 1) offsets[reading] = BLOCKS_OFFSET+getMeshSize(nodes.front())[0]/2;
-                        if(reading == 2) offsets[reading] = BLOCKS_OFFSET+getMeshSize(nodes.back())[0]/2;
-                        if(reading == 3) offsets[reading] = BLOCKS_OFFSET+getMeshSize(nodes.front())[0]/2;
+
+                        if(!this->nodes.empty() && position[0]){ // assert
+
+                        if(reading == 1) offsets[reading] = BLOCKS_OFFSET+getMeshSize(first->second)[0]/2;
+                        if(reading == 2 && last != this->nodes.end()) offsets[reading] = BLOCKS_OFFSET+getMeshSize(last->second)[0]/2;
+                        if(reading == 3) offsets[reading] = BLOCKS_OFFSET+getMeshSize(first->second)[0]/2;
+                        }
 
                     } else if (currentSection.equals_ignore_case(sideTag) && blockTag.equals_ignore_case(xml->getNodeName())){
                         //read in the key
@@ -67,21 +77,21 @@ bool Castle::buildCastle(core::vector3df center){
                             case 'f':
                                     pos = core::vector3df(
                                     center.X + offsets[0] +scale.X/2, scale.Y/2 , center.Z );
-                                    this->createBlock(pos,scale, core::vector3df(0,0,0));
+                                    this->createBlock(pos,scale, core::vector3df(0,0,0), 'f', this->COLOR_LIGHT);
                                     offsets[0] += (width+BLOCKS_OFFSET);
                                     break;
                             case 'l':
                                     pos = core::vector3df(
                                     center.X+scale.X/2, scale.Y/2 , scale.X/2+center.Z+offsets[1]);
-                                    this->createBlock(pos,scale,core::vector3df(0,90,0));
+                                    this->createBlock(pos,scale,core::vector3df(0,90,0), 'l', this->COLOR_DARK);
                                     offsets[1] += (width+BLOCKS_OFFSET);
                             break;
                             case 'b':
                                     pos = core::vector3df(
                                     center.X+scale.X/2+offsets[2], scale.Y/2,
-                                    center.Z+distance+getMeshSize(nodes.at(nodes.size()-1))[0]+BLOCKS_OFFSET*5
+                                    center.Z+distance+getMeshSize(this->node)[0]+BLOCKS_OFFSET*5
                                     );
-                                    this->createBlock(pos,scale,core::vector3df(0,0,0));
+                                    this->createBlock(pos,scale,core::vector3df(0,0,0), 'b', this->COLOR_LIGHT);
                                     offsets[2] += (width+BLOCKS_OFFSET);
 
 
@@ -90,12 +100,16 @@ bool Castle::buildCastle(core::vector3df center){
                             case 'r':
                                     pos = core::vector3df(
                                     center.X+distance-getMeshSize(this->node)[2], scale.Y/2 , scale.X/2+center.Z+offsets[3]);
-                                    this->createBlock(pos,scale,core::vector3df(0,90,0));
+                                    this->createBlock(pos,scale,core::vector3df(0,90,0), 'r', this->COLOR_DARK);
                                     offsets[3] += (width+BLOCKS_OFFSET);
 
 
                             break;
                             default:break;
+                        }
+                        if(!this->nodes.empty()){
+                        first = this->nodes.begin();
+                        last = this->nodes.end();
                         }
 
                     }
@@ -112,25 +126,60 @@ bool Castle::buildCastle(core::vector3df center){
 
         // delete the xml reader
         xml->drop();
-
         return true;
 
 }
 //useless?
 void Castle::addToPhysicsWorld(){
 
-    for(vector<scene::IMeshSceneNode *>::iterator it = this->nodes.begin();it != nodes.end(); ++it){
-    }
+
 }
-void Castle::createBlock(core::vector3df position, core::vector3df scale, core::vector3df rotation){
+void Castle::createBlock(core::vector3df position, core::vector3df scale, core::vector3df rotation,  char side, video::SColor color){
       this->node = this->smgr->addCubeSceneNode(1,0,-1);
       this->node->setPosition(position);
       this->node->setScale(scale);
       this->node->setMaterialFlag(video::EMF_LIGHTING,false);
-      this->smgr->getMeshManipulator()->setVertexColors(this->node->getMesh(),this->COLOR_DARK);
-      this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS); // debug mask
+      this->smgr->getMeshManipulator()->setVertexColors(this->node->getMesh(),color);
+      //this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS); // debug mask
       if(this->node){ // need an assert here.
-        this->nodes.push_back(this->node);
+        this->nodes.insert(std::make_pair(side, this->node));
         this->physics->createCastleBlock(this->node,rotation,scale,position);
       }
+}
+/*
+There is  a problem: left/right side blocks scale is defined with X and a rotation(90°). So Z is 1.
+Whenever you call this function you get the width(X) not the actual size based on the irrlicht axis and the overall bounding box.
+Height is correct.
+
+So this will return the sum of the width attribute in xml for each side.
+*/
+core::vector3df Castle::getSideSize(char side){
+    core::vector3df size_side = core::vector3df(0,0,0) ;
+    std::pair<
+        std::multimap<char, scene::IMeshSceneNode*>::iterator,
+        std::multimap<char, scene::IMeshSceneNode*>::iterator
+        > blocks;
+    blocks = this->nodes.equal_range(side);
+    for(std::multimap<char, scene::IMeshSceneNode*>::iterator it = blocks.first; it != blocks.second; ++it){
+        size_side.X+= it->second->getScale().X;
+        size_side.Y+= it->second->getScale().Y;
+        size_side.Z+= it->second->getScale().Z;
+    }
+    return size_side;
+}
+void Castle::setTreasure(){
+//    core::vector3df position = this->calculateAbsoluteCenter();
+    f32 x = this->getSideSize('f').X * getRand(100)/100;
+    f32 z = this->getSideSize('l').X * getRand(100)/100;
+    cout<<x<<" "<<z<<endl;
+    core::vector3df position = core::vector3df(this->position.X + x,0,this->position.Z + z);
+    this->target = new Target(position,this->smgr,this->driver,this->physics);
+        this->target = new Target(core::vector3df(this->position.X+20, 0, this->position.Z -160),this->smgr,this->driver,this->physics);
+
+}
+core::vector3df Castle::calculateAbsoluteCenter(){
+    core::vector3df relativeCenter = this->position;
+    relativeCenter.X+= this->getSideSize('f').X * 0.5f;
+    relativeCenter.Z+= this->getSideSize('l').X * 0.5f;
+    return relativeCenter;
 }

@@ -53,12 +53,11 @@ void Physics::UpdatePhysics(u32 TDeltaTime, u32 fps) {
 
 
 }
-/*I know...Code duplication need a refactoring.... Maybe a superclass is necessary here---> but it is too late now---*/
+/*I know...Code duplication, need a refactoring.... Maybe a superclass is necessary here---> but it is too late now---*/
 btRigidBody* Physics::createCannonBall(scene::ISceneNode* node, core::vector3df position, f32 radius){
     btTransform transformer;
     transformer.setIdentity();
     transformer.setOrigin(toBulletVector(position));
-        std::cout<<position.Y<<std::endl;
 
 //    btDefaultMotionState *motion = new btDefaultMotionState(transformer);
     MotionStateManager *motion = new MotionStateManager(transformer, node);
@@ -107,15 +106,19 @@ btRigidBody* Physics::createCastleBlock(scene::ISceneNode* node, core::vector3df
     return rigidBody;
 
 }
-btRigidBody* Physics::createTreasure(scene::ISceneNode* node, core::vector3df scale, core::vector3df position){
+btRigidBody* Physics::createTreasure(scene::IMeshSceneNode* node, core::vector3df scale, core::vector3df position){
     btTransform transformer;
     transformer.setIdentity();
     transformer.setOrigin(toBulletVector(position));
     MotionStateManager *motion = new MotionStateManager(transformer,node);
-
-    core::vector3df extent_vect = node->getBoundingBox().getExtent()*0.5f;
-    btCollisionShape* box = new btBoxShape(toBulletVector(extent_vect));
+    std::cout<<getMeshSize(node)[1]<<" "<<scale.Y<<std::endl;
+    core::vector3df _extent = core::vector3df(scale.X * getMeshSize(node)[0], 0, scale.Z * getMeshSize(node)[2]);
+    btCollisionShape* box = new btBoxShape(toBulletVector(_extent));
+    //btCollisionShape* box = new btConvexTriangleMeshShape(triangle);
+    btVector3 minEdge, maxEdge;
     btVector3 localInertia;
+    box->getAabb(transformer,minEdge,maxEdge);
+    std::cout<<"btMin "<<minEdge[1]<<" irrMin"<<node->getBoundingBox().MinEdge.Y<<" irrMax"<<node->getBoundingBox().MaxEdge.Y<<" "<<maxEdge[1]<<" "<<std::endl;
     btScalar mass = 2000.f;
     box->calculateLocalInertia(mass, localInertia);
     btRigidBody::btRigidBodyConstructionInfo targetInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
@@ -152,43 +155,43 @@ void Physics::UpdateRender(btRigidBody *TObject) {
 	Node->setRotation(Euler);
 }
 /*@TODO make a class that handles this!!!*/
-/*btTriangleMesh* triangle = new btTriangleMesh(true,false);
+/*
+btTriangleMesh* triangle = new btTriangleMesh(true,false);
     u16* indices;
     s32 num_vertex;
-    btVector3 points[3];*/
-//    for(u32 i = 0; i < node->getMesh()->getMeshBufferCount(); i++ ){
-//        scene::IMeshBuffer* mesh_buffer = node->getMesh()->getMeshBuffer(i);
-//        if(mesh_buffer->getVertexType() == video::EVT_STANDARD){
-//            video::S3DVertex* vertices = (video::S3DVertex*) mesh_buffer->getVertices();
-//            indices = mesh_buffer->getIndices();
-//            num_vertex = mesh_buffer->getVertexCount();
-//            for(u32 j = 0; j < mesh_buffer->getIndexCount(); j+=3){
-//                for(s32 k = 0; k < 3; k++){
-//                    s32 index = indices[j+k];
-//                    if(index > num_vertex) { std::cout<<"error"<<std::endl; return 0; }
-//                    points[k] = btVector3(
-//                    btScalar(vertices[index].Pos.X),
-//                    btScalar(vertices[index].Pos.Y),
-//                    btScalar(vertices[index].Pos.Z)
-//                    );
-//                }
-//
-//                triangle->addTriangle(points[0], points[1], points[2]);
-//            }
-//        }
-//        else if(mesh_buffer->getVertexType() == video::EVT_2TCOORDS){
-//            video::S3DVertex2TCoords* vertices = (video::S3DVertex2TCoords*) mesh_buffer->getVertices();
-//            indices = mesh_buffer->getIndices();
-//            num_vertex = mesh_buffer->getVertexCount();
-//            for(u32 j = 0; j < mesh_buffer->getIndexCount(); j+=3){
-//                for(s32 k = 0; k < 3; k++){
-//                    s32 index = indices[j+k];
-//                    if(index > num_vertex) { std::cout<<"error"<<std::endl; return 0; }
-//                    points[k] = btVector3(vertices[index].Pos.X,vertices[index].Pos.Y,vertices[index].Pos.Z);
-//                }
-//
-//                triangle->addTriangle(points[0], points[1], points[2]);
-//            }
-//        }
-//    }
+    btVector3 points[3];
+    for(u32 i = 0; i < node->getMesh()->getMeshBufferCount(); i++ ){
+        scene::IMeshBuffer* mesh_buffer = node->getMesh()->getMeshBuffer(i);
+        if(mesh_buffer->getVertexType() == video::EVT_STANDARD){
+            video::S3DVertex* vertices = (video::S3DVertex*) mesh_buffer->getVertices();
+            indices = mesh_buffer->getIndices();
+            num_vertex = mesh_buffer->getVertexCount();
+            for(u32 j = 0; j < mesh_buffer->getIndexCount(); j+=3){
+                for(s32 k = 0; k < 3; k++){
+                    s32 index = indices[j+k];
+                    if(index > num_vertex) { std::cout<<"error"<<std::endl; return 0; }
+                    points[k] = btVector3(
+                    btScalar(vertices[index].Pos.X),
+                    btScalar(vertices[index].Pos.Y),
+                    btScalar(vertices[index].Pos.Z)
+                    );
+                }
 
+                triangle->addTriangle(points[0], points[1], points[2]);
+            }
+        }
+        else if(mesh_buffer->getVertexType() == video::EVT_2TCOORDS){
+            video::S3DVertex2TCoords* vertices = (video::S3DVertex2TCoords*) mesh_buffer->getVertices();
+            indices = mesh_buffer->getIndices();
+            num_vertex = mesh_buffer->getVertexCount();
+            for(u32 j = 0; j < mesh_buffer->getIndexCount(); j+=3){
+                for(s32 k = 0; k < 3; k++){
+                    s32 index = indices[j+k];
+                    if(index > num_vertex) { std::cout<<"error"<<std::endl; return 0; }
+                    points[k] = btVector3(vertices[index].Pos.X,vertices[index].Pos.Y,vertices[index].Pos.Z);
+                }
+
+                triangle->addTriangle(points[0], points[1], points[2]);
+            }
+        }
+    }*/

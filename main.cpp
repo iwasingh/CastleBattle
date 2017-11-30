@@ -21,6 +21,7 @@ int main() {
     video::IVideoDriver* driver = device->getVideoDriver();
     driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
     scene::ISceneManager* smgr = device->getSceneManager();
+    srand (time(NULL));
 
        core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
     Terrain* terrain = new Terrain(smgr,driver,pathTexture,core::vector3df(250.f,0.0001f, 250.f));
@@ -39,7 +40,6 @@ int main() {
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
     u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
-      srand (time(NULL));
     while(device->run() && device) {
 
 //        if(device->isWindowActive()){

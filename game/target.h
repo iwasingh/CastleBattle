@@ -13,6 +13,6 @@ class Target{
         core::vector3df position;
     public:
         // this wil figure out where to put the target based on the power of the cannon(or shoot power) and the offset
-        Target( core::vector3df power, core::vector3df offset, scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics);
+        Target(core::vector3df position, scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics);
 };
 #endif

@@ -10,6 +10,11 @@ using namespace std;
 x′=xcos⁡θ−zsin⁡θ
 y′=y
 z′=xsinθ+zcosθ
+
+  Matrix4 will handle this.
+  The important thing is to get the offset angle:
+  the angles difference from the initial angle and the current angle.
+  Since the initial angle isn't know (the cane in the 3d model is upward some degrees)
 */
 void Player::shoot(f32 power){
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
@@ -33,7 +38,7 @@ void Player::shoot(f32 power){
     this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
     f32 shoot_power = power * CANNON_POWER;
     /*
-    @TODO recalculation of the shoot vector based on the xyz barrel. This will improve shoot, but now it works anyway
+    @TODO recalculation of the shoot vector based on the xyz barrel/cane. This will improve shoot, but now it works anyway
     */
     core::vector3df shoot = core::vector3df(
         adj.X,
@@ -83,7 +88,6 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->physics = physics;
     this->rotation = core::vector3df(0,this->cannon->getBoundingBox().getCenter().Y,1); //@deprecated
     this->initAngles();
-    this->setTarget();
 
 
 }
@@ -220,7 +224,7 @@ void Player::setTarget(){
   position = core::vector3df(this->cannon->getAbsolutePosition().X, 0, this->cannon->getAbsolutePosition().Z + z);
 //this->cannon->getAbsolutePosition() + core::vector3df(0,0,)
 
- this->target = new Target(position,core::vector3df(0,0,0),this->smgr,this->driver,this->physics);
+// this->target = new Target(position,core::vector3df(0,0,0),this->smgr,this->driver,this->physics);
 }
 void Player::moveCannon(ACTION_KEYBOARD action){
 
@@ -250,10 +254,3 @@ void Player::moveCannon(ACTION_KEYBOARD action){
 
 
 }
-
-
-
-//                std::cout
-//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().X
-//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().Y
-//                <<" "<<this->barrel->getPosition(0).getHorizontalAngle().Z

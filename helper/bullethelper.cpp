@@ -74,7 +74,6 @@ video::SColor randomColor(){
         video::SColor(255,255,123,0),
         video::SColor(255,171,111,232)
     };
-    cout<<(int)getRand(10)<<endl;
         return colors[(int)getRand(10)];
 
 }
