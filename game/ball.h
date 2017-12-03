@@ -1,3 +1,5 @@
+#ifndef BALL_H
+#define BALL_H
 #include <irrlicht.h>
 #include "physics.h"
 #include "helper/bullethelper.h"
@@ -21,3 +23,4 @@ class Ball{
 
 
 };
+#endif

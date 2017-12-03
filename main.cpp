@@ -4,14 +4,13 @@
 #include "enviroment/Terrain.h"
 #include "enviroment/Sky.h"
 #include "hud/hud.h"
-#include "game/player.h"
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <cstdlib>
 #include <time.h>
 #include <list>
 #include "game/physics.h"
-#include "enviroment/castle.h"
+#include "game/gamemanager.h"
 using namespace irr;
 
 int main() {
@@ -23,7 +22,7 @@ int main() {
     scene::ISceneManager* smgr = device->getSceneManager();
     srand (time(NULL));
 
-       core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
+    core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
     Terrain* terrain = new Terrain(smgr,driver,pathTexture,core::vector3df(250.f,0.0001f, 250.f));
     Sky* sky = new Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
 
@@ -33,9 +32,9 @@ int main() {
 
     /********************END BULLET INIT**********************/
 
-    HUD::HUD* hud = new HUD::HUD(device,driver);
-    Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
-    Castle* castle = new Castle(smgr,physics,device,driver,terrain->getCenter() + core::vector3df(-15,0,175));
+    //Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
+//    Castle* castle = new Castle(smgr,physics,device,driver,terrain->getCenter() + core::vector3df(-15,0,175));
+    GameManager* gameManager = new GameManager(smgr,driver,device,terrain->getCenter(), physics);
     smgr->addCameraSceneNodeFPS(0,100.f,0.04f)->setPosition(terrain->getCenter());
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
@@ -45,15 +44,15 @@ int main() {
 //        if(device->isWindowActive()){
             u32 fps = driver->getFPS();
             DeltaTime = device->getTimer()->getTime() - TimeStamp;
-
             physics->UpdatePhysics(DeltaTime,fps);
             driver->beginScene(true, true, video::SColor(255,200,200,200));
 
             smgr->drawAll();
-            hud->env->drawAll();
-            player->loop(hud);
+            //hud staff goes here
+            gameManager->loop();
             driver->endScene();
-                        TimeStamp = device->getTimer()->getTime();
+
+            TimeStamp = device->getTimer()->getTime();
 
             if(lastFPS != fps)
             {

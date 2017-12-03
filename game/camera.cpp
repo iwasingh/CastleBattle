@@ -23,7 +23,6 @@ void Camera::activeCamera(){
 }
 Camera::~Camera(){
     delete this->camera;
-    this->smgr = 0; //ok?
 }
 scene::ICameraSceneNode* Camera::getCamera(){
     return this->camera;

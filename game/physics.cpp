@@ -89,7 +89,11 @@ btRigidBody* Physics::createCastleBlock(scene::ISceneNode* node, core::vector3df
     btCollisionShape* box = new btBoxShape(toBulletVector(extents));
     btVector3 localInertia;
     btScalar mass = 1500.f;
+        btVector3 minEdge, maxEdge;
+
     box->calculateLocalInertia(mass, localInertia);
+    box->getAabb(transformer,minEdge,maxEdge);
+    std::cout<<"btMin "<<minEdge[1]<<" irrMin"<<node->getBoundingBox().MinEdge.Y<<" irrMax"<<node->getBoundingBox().MaxEdge.Y<<" "<<maxEdge[1]<<" "<<std::endl;
 
     btRigidBody::btRigidBodyConstructionInfo blockInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
     blockInfo.m_friction = 10.f;
@@ -110,16 +114,14 @@ btRigidBody* Physics::createTreasure(scene::IMeshSceneNode* node, core::vector3d
     btTransform transformer;
     transformer.setIdentity();
     transformer.setOrigin(toBulletVector(position));
-    MotionStateManager *motion = new MotionStateManager(transformer,node);
-    std::cout<<getMeshSize(node)[1]<<" "<<scale.Y<<std::endl;
-    core::vector3df _extent = core::vector3df(scale.X * getMeshSize(node)[0], 0, scale.Z * getMeshSize(node)[2]);
-    btCollisionShape* box = new btBoxShape(toBulletVector(_extent));
-    //btCollisionShape* box = new btConvexTriangleMeshShape(triangle);
+    core::vector3df _extent = node->getBoundingBox().getExtent();
+    btCollisionShape* box = new btBoxShape(toBulletVector(_extent*0.5f));
     btVector3 minEdge, maxEdge;
     btVector3 localInertia;
-    box->getAabb(transformer,minEdge,maxEdge);
-    std::cout<<"btMin "<<minEdge[1]<<" irrMin"<<node->getBoundingBox().MinEdge.Y<<" irrMax"<<node->getBoundingBox().MaxEdge.Y<<" "<<maxEdge[1]<<" "<<std::endl;
-    btScalar mass = 2000.f;
+    btScalar mass = 2780.f;
+    transformer.setOrigin(btVector3(toBulletVector(position)[0], 0, toBulletVector(position)[2]));
+        MotionStateManager *motion = new MotionStateManager(transformer,node);
+
     box->calculateLocalInertia(mass, localInertia);
     btRigidBody::btRigidBodyConstructionInfo targetInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
     targetInfo.m_friction = 10.f;

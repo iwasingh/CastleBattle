@@ -24,7 +24,6 @@ class Castle{
         Physics* physics;
         void createBlock(core::vector3df position, core::vector3df scale, core::vector3df rotation, char side, video::SColor color = randomColor());
         void addToPhysicsWorld();//@deprecated
-        core::vector3df calculateAbsoluteCenter();
 
 
     public:
@@ -34,6 +33,7 @@ class Castle{
         bool buildCastle(core::vector3df center);
         core::vector3df getSideSize(char side);
         void setTreasure();
+        core::vector3df calculateAbsoluteCenter();
 
 
 };
