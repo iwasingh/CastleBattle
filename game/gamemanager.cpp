@@ -22,7 +22,7 @@ void GameManager::initGamePlay(){
         this->worldPosition,
         this->physics,
         &this->keyboard,
-        Player::HUMAN);
+        HUMAN);
     this->players[1] = new Player(
         this->device,
         this->smgr,
@@ -30,8 +30,8 @@ void GameManager::initGamePlay(){
         core::vector3df(this->worldPosition.X, 0, this->players[0]->getCannonRange().Z),
         this->physics,
         &this->keyboard,
-        Player::HUMAN);
-
+        HUMAN);
+        this->players[1]->setCannon(OPPOSITE);
         this->turn = true;
         this->players[0]->focusCamera();
 
@@ -43,7 +43,10 @@ void GameManager::loop(){
     this->hud->env->drawAll();
     if(!this->players) return;
     if(turn){
-        this->players[0]->loop(hud);
+        if(!this->players[0]->loop(hud)){
+            turn = false;
+            this->players[1]->focusCamera();
+        }
     }
     else {
         this->players[1]->loop(hud);

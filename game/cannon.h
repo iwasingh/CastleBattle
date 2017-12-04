@@ -25,22 +25,23 @@ class Cannon{
         Camera* camera;
         Ball* btBall;
         Physics* physics;
-        core::vector3df rotation = core::vector3df(0,0,0);
+        core::vector3df rotation;
         core::vector3df initBarrelVector;
         core::vector3df plane;
     public:
         Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics);
-        void shoot(f32 power);
         f32 refreshAngle();
-        void initAngles();
         core::aabbox3df getBoundingBox();
         scene::IAnimatedMeshSceneNode* getCannon();
-        void moveCannon(ACTION_KEYBOARD action);
-        void moveCamera();
         core::matrix4 getInclinateValues(ACTION_KEYBOARD key);
-        void setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node);
-        void setPosition(core::vector3df position);
         core::vector3df getRange();
         Camera* getCamera();
+        void setRotation(core::vector3df rotation);
+        void shoot(f32 power);
+        void setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node);
+        void setPosition(core::vector3df position);
+        bool moveCannon(ACTION_KEYBOARD action);
+        bool moveCamera();
+        void initAngles();
 
 };

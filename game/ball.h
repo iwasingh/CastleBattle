@@ -28,7 +28,5 @@ class Ball{
         void deleteCamera();
 
 
-
-
 };
 #endif

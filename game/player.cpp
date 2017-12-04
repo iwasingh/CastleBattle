@@ -22,11 +22,11 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
 scene::IAnimatedMeshSceneNode* Player::getNode() {
     return this->cannon->getCannon();
 }
-void Player::loop(HUD::HUD* hud){
-
+bool Player::loop(HUD::HUD* hud){
+    if(stop) return false;
     Key* key = this->keyboard->IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action;
-    this->cannon->moveCannon(action);
+    if(!this->cannon->moveCannon(action)) return false;
 
     switch(action){
         case SHOOT:
@@ -41,6 +41,7 @@ void Player::loop(HUD::HUD* hud){
 
         break;
     };
+    return true;
 }
 core::vector3df Player::getCannonRange(){
 return this->cannon->getRange();
@@ -53,7 +54,18 @@ void Player::focusCamera(){
                 this->cannon->getBoundingBox().MaxEdge.Y+0.6f,
                 -2.f);
 
-        core::vector3df rotation = core::vector3df(0,0,0);
+        core::vector3df rotation = this->cannon->getCannon()->getRotation();
         this->cannon->setCamera(offset,rotation,smgr,this->cannon->getCannon());
+        this->stop = false;
+    }
+}
+void Player::setCannon(PLAYER_POSITION side){
+    switch(side){
+
+        case OPPOSITE:
+            core::vector3df position = this->castle->calculateAbsoluteCenter() - core::vector3df(0,0,this->castle->getSideSize('l').X);
+            this->cannon->setRotation(core::vector3df(0,180,0));
+            this->cannon->setPosition(position);
+            break;
     }
 }
