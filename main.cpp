@@ -33,9 +33,8 @@ int main() {
     /********************END BULLET INIT**********************/
 
     //Player* player = new Player(device,smgr,driver,terrain->getCenter(), physics, Player::AI);
-//    Castle* castle = new Castle(smgr,physics,device,driver,terrain->getCenter() + core::vector3df(-15,0,175));
     GameManager* gameManager = new GameManager(smgr,driver,device,terrain->getCenter(), physics);
-    smgr->addCameraSceneNodeFPS(0,100.f,0.04f)->setPosition(terrain->getCenter());
+    //smgr->addCameraSceneNodeFPS(0,100.f,0.04f)->setPosition(terrain->getCenter());
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
     u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
@@ -69,13 +68,6 @@ int main() {
     }
 }
 
-//    IAnimatedMesh* map_mesh = smgr->getMesh("./media/Second.obj");
-//    ISceneNode* map_node = 0;
-//
-//    if(map_mesh) map_node = smgr->addOctreeSceneNode(map_mesh->getMesh(0), 0, -1, 1024);
-//    if(map_node) map_node->setPosition(core::vector3df(0,-5,0));
-//
-//    map_node->setMaterialTexture(0,driver->getTexture("./media/FirstMap.png"));
 //    //ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(400,800,-1400),video::SColor(0,255,255,204),2000.0f);
 //    smgr->setAmbientLight(video::SColor(0,255,255,204));
 #endif

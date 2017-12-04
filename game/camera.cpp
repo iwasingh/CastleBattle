@@ -1,4 +1,5 @@
 #include "camera.h"
+#include <iostream>
 using namespace irr;
 Camera::Camera(scene::ICameraSceneNode* camera, scene::ISceneManager* smgr){
     this->camera = camera;
@@ -22,7 +23,8 @@ void Camera::activeCamera(){
     this->smgr->setActiveCamera(this->camera); // not sure it works
 }
 Camera::~Camera(){
-    delete this->camera;
+    std::cout<<"im destroying"<<std::endl;
+    this->camera->remove();
 }
 scene::ICameraSceneNode* Camera::getCamera(){
     return this->camera;

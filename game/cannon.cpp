@@ -3,12 +3,14 @@
 using namespace irr;
 using namespace std;
 using namespace KEYBOARD;
-Cannon::Cannon(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics){
+Cannon::Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics){
     this->smgr = smgr;
     this->driver = driver;
+    this->device = device;
     this->physics = physics;
+    scene::IAnimatedMesh* mesh = smgr->getMesh("media/cannon/cannon.obj");
     this->cannon = smgr->addAnimatedMeshSceneNode(
-    smgr->getMesh("media/cannon/cannon.obj"),
+    mesh,
     0,
     -1,
     position
@@ -16,11 +18,12 @@ Cannon::Cannon(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::ve
     this->cannon->setMaterialFlag(video::EMF_LIGHTING, false);
     this->cannon->setMaterialTexture(0,driver->getTexture("media/cannon/cannon_tex.png"));
     this->cannon->setMaterialTexture(1,driver->getTexture("media/cannon/cannonwagon_tex.png"));
-    this->barrel = this->cannon->getMesh()->getMeshBuffer(0);
-    this->wagon = this->cannon->getMesh()->getMeshBuffer(1);
+    this->barrel = mesh->getMeshBuffer(0);
+    this->wagon = mesh->getMeshBuffer(1);
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
     this->angle = this->refreshAngle();
     this->btBall = 0;
+    this->camera = 0;
     this->initAngles();
 }
 void Cannon::initAngles(){
@@ -69,9 +72,9 @@ z′=xsinθ+zcosθ
   Since the initial angle isn't know (the cane in the 3d model is upward some degrees)
 */
 void Cannon::shoot(f32 power){
-    if(this->btBall) delete this->btBall;
-
-
+    if(this->btBall){
+        if(this->btBall->camera) return;
+    }
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
     core::vector3d<f32> * edges = new core::vector3d<f32>[8];
     core::aabbox3d<f32> boundingbox = this->barrel->getBoundingBox();
@@ -90,7 +93,7 @@ void Cannon::shoot(f32 power){
         height,
         (absolute.Z + edges[2].Z)
         );
-    this->btBall = new Ball(this->smgr,this->driver,this->physics,position);
+    this->btBall = new Ball(device, this->smgr,this->driver,this->physics,position);
     f32 shoot_power = power * CANNON_POWER;
     /*
     @TODO recalculation of the shoot vector based on the xyz barrel/cane. This will improve shoot, but now it works anyway
@@ -166,8 +169,9 @@ void Cannon::setPosition(core::vector3df position){
 }
 void Cannon::moveCannon(ACTION_KEYBOARD action){
     this->moveCamera();
-// for optimization i will some instruction inside the switch that could go outside.In the switch it will not make useless calls
+// for optimization i  put some instruction inside the switch that could go outside.In the switch it will not make useless calls
     switch(action){
+//                  this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
 
             case INCLINATE_UP:
                   this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
@@ -193,21 +197,20 @@ void Cannon::moveCannon(ACTION_KEYBOARD action){
 
 }
 void Cannon::moveCamera(){
-    if(this->btBall){
-        if(false) this->btBall->moveCamera();
+    if(this->btBall && this->camera){
+        if(true) this->btBall->moveCamera();
     }
 }
 void Cannon::setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node){
-    this->camera =  new Camera(offset,rotation,smgr,this->getCannon());
+    this->camera =  new Camera(offset,rotation,smgr,node);
+}
+Camera* Cannon::getCamera(){
+    return this->camera ? this->camera: 0;
 }
 core::vector3df Cannon::getRange(){
 
     f32 angle = (MAX_ANGLE_TOP - getRand(5.f))* core::DEGTORAD64;
-    //f32 power = getRand(100)/100;
     f32 shoot_power = MAX_CANNON_FORCE - getRand(10);
-
-    //getRand(MAX_CANNON_FORCE);
-//    cout<<"angle "<<angle<<" "<<shoot_power<<endl;
     core::vector3df position = core::vector3df(
         0,
         sin(angle),

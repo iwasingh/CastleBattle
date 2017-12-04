@@ -1,7 +1,8 @@
 #include <irrlicht.h>
 #include "physics.h"
 #include <hud/hud.h>
-#include <game/player.h>
+#include "player.h"
+#include "keyboard.h"
 using namespace irr;
 
 class GameManager{
@@ -14,7 +15,8 @@ class GameManager{
         bool turn; //true -> first player, false second player
         core::vector3df worldPosition;
         HUD::HUD* hud;
-
+        Keyboard keyboard; //for now all players have same keymap
+        void initKeyboard();
     public:
         GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver, IrrlichtDevice* device, core::vector3df worldPosition, Physics* physics);
         void initGamePlay();

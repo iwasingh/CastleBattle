@@ -93,7 +93,7 @@ btRigidBody* Physics::createCastleBlock(scene::ISceneNode* node, core::vector3df
 
     box->calculateLocalInertia(mass, localInertia);
     box->getAabb(transformer,minEdge,maxEdge);
-    std::cout<<"btMin "<<minEdge[1]<<" irrMin"<<node->getBoundingBox().MinEdge.Y<<" irrMax"<<node->getBoundingBox().MaxEdge.Y<<" "<<maxEdge[1]<<" "<<std::endl;
+//    std::cout<<"btMin "<<minEdge[1]<<" irrMin"<<node->getBoundingBox().MinEdge.Y<<" irrMax"<<node->getBoundingBox().MaxEdge.Y<<" "<<maxEdge[1]<<" "<<std::endl;
 
     btRigidBody::btRigidBodyConstructionInfo blockInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
     blockInfo.m_friction = 10.f;

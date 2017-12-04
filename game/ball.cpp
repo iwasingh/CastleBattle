@@ -2,34 +2,69 @@
 #include <iostream>
 using namespace irr;
 
-Ball::Ball(scene::ISceneManager* smgr,  video::IVideoDriver* driver, Physics* physics, core::vector3df position){
+Ball::Ball(IrrlichtDevice* device, scene::ISceneManager* smgr,  video::IVideoDriver* driver, Physics* physics, core::vector3df position){
     this->irrBall = smgr->addSphereSceneNode(this->radius,32,0,-1,position);
     this->irrBall->setMaterialFlag(video::EMF_LIGHTING, false);
     this->irrBall->setMaterialTexture(0,driver->getTexture("media/cannon/cannonballtex.png"));
     this->btBall = physics->createCannonBall(this->irrBall,position, radius);
     this->btBall->activate(true);
 //    this->irrBall->setDebugDataVisible(scene::EDS_FULL);
+    this->device = device;
     this->smgr = smgr;
 }
-
+Ball::~Ball(){
+}
 //}
 void Ball::setCamera(scene::ICameraSceneNode* camera){
-    camera->setPosition(this->irrBall->getAbsolutePosition());
+    this->parentCamera = camera;
+   // camera->setPosition(this->irrBall->getAbsolutePosition());
 
-    core::vector3df offset = this->cameraStartPosition = camera->getAbsolutePosition();
+    core::vector3df offset = this->cameraStartPosition = this->irrBall->getAbsolutePosition();
     this->camera = new Camera(offset,camera->getRotation(),this->smgr,0);
-
+//    this->points.push_front(camera->getAbsolutePosition());
 
 }
-void Ball::moveCamera(){
+bool Ball::moveCamera(){
+    if(!this->camera){
+        return false;
+    }
+
+//    if(this->irrBall->getAbsolutePosition().Y < 0.5) return this->deleteCamera();
+
+    //ONLY WHEN this->btBall->getLinearVelocity() == 0 0 0 THEN MOVE CAMERA**
+    if(toIrrlichtVector(this->btBall->getLinearVelocity()) == core::vector3df(0,0,0) && this->camera){
+        this->deleteCamera();
+        return false;
+    }
     core::vector3df diff = core::vector3df(
             this->irrBall->getAbsolutePosition() + CAMERA_OFFSET_BALL);
     this->camera->camera->setPosition(diff);
     this->camera->camera->setTarget(this->irrBall->getAbsolutePosition());
     this->irrBall->updateAbsolutePosition();
     this->camera->camera->updateAbsolutePosition();
+//    this->points.push_front(this->camera->camera->getAbsolutePosition());
+    return true;
 
+}
+void Ball::deleteCamera(){
+    if(this->camera){
 
- //this->camera->camera->setTarget(core::vector3df(0,0,0));
-
+//    core::array<core::vector3df> p;
+//
+//    core::vector3df position = this->camera->camera->getAbsolutePosition();
+//
+//    p.push_front(position);
+//
+//    for(int i = 0; i < 35; i++){
+//        position+=core::vector3df(0,0.314f,0);
+//        p.push_back(position);
+//    }
+//
+//    scene::ISceneNodeAnimator* animator = this->smgr->createFollowSplineAnimator(this->device->getTimer()->getTime(), p,20.f,false);
+//    this->camera->camera->addAnimator(animator);
+//    animator->drop();
+    delete this->camera;
+    this->camera = 0;
+    this->smgr->setActiveCamera(this->parentCamera);
+    }
 }

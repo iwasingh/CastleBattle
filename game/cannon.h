@@ -16,6 +16,7 @@ const f32 BARREL_RADIUS = 0.6f;
 class Cannon{
     private:
         scene::ISceneManager* smgr;
+        IrrlichtDevice* device;
         video::IVideoDriver* driver;
         scene::IAnimatedMeshSceneNode* cannon;
         scene::IMeshBuffer* barrel;
@@ -28,7 +29,7 @@ class Cannon{
         core::vector3df initBarrelVector;
         core::vector3df plane;
     public:
-        Cannon(scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics);
+        Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics);
         void shoot(f32 power);
         f32 refreshAngle();
         void initAngles();
@@ -40,5 +41,6 @@ class Cannon{
         void setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node);
         void setPosition(core::vector3df position);
         core::vector3df getRange();
+        Camera* getCamera();
 
 };

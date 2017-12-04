@@ -1,6 +1,7 @@
 #ifndef BALL_H
 #define BALL_H
 #include <irrlicht.h>
+#include <vector>
 #include "physics.h"
 #include "helper/bullethelper.h"
 #include "camera.h"
@@ -17,9 +18,16 @@ class Ball{
         f32 radius = 0.3f;
         core::vector3df cameraStartPosition;
         Camera* camera;
-        Ball(scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics, core::vector3df position);
+        IrrlichtDevice* device;
+        scene::ICameraSceneNode* parentCamera;
+        Ball(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics, core::vector3df position);
+        core::array<core::vector3df> points;
+        ~Ball();
         void setCamera(scene::ICameraSceneNode* camera);
-        void moveCamera();
+        bool moveCamera();
+        void deleteCamera();
+
+
 
 
 };

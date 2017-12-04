@@ -18,21 +18,21 @@ class Player{
         scene::ISceneManager* smgr;
         video::IVideoDriver* driver;
         Camera* camera;
-        Keyboard keyboard;
         Physics* physics;
         Castle* castle;
         Cannon* cannon;
+        Keyboard *keyboard;
     public:
         enum PLAYER_TYPE{
         HUMAN=0,
         AI
         };
         PLAYER_TYPE type;
-        Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, PLAYER_TYPE type);
+        Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type);
         scene::IAnimatedMeshSceneNode* getNode();
-        void initKeyboard(IrrlichtDevice* device);
         void loop(HUD::HUD* hud);
         core::vector3df getCannonRange();
+        void focusCamera();
 
 
 };
