@@ -30,8 +30,9 @@ void GameManager::initGamePlay(){
         core::vector3df(this->worldPosition.X, 0, this->players[0]->getCannonRange().Z),
         this->physics,
         &this->keyboard,
-        HUMAN);
-        this->players[1]->setCannon(OPPOSITE);
+        HUMAN,
+        OPPOSITE);
+        this->players[1]->setCannon();
         this->turn = true;
         this->players[0]->focusCamera();
 

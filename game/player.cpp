@@ -7,13 +7,14 @@ using namespace std;
 /*drawline rotate irrlicht
 * Init : ..
 */
-Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type){
+Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side){
     this->type = type;
     this->smgr = smgr;
     this->driver = driver;
     this->physics = physics;
     this->keyboard = keyboard;
     this->camera = 0;
+    this->side = side;
     this->castle = new Castle(this->smgr,this->physics, device, this->driver, position);
     position = this->castle->calculateAbsoluteCenter() + core::vector3df(0,0,this->castle->getSideSize('l').X);
     this->cannon = new Cannon(device, smgr,driver,position,physics);
@@ -47,20 +48,28 @@ core::vector3df Player::getCannonRange(){
 return this->cannon->getRange();
 }
 void Player::focusCamera(){
-
     if(this->type == HUMAN && !this->cannon->getCamera()){
-        core::vector3df offset =  core::vector3df(
+        core::vector3df offset;
+        switch(this->side){
+            case STRAIGHT:
+                 offset =  core::vector3df(
                 0,
                 this->cannon->getBoundingBox().MaxEdge.Y+0.6f,
                 -2.f);
-
+            break;
+            case OPPOSITE:
+                offset =  core::vector3df(
+                0,
+                this->cannon->getBoundingBox().MaxEdge.Y+0.6f,
+                -2.f);
+        };
         core::vector3df rotation = this->cannon->getCannon()->getRotation();
         this->cannon->setCamera(offset,rotation,smgr,this->cannon->getCannon());
         this->stop = false;
     }
 }
-void Player::setCannon(PLAYER_POSITION side){
-    switch(side){
+void Player::setCannon(){
+    switch(this->side){
 
         case OPPOSITE:
             core::vector3df position = this->castle->calculateAbsoluteCenter() - core::vector3df(0,0,this->castle->getSideSize('l').X);

@@ -34,13 +34,16 @@ void Cannon::initAngles(){
     core::vector3df med = this->barrel->getBoundingBox().getCenter();
     core::vector3df init = this->barrel->getBoundingBox().MinEdge;
     core::vector3df last;
+    core::matrix4 m;
+    m.setRotationDegrees(this->rotation);
     init.X = med.X;
     last = init;
     last.Z = this->barrel->getBoundingBox().MaxEdge.Z;
     last.Y+=last.Y;
     this->initBarrelVector = core::line3df(init,last).getVector();
+    m.rotateVect(this->initBarrelVector);
     this->plane = core::vector3df(last.X,init.Y,last.Z) - init;
-
+    m.rotateVect(this->plane);
 }
 f32 Cannon::refreshAngle(){
 
@@ -94,7 +97,7 @@ void Cannon::shoot(f32 power){
     core::vector3df position = core::vector3df(
         absolute.X + adj.X,
         height,
-        (absolute.Z + this->barrel->getBoundingBox().getExtent().Z)
+        (absolute.Z - this->barrel->getBoundingBox().getExtent().Z)// fix here for opposite cannons
         );
     this->btBall = new Ball(device, this->smgr,this->driver,this->physics,position);
     f32 shoot_power = power * CANNON_POWER;
@@ -109,7 +112,7 @@ void Cannon::shoot(f32 power){
         //cout<<shoot.X<<" "<<shoot.Y<<" "<<shoot.Z<<" "<<shoot.getLength()<<" "<<angle *core::RADTODEG<<" "<<position.Z<<endl;
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
     //if(this->type == HUMAN)
-        this->btBall->setCamera(this->camera->getCamera());
+    this->btBall->setCamera(this->camera->getCamera(), shoot);
     this->btBall->irrBall->updateAbsolutePosition();
 }
 core::aabbox3df Cannon::getBoundingBox(){

@@ -13,7 +13,7 @@ Camera::Camera(scene::ICameraSceneNode* camera, scene::ISceneNode* parent, scene
 
 }
 Camera::Camera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr, scene::ISceneNode* parent){
-this->camera = smgr->addCameraSceneNode(parent, offset);
+this->camera = smgr->addCameraSceneNode(parent, offset,rotation);
 this->camera->bindTargetAndRotation(true);
 this->camera->setRotation(rotation);
 this->camera->bindTargetAndRotation(true);

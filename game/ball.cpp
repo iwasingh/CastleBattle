@@ -15,12 +15,17 @@ Ball::Ball(IrrlichtDevice* device, scene::ISceneManager* smgr,  video::IVideoDri
 Ball::~Ball(){
 }
 //}
-void Ball::setCamera(scene::ICameraSceneNode* camera){
+void Ball::setCamera(scene::ICameraSceneNode* camera, core::vector3df rotation){
     this->parentCamera = camera;
    // camera->setPosition(this->irrBall->getAbsolutePosition());
 
-    core::vector3df offset = this->cameraStartPosition = this->irrBall->getAbsolutePosition();
-    this->camera = new Camera(offset,camera->getRotation(),this->smgr,0);
+    core::vector3df offset = this->cameraStartPosition = camera->getAbsolutePosition();
+    this->camera = new Camera(offset,rotation,this->smgr,0);
+    this->camera->camera->setTarget(rotation);
+    this->camera->camera->setRotation(rotation);
+    this->camera->camera->bindTargetAndRotation(true);
+//    this->camera = new Camera(camera,this->smgr);
+
 //    this->points.push_front(camera->getAbsolutePosition());
 
 }
@@ -29,15 +34,12 @@ bool Ball::moveCamera(){
         return false;
     }
 
-//    if(this->irrBall->getAbsolutePosition().Y < 0.5) return this->deleteCamera();
-
-    //ONLY WHEN this->btBall->getLinearVelocity() == 0 0 0 THEN MOVE CAMERA**
     if(toIrrlichtVector(this->btBall->getLinearVelocity()) == core::vector3df(0,0,0) && this->camera){
         this->deleteCamera();
         return false;
     }
     core::vector3df diff = core::vector3df(
-            this->irrBall->getAbsolutePosition() + CAMERA_OFFSET_BALL);
+            this->irrBall->getAbsolutePosition() + CAMERA_OFFSET_BALL_OPPOSITE);// fix here for opposite cannons
     this->camera->camera->setPosition(diff);
     this->camera->camera->setTarget(this->irrBall->getAbsolutePosition());
     this->irrBall->updateAbsolutePosition();
