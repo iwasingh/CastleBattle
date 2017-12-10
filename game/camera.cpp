@@ -20,10 +20,11 @@ this->camera->bindTargetAndRotation(true);
 this->camera->setFarValue(3000.f);
 }
 void Camera::activeCamera(){
+    std::cout<<"here is problem"<<std::endl;
+
     this->smgr->setActiveCamera(this->camera); // not sure it works
 }
 Camera::~Camera(){
-    std::cout<<"im destroying"<<std::endl;
     this->camera->remove();
 }
 scene::ICameraSceneNode* Camera::getCamera(){

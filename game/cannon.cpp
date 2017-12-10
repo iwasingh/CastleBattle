@@ -1,6 +1,7 @@
 #include "cannon.h"
 #include <iostream>
 #include <cmath>
+#include <helper/bullethelper.h>
 using namespace irr;
 using namespace std;
 using namespace KEYBOARD;
@@ -9,8 +10,9 @@ Cannon::Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->driver = driver;
     this->device = device;
     this->physics = physics;
-    scene::IAnimatedMesh* mesh = smgr->getMesh("media/cannon/cannon.obj");
-    this->cannon = smgr->addAnimatedMeshSceneNode(
+    scene::IMesh* mesh = this->smgr->getMesh("media/cannon/cannon.obj");
+    mesh = this->smgr->getMeshManipulator()->createMeshUniquePrimitives(mesh);
+    this->cannon = smgr->addMeshSceneNode(
     mesh,
     0,
     -1,
@@ -25,8 +27,16 @@ Cannon::Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->angle = this->refreshAngle();
     this->btBall = 0;
     this->camera = 0;
-    this->initAngles();
     this->rotation = core::vector3df(0,0,0);
+    this->initAngles();
+}
+Cannon::~Cannon(){
+    delete this->camera;
+    delete this->cannon;
+    delete this->wagon;
+    delete this->barrel;
+    if(this->btBall) delete this->btBall;
+
 }
 void Cannon::initAngles(){
     core::aabbox3df box2 = this->barrel->getBoundingBox();
@@ -42,8 +52,15 @@ void Cannon::initAngles(){
     last.Y+=last.Y;
     this->initBarrelVector = core::line3df(init,last).getVector();
     m.rotateVect(this->initBarrelVector);
+    this->initialBarrelVector = this->initBarrelVector;
     this->plane = core::vector3df(last.X,init.Y,last.Z) - init;
-    m.rotateVect(this->plane);
+    //m.rotateVect(this->plane);
+//     video::SMaterial material;
+//        material.Lighting = false;
+//        driver->setTransform(video::ETS_WORLD, core::IdentityMatrix);
+//        this->driver->draw3DLine(
+//        this->cannon->getAbsolutePosition(),initBarrelVector
+//        );
 }
 f32 Cannon::refreshAngle(){
 
@@ -51,14 +68,8 @@ f32 Cannon::refreshAngle(){
 
      // cout<<cannonline.getVector().X<< " "<< cannonline.getVector().Y<< " "<<cannonline.getVector().Z<<"     init "<<endl;
 
-//        video::SMaterial material;
-//material.Lighting = false;
-//        driver->setTransform(video::ETS_WORLD, core::IdentityMatrix);
-//
-//this->driver->draw3DLine(this->cannon->getAbsolutePosition(),core::vector3df(this->cannon->getAbsolutePosition().X,this->cannon->getAbsolutePosition().Y,this->cannon->getAbsolutePosition().Z + this->barrel->getBoundingBox().getCenter().Z)
-//);
     core::vector3df vec1 = this->initBarrelVector;
-    core::vector3df vec2 = this->plane;
+    core::vector3df vec2 = this->initialBarrelVector;
     vec1 = vec1.normalize();
     vec2 = vec2.normalize();
     f32 length = vec1.getLengthSQ() * vec2.getLengthSQ();
@@ -94,10 +105,11 @@ void Cannon::shoot(f32 power){
     core::matrix4 m;
     m.setRotationDegrees(this->cannon->getRotation());
     m.rotateVect(adj);
+    int sig = sign(cos(this->cannon->getRotation().Y*core::DEGTORAD64));
     core::vector3df position = core::vector3df(
         absolute.X + adj.X,
         height,
-        (absolute.Z - this->barrel->getBoundingBox().getExtent().Z)// fix here for opposite cannons
+        (absolute.Z + (sig*this->barrel->getBoundingBox().getExtent().Z))// fix here for opposite cannons
         );
     this->btBall = new Ball(device, this->smgr,this->driver,this->physics,position);
     f32 shoot_power = power * CANNON_POWER;
@@ -118,7 +130,7 @@ void Cannon::shoot(f32 power){
 core::aabbox3df Cannon::getBoundingBox(){
     return this->cannon->getBoundingBox();
 }
-scene::IAnimatedMeshSceneNode* Cannon::getCannon(){
+scene::IMeshSceneNode* Cannon::getCannon(){
     return this->cannon;
 }
 core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
@@ -137,7 +149,6 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
 
         m.setRotationDegrees(core::vector3df(-INCLINATE_FACTOR * velocity,0,0));
         m.rotateVect(this->initBarrelVector);
-
             return m;
         break;
      case INCLINATE_DOWN:
@@ -147,12 +158,13 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
                     this->angle = this->refreshAngle();
                     velocity = 1;
                 }
+                cout<<this->refreshAngle()<<endl;
             m.setRotationDegrees(core::vector3df(INCLINATE_FACTOR * velocity,0,0));
             m.rotateVect(this->initBarrelVector);
             return m;
         break;
      case INCLINATE_LEFT:
-            if((this->cannon->getRotation().Y ) >  this->rotation.Y + MAX_ANGLE_LEFT)
+            if(this->cannon->getRotation().Y >  (this->rotation.Y + MAX_ANGLE_LEFT))
                 velocity = 1;
             else velocity = 0;
 
@@ -160,15 +172,20 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
             this->cannon->updateAbsolutePosition();
      break;
      case INCLINATE_RIGHT:
-                     if((this->cannon->getRotation().Y ) < this->rotation.Y + MAX_ANGLE_RIGHT)
+                     if(this->cannon->getRotation().Y < (this->rotation.Y + MAX_ANGLE_RIGHT))
                 velocity = 1;
             else velocity = 0;
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(INCLINATE_FACTOR * velocity),0));
-                        this->cannon->updateAbsolutePosition();
-
-
+            this->cannon->updateAbsolutePosition();
      break;
+
     }
+
+}
+void Cannon::initCannon(core::vector3df position, core::vector3df rotation){
+        this->setPosition(position);
+        this->setRotation(rotation);
+        initAngles();
 
 }
 void Cannon::setPosition(core::vector3df position){
@@ -180,10 +197,15 @@ bool Cannon::moveCannon(ACTION_KEYBOARD action){
     switch(action){
 //                  this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
 
-            case INCLINATE_UP:
+            case INCLINATE_UP:{
                   this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
+//                  core::matrix4 m = this->getInclinateValues(INCLINATE_UP);
+//                  core::aabbox3df box = this->cannon->getMesh()->getMeshBuffer(0)->getBoundingBox();
+//                  m.transformBoxEx(box);
+
 
             break;
+            }
 
             case INCLINATE_DOWN:
                   this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_DOWN));
@@ -205,13 +227,17 @@ bool Cannon::moveCannon(ACTION_KEYBOARD action){
 }
 bool Cannon::moveCamera(){
     if(this->btBall && this->camera){
-        if(true){
-            return this->btBall->moveCamera();
+        if(true){//need a debug condition
+            if(!this->btBall->moveCamera()){
+                this->btBall = 0; //it is not memory leak, Objects vector in Physiscs have a reference, so i can delete whenever i want;
+                return false;
+            } else return true;
         }
     } else return true;
 }
 void Cannon::setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node){
-    this->camera =  new Camera(offset,rotation,smgr,node);
+    if(!this->camera) this->camera =  new Camera(offset,rotation,smgr,node);
+    else this->smgr->setActiveCamera(this->camera->camera);
 }
 Camera* Cannon::getCamera(){
     return this->camera ? this->camera: 0;
@@ -241,4 +267,7 @@ void Cannon::setRotation(core::vector3df rotation){
     this->cannon->setRotation(rotation);
     this->rotation = rotation;
     this->cannon->updateAbsolutePosition();
+}
+void Cannon::reset(){
+
 }

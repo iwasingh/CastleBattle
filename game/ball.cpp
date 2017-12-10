@@ -13,6 +13,7 @@ Ball::Ball(IrrlichtDevice* device, scene::ISceneManager* smgr,  video::IVideoDri
     this->smgr = smgr;
 }
 Ball::~Ball(){
+
 }
 //}
 void Ball::setCamera(scene::ICameraSceneNode* camera, core::vector3df rotation){
@@ -38,8 +39,9 @@ bool Ball::moveCamera(){
         this->deleteCamera();
         return false;
     }
+    int sig = sign(cos(this->parentCamera->getRotation().Y*core::DEGTORAD64));
     core::vector3df diff = core::vector3df(
-            this->irrBall->getAbsolutePosition() + CAMERA_OFFSET_BALL_OPPOSITE);// fix here for opposite cannons
+            this->irrBall->getAbsolutePosition() - core::vector3df(0,0,sig*CAMERA_OFFSET_BALL));
     this->camera->camera->setPosition(diff);
     this->camera->camera->setTarget(this->irrBall->getAbsolutePosition());
     this->irrBall->updateAbsolutePosition();

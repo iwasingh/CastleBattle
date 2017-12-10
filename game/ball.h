@@ -7,8 +7,7 @@
 #include "camera.h"
 using namespace irr;
 /* Public class */
-const core::vector3df CAMERA_OFFSET_BALL = core::vector3df(0,1.f,-2.5f);
-const core::vector3df CAMERA_OFFSET_BALL_OPPOSITE = core::vector3df(0,1.f,+2.5f);
+const f32 CAMERA_OFFSET_BALL = 2.5f;
 
 class Ball{
 

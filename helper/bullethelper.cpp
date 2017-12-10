@@ -78,4 +78,6 @@ video::SColor randomColor(){
 
 }
 
-
+ int sign(int x){
+    return (int(0) < x) - (x < int(0));
+}

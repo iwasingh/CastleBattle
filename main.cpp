@@ -47,7 +47,6 @@ int main() {
             driver->beginScene(true, true, video::SColor(255,200,200,200));
 
             smgr->drawAll();
-            //hud staff goes here
             gameManager->loop();
             driver->endScene();
 

@@ -173,7 +173,6 @@ void Castle::setTreasure(){
     f32 z = this->getSideSize('l').X * getRand(100)/100;
     core::vector3df position = core::vector3df(this->position.X + x,0,this->position.Z + z);
     this->target = new Target(position,this->smgr,this->driver,this->physics);
-        this->target = new Target(core::vector3df(this->position.X+20, 0, this->position.Z -160),this->smgr,this->driver,this->physics);
 
 }
 core::vector3df Castle::calculateAbsoluteCenter(){

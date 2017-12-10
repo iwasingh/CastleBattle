@@ -24,22 +24,23 @@ class Player{
     private:
         scene::ISceneManager* smgr;
         video::IVideoDriver* driver;
+        irr::IrrlichtDevice* device;
         Camera* camera;
         Physics* physics;
         Castle* castle;
         Cannon* cannon;
         Keyboard *keyboard;
         PLAYER_POSITION side;
-        bool stop;
     public:
 
         PLAYER_TYPE type;
         Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side = STRAIGHT);
-        scene::IAnimatedMeshSceneNode* getNode();
+        scene::IMeshSceneNode* getNode();
         core::vector3df getCannonRange();
         void focusCamera();
         void setCannon();
         bool loop(HUD::HUD* hud);
+        void reset();
 
 
 

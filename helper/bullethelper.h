@@ -13,5 +13,6 @@ using namespace irr;
     f32 getRand(const f32 maxValue, const f32 offset = 0.f);
     f32* getMeshSize(scene::ISceneNode* mesh);
     video::SColor randomColor();
+    int sign(int x);
 
 #endif

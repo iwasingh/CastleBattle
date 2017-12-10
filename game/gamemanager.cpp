@@ -22,7 +22,8 @@ void GameManager::initGamePlay(){
         this->worldPosition,
         this->physics,
         &this->keyboard,
-        HUMAN);
+        HUMAN,
+        STRAIGHT);
     this->players[1] = new Player(
         this->device,
         this->smgr,
@@ -43,13 +44,21 @@ void GameManager::initKeyboard(){
 void GameManager::loop(){
     this->hud->env->drawAll();
     if(!this->players) return;
-    if(turn){
+    if(this->turn){
         if(!this->players[0]->loop(hud)){
-            turn = false;
+            this->turn = false;
+            this->players[1]->reset();
             this->players[1]->focusCamera();
+
         }
     }
     else {
-        this->players[1]->loop(hud);
+        if(!this->players[1]->loop(hud)){
+            this->turn = true;
+            this->players[0]->reset();
+            this->players[0]->focusCamera();
+
         }
+
+    }
 }
