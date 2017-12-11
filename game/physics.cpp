@@ -32,6 +32,9 @@ void Physics::initWorld(){
     btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI = btRigidBody::btRigidBodyConstructionInfo(0, groundMotionState, groundShape, btVector3(0, 0, 0));
     groundRigidBodyCI.m_restitution = 1.f;
     groundRigidBodyCI.m_friction = 1.5f;
+    groundRigidBodyCI.m_rollingFriction = 1.5f;
+    groundRigidBodyCI.m_spinningFriction = 1.5f;
+
     btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
     this->World->addRigidBody(groundRigidBody);
     groundRigidBody->setUserPointer((void *) 0);
@@ -64,12 +67,13 @@ btRigidBody* Physics::createCannonBall(scene::ISceneNode* node, core::vector3df 
     btCollisionShape *sphere = new btSphereShape(radius);
 
     btVector3 localInertia;
-    sphere->calculateLocalInertia(1000.f, localInertia);
-    btRigidBody::btRigidBodyConstructionInfo ballRigidBodyCI(1000,motion,sphere,localInertia);
-    ballRigidBodyCI.m_friction = 10.f;
-    ballRigidBodyCI.m_restitution = 0.00001f;
-    ballRigidBodyCI.m_spinningFriction = 10.f;
-    ballRigidBodyCI.m_rollingFriction = 10.f;
+    sphere->calculateLocalInertia(2600.f, localInertia);
+    btRigidBody::btRigidBodyConstructionInfo ballRigidBodyCI(2600,motion,sphere,localInertia);
+    ballRigidBodyCI.m_friction =2.5f;
+    ballRigidBodyCI.m_restitution = 0.001f;
+    ballRigidBodyCI.m_spinningFriction = 2.1f;
+    ballRigidBodyCI.m_rollingFriction = 2.1f;
+    ballRigidBodyCI.m_angularDamping = 0.65f;
     btRigidBody *rigidBody = new btRigidBody(ballRigidBodyCI);
     rigidBody->setUserPointer((void *)(node));
 
@@ -124,7 +128,7 @@ btRigidBody* Physics::createTreasure(scene::IMeshSceneNode* node, core::vector3d
 
     box->calculateLocalInertia(mass, localInertia);
     btRigidBody::btRigidBodyConstructionInfo targetInfo = btRigidBody::btRigidBodyConstructionInfo(mass,motion,box,localInertia);
-    targetInfo.m_friction = 10.f;
+        targetInfo.m_friction = 10.f;
     targetInfo.m_restitution = 0.001f;
     targetInfo.m_spinningFriction = 100.f;
     targetInfo.m_linearDamping = 0.05f;

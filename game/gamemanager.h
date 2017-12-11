@@ -18,7 +18,10 @@ class GameManager{
         Keyboard keyboard; //for now all players have same keymap
         void initKeyboard();
     public:
+        bool stop;
         GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver, IrrlichtDevice* device, core::vector3df worldPosition, Physics* physics);
         void initGamePlay();
-        void loop();
+        bool loop();
+        void winner();
+
 };

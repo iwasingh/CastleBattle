@@ -9,7 +9,7 @@
 
 using namespace irr;
 const f32 BLOCKS_OFFSET = 0.05f;
-
+const f32 TARGET_OFFSET = 1.f;
 class Castle{
     private:
         scene::ISceneManager* smgr;
@@ -17,10 +17,9 @@ class Castle{
         core::vector3df position;
         scene::IMeshSceneNode* node;
         IrrlichtDevice* device;
-        //std::vector<scene::IMeshSceneNode*> nodes;deprecated
         std::multimap<char, scene::IMeshSceneNode*> nodes;
         Target* target;
-
+        core::vector3df initialTargetPos;
         Physics* physics;
         void createBlock(core::vector3df position, core::vector3df scale, core::vector3df rotation, char side, video::SColor color = randomColor());
         void addToPhysicsWorld();//@deprecated
@@ -34,7 +33,7 @@ class Castle{
         core::vector3df getSideSize(char side);
         void setTreasure();
         core::vector3df calculateAbsoluteCenter();
-
+        bool checkTarget();
 
 };
 #endif

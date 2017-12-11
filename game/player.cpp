@@ -26,6 +26,9 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
 scene::IMeshSceneNode* Player::getNode() {
     return this->cannon->getCannon();
 }
+bool Player::checkTarget(){
+    return this->castle->checkTarget();
+}
 bool Player::loop(HUD::HUD* hud){
     Key* key = this->keyboard->IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action;

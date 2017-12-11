@@ -3,6 +3,7 @@
 #include "helper/bullethelper.h"
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace irr;
 using namespace core;
 using namespace std;
@@ -169,15 +170,20 @@ core::vector3df Castle::getSideSize(char side){
 }
 void Castle::setTreasure(){
 //    core::vector3df position = this->calculateAbsoluteCenter();
-    f32 x = this->getSideSize('f').X * getRand(100)/100;
+    f32 x = this->getSideSize('f').X * getRand(100)/150;
     f32 z = this->getSideSize('l').X * getRand(100)/100;
-    core::vector3df position = core::vector3df(this->position.X + x,0,this->position.Z + z);
+    core::vector3df position = core::vector3df(0.5f+this->position.X + x,0,this->position.Z + z);
     this->target = new Target(position,this->smgr,this->driver,this->physics);
-
+    this->initialTargetPos = position;
 }
 core::vector3df Castle::calculateAbsoluteCenter(){
     core::vector3df relativeCenter = this->position;
     relativeCenter.X+= this->getSideSize('f').X * 0.5f;
     relativeCenter.Z+= this->getSideSize('l').X * 0.5f;
     return relativeCenter;
+}
+bool Castle::checkTarget(){
+    core::vector3df diff = (this->target->getIrrNode()->getAbsolutePosition() - this->initialTargetPos);
+    diff = core::vector3df(abs(diff.X),abs(diff.Y),abs(diff.Z));
+    return (diff.X >= TARGET_OFFSET || diff.Z >= TARGET_OFFSET);
 }

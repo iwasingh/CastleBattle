@@ -14,5 +14,6 @@ class Target{
     public:
         // this wil figure out where to put the target based on the power of the cannon(or shoot power) and the offset
         Target(core::vector3df position, scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics);
+        scene::IMeshSceneNode* getIrrNode();
 };
 #endif

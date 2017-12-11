@@ -8,8 +8,8 @@ namespace HUD{
                 if(this->font)
                     this->skin->setFont(this->font);
                 /*ADD TEXTS*/
+                this->playerName = this->env->addStaticText(L"", core::rect<s32>(1,1,250,50),false,false,0,INFO_PLAYER);
                 this->powertext = this->env->addStaticText(L"Power", core::rect<s32>(5,600-32,150,600),false,false,0,POWER_TEXT);
-
                 /*ADD IMAGE-BASED elements*/
                 video::ITexture* image = this->driver->getTexture("media/power.png");
                 core::rect<s32> pos = this->powertext->getAbsoluteClippingRect();
@@ -49,6 +49,14 @@ namespace HUD{
 
     f32 HUD::getPower(){
         return (this->powerRatio > 1) ? 1 : this->powerRatio;
+    }
+
+    void HUD::setPlayerName(core::stringw name){
+        if(this->playerName)
+            this->playerName->setText(name.c_str());
+    }
+    void HUD::youWin(){
+
     }
 }
 

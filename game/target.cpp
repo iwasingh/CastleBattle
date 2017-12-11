@@ -19,3 +19,6 @@ Target::Target(core::vector3df position, scene::ISceneManager* smgr, video::IVid
     this->irrTarget->setDebugDataVisible(scene::EDS_BBOX);
     this->btTarget = physics->createTreasure(this->irrTarget,scale, position);
 }
+scene::IMeshSceneNode* Target::getIrrNode(){
+    return this->irrTarget;
+}

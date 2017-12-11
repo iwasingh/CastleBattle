@@ -32,7 +32,7 @@ class Player{
         Keyboard *keyboard;
         PLAYER_POSITION side;
     public:
-
+        core::stringw name;
         PLAYER_TYPE type;
         Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side = STRAIGHT);
         scene::IMeshSceneNode* getNode();
@@ -41,6 +41,7 @@ class Player{
         void setCannon();
         bool loop(HUD::HUD* hud);
         void reset();
+        bool checkTarget();
 
 
 

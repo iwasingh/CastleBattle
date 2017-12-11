@@ -8,6 +8,7 @@ GameManager::GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver
     this->physics = physics;
     this->worldPosition = worldPosition;
     this->turn = true;
+    this->stop = false;
     initGamePlay();
     initKeyboard();
 }
@@ -24,6 +25,7 @@ void GameManager::initGamePlay(){
         &this->keyboard,
         HUMAN,
         STRAIGHT);
+    this->players[0]->name = L"Player 1";
     this->players[1] = new Player(
         this->device,
         this->smgr,
@@ -33,32 +35,47 @@ void GameManager::initGamePlay(){
         &this->keyboard,
         HUMAN,
         OPPOSITE);
+        this->players[1]->name = L"Player 2";
+
         this->players[1]->setCannon();
         this->turn = true;
         this->players[0]->focusCamera();
+
+        this->hud->env->drawAll();
+        this->hud->setPlayerName(this->players[0]->name);
+
 
 }
 void GameManager::initKeyboard(){
     this->device->setEventReceiver(&this->keyboard);
 }
-void GameManager::loop(){
+void GameManager::winner(){
+}
+bool GameManager::loop(){
     this->hud->env->drawAll();
-    if(!this->players) return;
+    if(stop) return true;
     if(this->turn){
         if(!this->players[0]->loop(hud)){
             this->turn = false;
             this->players[1]->reset();
             this->players[1]->focusCamera();
+            hud->setPlayerName(this->players[1]->name);
 
         }
+        if(this->players[1]->checkTarget()){ stop = true; return true; }
+
     }
     else {
         if(!this->players[1]->loop(hud)){
             this->turn = true;
             this->players[0]->reset();
             this->players[0]->focusCamera();
-
+            hud->setPlayerName(this->players[0]->name);
         }
+        if(this->players[0]->checkTarget()){ stop = true; return true; }
+
 
     }
+
+
 }

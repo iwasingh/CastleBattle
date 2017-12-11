@@ -41,7 +41,7 @@ bool Ball::moveCamera(){
     }
     int sig = sign(cos(this->parentCamera->getRotation().Y*core::DEGTORAD64));
     core::vector3df diff = core::vector3df(
-            this->irrBall->getAbsolutePosition() - core::vector3df(0,0,sig*CAMERA_OFFSET_BALL));
+            this->irrBall->getAbsolutePosition() - core::vector3df(0,-0.4f,sig*CAMERA_OFFSET_BALL));
     this->camera->camera->setPosition(diff);
     this->camera->camera->setTarget(this->irrBall->getAbsolutePosition());
     this->irrBall->updateAbsolutePosition();

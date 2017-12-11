@@ -8,7 +8,8 @@ namespace HUD{
 
     enum{
     POWER_TEXT,
-    POWER_BAR
+    POWER_BAR,
+    INFO_PLAYER
     };
 
     const f32 SPEED_HIGH = 1.0098f;
@@ -19,6 +20,7 @@ namespace HUD{
             gui::IGUISkin* skin;
             IrrlichtDevice* device;
             gui::IGUIFont* font; // global application HUD font
+            gui::IGUIStaticText* playerName;
             gui::IGUIStaticText* powertext;
             gui::IGUIImage* power;
             core::rect<s32> power_rect;
@@ -32,6 +34,9 @@ namespace HUD{
             HUD(IrrlichtDevice* device, video::IVideoDriver* video);
             void animatePower();
             f32 getPower();
+            void setPlayerName(core::stringw name);
+            void youWin();
+
 
 
     };

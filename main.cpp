@@ -47,7 +47,10 @@ int main() {
             driver->beginScene(true, true, video::SColor(255,200,200,200));
 
             smgr->drawAll();
-            gameManager->loop();
+            if(gameManager->loop()){
+                gameManager->winner();
+                break;
+            }
             driver->endScene();
 
             TimeStamp = device->getTimer()->getTime();
@@ -67,6 +70,4 @@ int main() {
     }
 }
 
-//    //ILightSceneNode* light = smgr->addLightSceneNode(0, core::vector3df(400,800,-1400),video::SColor(0,255,255,204),2000.0f);
-//    smgr->setAmbientLight(video::SColor(0,255,255,204));
 #endif

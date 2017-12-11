@@ -244,7 +244,7 @@ Camera* Cannon::getCamera(){
 }
 core::vector3df Cannon::getRange(){
 
-    f32 angle = (MAX_ANGLE_TOP - getRand(5.f))* core::DEGTORAD64;
+    f32 angle = (MAX_ANGLE_TOP - getRand(15.f))* core::DEGTORAD64;
     f32 shoot_power = MAX_CANNON_FORCE - getRand(10);
     core::vector3df position = core::vector3df(
         0,
