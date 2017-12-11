@@ -1,16 +1,16 @@
 #ifndef MAIN
 #define MAIN
 #include <irrlicht.h>
-#include "enviroment/Terrain.h"
-#include "enviroment/Sky.h"
-#include "hud/hud.h"
+#include "src/enviroment/Terrain.h"
+#include "src/enviroment/Sky.h"
+#include "src/hud/hud.h"
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <cstdlib>
 #include <time.h>
 #include <list>
-#include "game/physics.h"
-#include "game/gamemanager.h"
+#include "src/game/physics.h"
+#include "src/game/gamemanager.h"
 using namespace irr;
 
 int main() {

@@ -2,9 +2,9 @@
 #include <btBulletDynamicsCommon.h>
 #include <irrlicht.h>
 #include "physics.h"
-#include <helper/bullethelper.h>
+#include <bullethelper.h>
 #include <iostream>
-#include <helper/motionstatemanager.h>
+#include <motionstatemanager.h>
 using namespace irr;
 ;
 Physics::Physics(const core::aabbox3df irrBox){

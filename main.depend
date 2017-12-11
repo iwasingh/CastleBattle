@@ -1,0 +1,5 @@
+main.o main.depend: main.cpp src/enviroment/Terrain.h \
+ src/enviroment/Sky.h src/hud/hud.h src/game/physics.h \
+ src/game/gamemanager.h src/game/physics.h src/game/player.h \
+ src/game/keyboard.h src/game/ball.h src/game/camera.h src/game/target.h \
+ src/game/cannon.h

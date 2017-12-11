@@ -1,0 +1,2 @@
+src/game/target.o src/game/target.depend: src/game/target.cpp \
+ src/game/target.h src/game/physics.h

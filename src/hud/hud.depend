@@ -1,0 +1,1 @@
+src/hud/hud.o src/hud/hud.depend: src/hud/hud.cpp src/hud/hud.h

@@ -1,0 +1,2 @@
+src/enviroment/castle.o src/enviroment/castle.depend: \
+ src/enviroment/castle.cpp src/enviroment/castle.h

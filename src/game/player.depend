@@ -1,0 +1,3 @@
+src/game/player.o src/game/player.depend: src/game/player.cpp \
+ src/game/player.h src/game/keyboard.h src/game/ball.h src/game/physics.h \
+ src/game/camera.h src/game/target.h src/game/cannon.h

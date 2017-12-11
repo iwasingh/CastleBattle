@@ -1,6 +1,6 @@
 #include "castle.h"
 #include <irrlicht.h>
-#include "helper/bullethelper.h"
+#include <bullethelper.h>
 #include <iostream>
 #include <vector>
 #include <cmath>

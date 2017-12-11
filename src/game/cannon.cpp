@@ -1,7 +1,7 @@
 #include "cannon.h"
 #include <iostream>
 #include <cmath>
-#include <helper/bullethelper.h>
+#include <bullethelper.h>
 using namespace irr;
 using namespace std;
 using namespace KEYBOARD;

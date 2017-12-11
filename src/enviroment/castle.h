@@ -2,10 +2,10 @@
 #define CASTLE_H
 #include <irrlicht.h>
 #include <vector>
-#include <game/physics.h>
-#include <helper/bullethelper.h>
+#include <physics.h>
+#include <bullethelper.h>
 #include <map>
-#include <game/target.h>
+#include <target.h>
 
 using namespace irr;
 const f32 BLOCKS_OFFSET = 0.05f;

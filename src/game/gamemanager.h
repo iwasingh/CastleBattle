@@ -1,6 +1,6 @@
 #include <irrlicht.h>
 #include "physics.h"
-#include <hud/hud.h>
+#include <hud.h>
 #include "player.h"
 #include "keyboard.h"
 using namespace irr;

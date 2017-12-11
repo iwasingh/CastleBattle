@@ -1,0 +1,1 @@
+src/game/key.o src/game/key.depend: src/game/key.cpp

@@ -1,10 +1,6 @@
-Castle_Battle.cbp
-obj
-obj/**
-Castle_Battle.depend
-Castle_Battle.layout
 *.swp
 *.o
-.git/objects/**
+./src/**/*.o
+./git/objects/**
 bin/**
 bin

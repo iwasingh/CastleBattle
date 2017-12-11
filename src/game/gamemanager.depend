@@ -1,0 +1,4 @@
+src/game/gamemanager.o src/game/gamemanager.depend: \
+ src/game/gamemanager.cpp src/game/gamemanager.h src/game/physics.h \
+ src/game/player.h src/game/keyboard.h src/game/ball.h src/game/camera.h \
+ src/game/target.h src/game/cannon.h
