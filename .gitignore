@@ -4,3 +4,4 @@
 ./git/objects/**
 bin/**
 bin
+.tags
