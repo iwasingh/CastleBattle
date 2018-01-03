@@ -36,7 +36,6 @@ void GameManager::initGamePlay(){
         HUMAN,
         OPPOSITE);
         this->players[1]->name = L"Player 2";
-
         this->players[1]->setCannon();
         this->turn = true;
         this->players[0]->focusCamera();

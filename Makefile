@@ -66,7 +66,7 @@ OUT_RELEASE = bin/Release/
 	$(CXX) -MM $< -MT "$*.o $*.depend" -MF $*.depend
 
 
-#DEFAULT TARGET is set to release mode 
+#DEFAULT TARGET is set to release mode
 
 all: $(DEPENDENCIES) release
 
@@ -76,8 +76,8 @@ release: before_release out_release after_release
 
 out_release: before_release $(OBJECTS)
 	$(CXX) $(CXXFLAGS_RELEASE) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
-#Include dependecies 
-ifneq "$(strip $(DEPENDENCIES))" "" 
+#Include dependecies
+ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
 %.o: %.cpp
@@ -93,17 +93,17 @@ endif
 
 
 
-.PHONY: before_debug after_debug clean_debug before_release after_release clean_release clean clean_depend
+.PHONY: clean_debug  clean_release clean clean_depend
 
 
 #Prepare and PHONY targets
 
-clean: clean_debug clean_release
+clean: clean_debug clean_release clean_depend
 
 clean_depend:
 	rm -f $(DEPENDENCIES)
 
-clean_release: 
+clean_release:
 	rm -f $(OBJECTS)
 
 before_release:
@@ -113,9 +113,9 @@ before_release:
 after_release:
 	@echo "Building finished!"
 
-before_debug: 
+before_debug:
 	test -d $(OUT_DEBUG) || mkdir -p bin/Debug
-	
+
 after_debug:
 	@echo "Debug Building finished!"
 

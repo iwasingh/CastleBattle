@@ -1,0 +1,2 @@
+src/helper/Logger.o src/helper/Logger.depend: src/helper/Logger.cpp \
+ src/helper/Logger.h

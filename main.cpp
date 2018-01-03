@@ -11,6 +11,7 @@
 #include <list>
 #include "src/game/physics.h"
 #include "src/game/gamemanager.h"
+#include "src/helper/Logger.h"
 using namespace irr;
 
 int main() {
@@ -37,6 +38,7 @@ int main() {
     //smgr->addCameraSceneNodeFPS(0,100.f,0.04f)->setPosition(terrain->getCenter());
     smgr->setAmbientLight(video::SColor(0,255,255,204));
     int lastFPS = -1;
+    log(INFO,1,"CIAO");
     u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
     while(device->run() && device) {
 
