@@ -8,11 +8,10 @@ using namespace irr;
     level,                                        \
     static_cast<core::stringc>(_Message)          \
   );
-#ifndef DEBUG_OUTPUT
-#define DEBUG_OUTPUT
-#define DEBUG_OUTPUT_MASK 1
+#ifndef DEBUG_OUTPUT_MASK
+  #define DEBUG_OUTPUT_MASK 0
 #endif
-#define log(tag, level, _Message) if(level > DEBUG_OUTPUT_MASK) ; else LOGGER(tag,level,_Message)
+#define log(tag, level, _Message) if(level & DEBUG_OUTPUT_MASK) LOGGER(tag,level,_Message) else;
 enum LOG_TYPE{
   INFO,
   WARN,

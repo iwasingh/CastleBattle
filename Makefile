@@ -2,64 +2,60 @@ PROJECT = CASTLE_BATTLE
 WORKDIR = `pwd`
 
 #Paths
-
 SOURCE_PATH = ./src/
 BIN_PATH = ./bin/
 IRRLICHT_INCLUDE_PATH = ../Engine/include
 BULLET_INCLUDE_PATH = /usr/local/include/bullet
 
 #Compiler options
-
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
-CXXFLAGS_DEBUG = $(CXXFLAGS) -g
-CXXFLAGS_RELEASE = $(CXXFLAGS) -O
+RELEASE_OPTIONS = -O -Wswitch
+DEBUG_OPTIONS = -g
+CXXFLAGS_DEBUG = $(CXXFLAGS) $(DEBUG_OPTIONS)
+CXXFLAGS_RELEASE = $(CXXFLAGS) $(RELEASE_OPTIONS)
 
 #Library path
-
 BASELIBDIR = -L/usr/local/lib
 
 #Irrlicht library path
-
 IRRLICHT_LIB_DIR = -L../Engine/lib/Linux
 
 #Linker flags
-
 LDFLAGS = -lIrrlicht -lGL -lX11 -lXext -lXxf86vm -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath
 
 #Directories of the project
-
 SUBDIRS := $(shell ls -d $(SOURCE_PATH)*/)
 DIRS = ./ $(SUBDIRS) #add the current dir
 
 #Get all the cpp files
-
 SOURCES := $(foreach d, $(DIRS), $(wildcard $(d)*.cpp))
-#Generate object files names
 
+#Generate object files names
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCES))
 
 #Generate dependencies
-
 DEPENDENCIES = $(patsubst %.cpp, %.depend, $(SOURCES))
 
 
 #Prepend -I to INCLUDE directories for the compiler
-
 INCLUDE_SUBDIRS := $(foreach d, $(DIRS), -I$d)
 
 #Include all up together
-
 INCLUDE := $(INCLUDE_SUBDIRS) -I$(IRRLICHT_INCLUDE_PATH) -I$(BULLET_INCLUDE_PATH)
 
 #Compose linker options
 LIBDIR =  $(BASELIBDIR) $(IRRLICHT_LIB_DIR) $(LDFLAGS)
 
 #Output variables
-
 OUT_DEBUG = bin/Debug/
 OUT_RELEASE = bin/Release/
 
+#0NLY ON DEBUG MODE: check if debug verbosity is passed from command line. If not, set the default verbosity to 1
+#Example: make VERBOSITY=1 debug or simply make debug
+ifeq ($(VERBOSITY),)
+VERBOSITY = 1
+endif
 
 #Generate dependecy files
 %.depend: %.cpp
@@ -67,57 +63,65 @@ OUT_RELEASE = bin/Release/
 
 
 #DEFAULT TARGET is set to release mode
+#Put here $(DEPENDENCIES) to refresh dependecies of the each file if something header has changed. Otherwise simply run make depend
+all: release
 
-all: $(DEPENDENCIES) release
+#Release version
+release: before_release out_release after_release run-release
 
+before_release:
+		@echo "Checking directories"
+		test -d $(OUT_RELEASE) || mkdir -p bin/Release
+		$(eval CXXFLAGS += $(RELEASE_OPTIONS))
 
-
-release: before_release out_release after_release
+after_release:
+		@echo "Release version building finished!"
 
 out_release: before_release $(OBJECTS)
-	$(CXX) $(CXXFLAGS_RELEASE) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
+	$(CXX) $(CXXFLAGS) $(RELEASE_OPTIONS) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
 #Include dependecies
 ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS_RELEASE) -c $< -o $@ $(INCLUDE)
 
-
-#debug: before_debug out_debug after_debug
-
-#out_debug: before_debug $(OBJ_DEBUG) $(DEP_DEBUG)
-	#$(LD) $(LIBDIR_DEBUG) -o $(OUT_DEBUG) $(OBJ_DEBUG)  $(LDFLAGS_DEBUG) $(LIB_DEBUG) -include $(DEPENDENCIES)
-
-
-
-
-
-.PHONY: clean_debug  clean_release clean clean_depend
-
-
-#Prepare and PHONY targets
-
-clean: clean_debug clean_release clean_depend
-
-clean_depend:
-	rm -f $(DEPENDENCIES)
-
-clean_release:
-	rm -f $(OBJECTS)
-
-before_release:
-	@echo "Checking directories"
-	test -d $(OUT_RELEASE) || mkdir -p bin/Release
-
-after_release:
-	@echo "Building finished!"
+#Debug version. Verbosity is automatically set to 1. Check VERBOSITY variable
+#debug: CXXFLAGS_DEBUG = $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
+debug: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
+debug: before_debug out_debug after_debug
 
 before_debug:
-	test -d $(OUT_DEBUG) || mkdir -p bin/Debug
+		test -d $(OUT_DEBUG) || mkdir -p bin/Debug
 
 after_debug:
-	@echo "Debug Building finished!"
+		@echo "Debug version building finished!"
 
-clean_debug:
-	rm -f $(OBJECTS)
+out_debug: before_debug $(OBJECTS) after_debug
+	$(CXX) $(CXXFLAGS_DEBUG) -o $(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
+#Include dependecies
+ifneq "$(strip $(DEPENDENCIES))" ""
+ -include $(DEPENDENCIES)
+endif
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
+
+
+
+.PHONY: cleanall clean_debug clean_release clean clean_depend debug depend run-debug run-release
+
+run-debug:
+	./$(OUT_DEBUG)/$(PROJECT)
+
+run-release:
+	./$(OUT_RELEASE)/$(PROJECT)
+#Clean all objects, executables and dependecies files. @TODO: clean docs
+cleanall: clean
+				 rm -rf $(OUT_RELEASE)
+				 rm -rf $(OUT_DEBUG)
+
+clean:
+		 find . -name '*.o' -delete
+		 find . -name '*.depend' -delete
+
+#Generate dependencies
+depend: $(DEPENDENCIES)

@@ -1,0 +1,2 @@
+src/hud/launcher.o src/hud/launcher.depend: src/hud/launcher.cpp \
+ src/hud/launcher.h

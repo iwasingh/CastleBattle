@@ -1,0 +1,2 @@
+src/game/Application.o src/game/Application.depend: \
+ src/game/Application.cpp src/game/Application.h
