@@ -89,7 +89,7 @@ endif
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
 
-.PHONY: cleanall clean_debug clean_release clean clean_depend debug debug1 debug2 run-debug run-release depend
+.PHONY: cleanall clean_debug clean_release clean clean_depend debug debug1 debug2 run-debug run-release depend doc
 
 debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
 debug1: out_debug run-debug
