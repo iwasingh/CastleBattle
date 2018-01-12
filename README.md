@@ -7,10 +7,11 @@
 
 # Castle Battle
 
-![Docs](https://img.shields.io/badge/docs-99%25-blue.svg) ![Open](https://camo.githubusercontent.com/2091d99fb3b1ea0dcacb2ce564d5a3fc099c9ee7/68747470733a2f2f6261646765732e66726170736f66742e636f6d2f6f732f76322f6f70656e2d736f757263652e7376673f763d313032) ![License](https://camo.githubusercontent.com/056ff18a3d91ea14efa8b8c95ba9bc59d7c9676b/68747470733a2f2f6261646765732e66726170736f66742e636f6d2f6f732f67706c2f67706c2e7376673f763d313032)
+![Docs](https://img.shields.io/badge/docs-99%25-blue.svg) ![Open](https://camo.githubusercontent.com/2091d99fb3b1ea0dcacb2ce564d5a3fc099c9ee7/68747470733a2f2f6261646765732e66726170736f66742e636f6d2f6f732f76322f6f70656e2d736f757263652e7376673f763d313032)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 ![dependencies Status](https://david-dm.org/boennemann/badges/status.svg)
 ## Story
-This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed a few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written.
+This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written.
 ## Prerequisite
 * Castle battle is cross platform, but for now it only compile on Linux
 * [Irrlicht library](http://irrlicht.sourceforge.net)
@@ -40,6 +41,8 @@ make VERBOSITY=3 debug
 
 ### License
 ```
+The MIT License
+
 Copyright (c) 2018 Singh Amarjot
 
 Permission is hereby granted, free of charge, to any person
