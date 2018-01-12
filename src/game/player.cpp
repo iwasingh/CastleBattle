@@ -55,7 +55,7 @@ return this->cannon->getRange();
 void Player::focusCamera(){
   #if (DEBUG_OUTPUT_MASK & 2)
       return;
-  #else
+  #endif
     if(this->type == HUMAN){
         core::vector3df offset;
         switch(this->side){
@@ -74,7 +74,6 @@ void Player::focusCamera(){
         core::vector3df rotation = this->cannon->getCannon()->getRotation();
         this->cannon->setCamera(offset,rotation,smgr,this->cannon->getCannon());
     }
-  #endif
 }
 void Player::setCannon(){
     switch(this->side){

@@ -96,12 +96,13 @@ z′=xsinθ+zcosθ
 void Cannon::shoot(f32 power){
     if(this->btBall){
         // assert(this->btBall->camera != 0);
-        if(this->btBall->camera) {
+
           #if (DEBUG_OUTPUT_MASK & 2)
-              ;
-          #else return;
+              log1("Positioning ball");
+          #else
+             if(this->btBall->camera) return;
           #endif;
-        }
+
     }
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
     core::vector3d<f32> * edges = new core::vector3d<f32>[8];
@@ -139,9 +140,8 @@ void Cannon::shoot(f32 power){
     this->btBall->irrBall->updateAbsolutePosition();
     #if (DEBUG_OUTPUT_MASK & 2)
       return;
-    #else
-      this->btBall->setCamera(this->camera->getCamera(), shoot);
     #endif
+    this->btBall->setCamera(this->camera->getCamera(), shoot);
 }
 core::aabbox3df Cannon::getBoundingBox(){
     return this->cannon->getBoundingBox();

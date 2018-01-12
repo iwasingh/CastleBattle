@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <list>
-#include "src/game/Application.h"
+#include <Application.h>
 using namespace irr;
 
 int main() {
