@@ -1,5 +1,4 @@
-/** The ::Castle handles all things related to the Castles. Building, treasure, physics and collisions.
-*/
+
 #ifndef CASTLE_H
 #define CASTLE_H
 #include <irrlicht.h>
@@ -10,8 +9,9 @@
 #include <target.h>
 
 using namespace irr;
-const f32 BLOCKS_OFFSET = 0.05f;
-const f32 TARGET_OFFSET = 1.f;
+const f32 BLOCKS_OFFSET = 0.05f;/*!< Distance between blocks */
+const f32 TARGET_OFFSET = 1.f;/*!< Maximum offset of the target from initial positon. @see ::Castle::checkTarget() */
+/** The ::Castle handles all things related to the Castles Building, treasure, physics and collisions. */
 class Castle{
     private:
         scene::ISceneManager* smgr;
@@ -78,7 +78,7 @@ class Castle{
         /** Check if target is moved
         * TARGET_OFFSET is the max offset of the target from initial position.
         * That means if it will be hitted, if the actual position is greater than previos+targetoffset, the player lose
-        * I didn't have so much time to build a more sophisticated system, sry! 
+        * I didn't have so much time to build a more sophisticated system, sry!
         */
         bool checkTarget();
 

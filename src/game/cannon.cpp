@@ -58,13 +58,6 @@ void Cannon::initAngles(){
     m.rotateVect(this->initBarrelVector);
     this->initialBarrelVector = this->initBarrelVector;
     this->plane = core::vector3df(last.X,init.Y,last.Z) - init;
-    //m.rotateVect(this->plane);
-//     video::SMaterial material;
-//        material.Lighting = false;
-//        driver->setTransform(video::ETS_WORLD, core::IdentityMatrix);
-//        this->driver->draw3DLine(
-//        this->cannon->getAbsolutePosition(),initBarrelVector
-//        );
 log1("Setting up cannon");
 }
 f32 Cannon::refreshAngle(){
@@ -286,7 +279,4 @@ void Cannon::setRotation(core::vector3df rotation){
     this->cannon->setRotation(rotation);
     this->rotation = rotation;
     this->cannon->updateAbsolutePosition();
-}
-void Cannon::reset(){
-
 }

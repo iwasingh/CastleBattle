@@ -72,7 +72,7 @@ class Player{
         void setCannon();
         /** Main loop of player
         * @param hud HUD hud of player.
-        * @return bool true when player consume his turn
+        * @return bool true when player consume his turn. That means the ball is on ground and the user has consumed the SHOOT event
         * @see ::GameManager::loop();
         * @see ::HUD::HUD::animatePower();
         * @see ::Keyboard::IsKeyDown();
