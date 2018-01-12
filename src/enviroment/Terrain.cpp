@@ -22,6 +22,10 @@ Terrain::Terrain(scene::ISceneManager* smgr, video::IVideoDriver* driver, const 
  this->terrain->setMaterialFlag(irr::video::EMF_FOG_ENABLE, false);
  this->terrain->setMaterialFlag(irr::video::EMF_NORMALIZE_NORMALS, true);
  this->terrain->scaleTexture(1.0f, 1000.0f);
+ #if (DEBUG_OUTPUT_MASK & 2)
+  this->terrain->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+ #endif
+
 }
 core::vector3df Terrain::getCenter(){
 

@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 #include <bullethelper.h>
+#include <Logger.h>
+#include <cassert>
 using namespace irr;
 using namespace std;
 using namespace KEYBOARD;
@@ -23,7 +25,9 @@ Cannon::Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->cannon->setMaterialTexture(1,driver->getTexture("media/cannon/cannonwagon_tex.png"));
     this->barrel = mesh->getMeshBuffer(0);
     this->wagon = mesh->getMeshBuffer(1);
+    #if (DEBUG_OUTPUT_MASK & 2)
     this->cannon->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+    #endif
     this->angle = this->refreshAngle();
     this->btBall = 0;
     this->camera = 0;
@@ -61,6 +65,7 @@ void Cannon::initAngles(){
 //        this->driver->draw3DLine(
 //        this->cannon->getAbsolutePosition(),initBarrelVector
 //        );
+log1("Setting up cannon");
 }
 f32 Cannon::refreshAngle(){
 
@@ -90,7 +95,13 @@ z′=xsinθ+zcosθ
 */
 void Cannon::shoot(f32 power){
     if(this->btBall){
-        if(this->btBall->camera) return;
+        // assert(this->btBall->camera != 0);
+        if(this->btBall->camera) {
+          #if (DEBUG_OUTPUT_MASK & 2)
+              ;
+          #else return;
+          #endif;
+        }
     }
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
     core::vector3d<f32> * edges = new core::vector3d<f32>[8];
@@ -112,6 +123,7 @@ void Cannon::shoot(f32 power){
         (absolute.Z + (sig*this->barrel->getBoundingBox().getExtent().Z))// fix here for opposite cannons
         );
     this->btBall = new Ball(device, this->smgr,this->driver,this->physics,position);
+    logVector(1,"Shoot projectile from", position);
     f32 shoot_power = power * CANNON_POWER;
     /*
     @TODO recalculation of the shoot vector based on the xyz barrel/cane. This will improve shoot, but now it works anyway
@@ -121,11 +133,15 @@ void Cannon::shoot(f32 power){
         sin(angle),
         cos(angle)).normalize() * shoot_power;
     m.rotateVect(shoot);
-        //cout<<shoot.X<<" "<<shoot.Y<<" "<<shoot.Z<<" "<<shoot.getLength()<<" "<<angle *core::RADTODEG<<" "<<position.Z<<endl;
+    logVector(1,"Shoot vector", shoot);
     this->btBall->btBall->setLinearVelocity(toBulletVector(shoot));
     //if(this->type == HUMAN)
-    this->btBall->setCamera(this->camera->getCamera(), shoot);
     this->btBall->irrBall->updateAbsolutePosition();
+    #if (DEBUG_OUTPUT_MASK & 2)
+      return;
+    #else
+      this->btBall->setCamera(this->camera->getCamera(), shoot);
+    #endif
 }
 core::aabbox3df Cannon::getBoundingBox(){
     return this->cannon->getBoundingBox();
@@ -146,7 +162,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
                     this->angle = this->refreshAngle();
                     velocity = 1;
                 }
-
+          log2p("INCLINATE UP cannon degrees ", this->angle);
         m.setRotationDegrees(core::vector3df(-INCLINATE_FACTOR * velocity,0,0));
         m.rotateVect(this->initBarrelVector);
             return m;
@@ -158,7 +174,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
                     this->angle = this->refreshAngle();
                     velocity = 1;
                 }
-                cout<<this->refreshAngle()<<endl;
+            log2p("INCLINATE DOWN cannon degrees ", this->angle);
             m.setRotationDegrees(core::vector3df(INCLINATE_FACTOR * velocity,0,0));
             m.rotateVect(this->initBarrelVector);
             return m;
@@ -170,6 +186,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
 
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(-INCLINATE_FACTOR * velocity),0));
             this->cannon->updateAbsolutePosition();
+            log2p("INCLINATE LEFT cannon degrees ", this->cannon->getRotation().Y);
      break;
      case INCLINATE_RIGHT:
                      if(this->cannon->getRotation().Y < (this->rotation.Y + MAX_ANGLE_RIGHT))
@@ -177,6 +194,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
             else velocity = 0;
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(INCLINATE_FACTOR * velocity),0));
             this->cannon->updateAbsolutePosition();
+            log2p("INCLINATE RIGHT cannon degrees ", this->cannon->getRotation().Y);
      break;
 
     }
@@ -192,7 +210,6 @@ void Cannon::setPosition(core::vector3df position){
     this->cannon->setPosition(position);
 }
 bool Cannon::moveCannon(ACTION_KEYBOARD action){
-// for optimization i  put some instruction inside the switch that could go outside.In the switch it will not make useless calls
     if(!this->moveCamera()) return false;
     switch(action){
 //                  this->smgr->getMeshManipulator()->transform(this->barrel, this->getInclinateValues(INCLINATE_UP));
@@ -227,12 +244,14 @@ bool Cannon::moveCannon(ACTION_KEYBOARD action){
 }
 bool Cannon::moveCamera(){
     if(this->btBall && this->camera){
-        if(true){//need a debug condition
+          #if (DEBUG_OUTPUT_MASK & 2)
+            return true;
+          #else
             if(!this->btBall->moveCamera()){
                 this->btBall = 0; //it is not memory leak, Objects vector in Physiscs have a reference, so i can delete whenever i want;
                 return false;
             } else return true;
-        }
+          #endif
     } else return true;
 }
 void Cannon::setCamera(core::vector3df offset, core::vector3df rotation, scene::ISceneManager* smgr,scene::ISceneNode* node){
@@ -242,6 +261,7 @@ void Cannon::setCamera(core::vector3df offset, core::vector3df rotation, scene::
 Camera* Cannon::getCamera(){
     return this->camera ? this->camera: 0;
 }
+/*NOT USED METHOD. STILL IN ALPHA OF ALPHA*/
 core::vector3df Cannon::getRange(){
 
     f32 angle = (MAX_ANGLE_TOP - getRand(15.f))* core::DEGTORAD64;

@@ -1,7 +1,13 @@
 #include "gamemanager.h";
 using namespace irr;
 using namespace std;
-GameManager::GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver, IrrlichtDevice* device, core::vector3df worldPosition, Physics* physics){
+GameManager::GameManager(
+  scene::ISceneManager* smgr,
+  video::IVideoDriver* driver,
+  IrrlichtDevice* device,
+  core::vector3df worldPosition,
+  Physics* physics,
+  core::stringw* names){
     this->smgr = smgr;
     this->device = device;
     this->driver = driver;
@@ -9,13 +15,14 @@ GameManager::GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver
     this->worldPosition = worldPosition;
     this->turn = true;
     this->stop = false;
-    initGamePlay();
+    initGamePlay(names);
     initKeyboard();
 }
 
-void GameManager::initGamePlay(){
+void GameManager::initGamePlay(core::stringw* names){
     //for now all the players will have the same HUD
     this->hud = new HUD::HUD(device,driver);
+    log1("HUD initialized");
     this->players[0] = new Player(
         this->device,
         this->smgr,
@@ -25,7 +32,7 @@ void GameManager::initGamePlay(){
         &this->keyboard,
         HUMAN,
         STRAIGHT);
-    this->players[0]->name = L"Player 1";
+    this->players[0]->name = (names) ? names[0] : L"Player 1";
     this->players[1] = new Player(
         this->device,
         this->smgr,
@@ -35,20 +42,19 @@ void GameManager::initGamePlay(){
         &this->keyboard,
         HUMAN,
         OPPOSITE);
-        this->players[1]->name = L"Player 2";
+        this->players[1]->name = (names) ? names[1] : L"Player 2";
         this->players[1]->setCannon();
-        this->turn = true;
         this->players[0]->focusCamera();
-
         this->hud->env->drawAll();
         this->hud->setPlayerName(this->players[0]->name);
-
+        this->turn = true;
+        this->keyboard.resetLastKey();
+        log1("Default turn start: PLAYER 1");
 
 }
 void GameManager::initKeyboard(){
     this->device->setEventReceiver(&this->keyboard);
-}
-void GameManager::winner(){
+    log1("Keyboard mapped");
 }
 bool GameManager::loop(){
     this->hud->env->drawAll();
@@ -59,7 +65,7 @@ bool GameManager::loop(){
             this->players[1]->reset();
             this->players[1]->focusCamera();
             hud->setPlayerName(this->players[1]->name);
-
+            log1("TURN: PLAYER2");
         }
         if(this->players[1]->checkTarget()){ stop = true; return true; }
 
@@ -70,6 +76,7 @@ bool GameManager::loop(){
             this->players[0]->reset();
             this->players[0]->focusCamera();
             hud->setPlayerName(this->players[0]->name);
+            log1("TURN: PLAYER1");
         }
         if(this->players[0]->checkTarget()){ stop = true; return true; }
 

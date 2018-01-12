@@ -1,5 +1,6 @@
 #include "camera.h"
 #include <iostream>
+#include <cassert>
 using namespace irr;
 Camera::Camera(scene::ICameraSceneNode* camera, scene::ISceneManager* smgr){
     this->camera = camera;
@@ -20,8 +21,8 @@ this->camera->bindTargetAndRotation(true);
 this->camera->setFarValue(3000.f);
 }
 void Camera::activeCamera(){
-
-    this->smgr->setActiveCamera(this->camera); // not sure it works
+    assert(this->camera);
+    this->smgr->setActiveCamera(this->camera);
 }
 Camera::~Camera(){
     this->camera->remove();

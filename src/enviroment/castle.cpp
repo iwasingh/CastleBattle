@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <Logger.h>
 using namespace irr;
 using namespace core;
 using namespace std;
@@ -42,6 +43,7 @@ bool Castle::buildCastle(core::vector3df center){
         core::matrix4 transformer;
         std::multimap<char, scene::IMeshSceneNode*>::iterator first, last;
         //while there is more to read
+        log1("Building castle");
         while (xml->read())
         {
             //check the node type
@@ -141,8 +143,12 @@ void Castle::createBlock(core::vector3df position, core::vector3df scale, core::
       this->node->setScale(scale);
       this->node->setMaterialFlag(video::EMF_LIGHTING,false);
       this->smgr->getMeshManipulator()->setVertexColors(this->node->getMesh(),color);
-      //this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS); // debug mask
-      if(this->node){ // need an assert here.
+      logVector(2,"Position castle block at", position);
+        #if (DEBUG_OUTPUT_MASK & 2)
+          this->node->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+        #endif
+      assert(this->node != 0);
+      if(this->node){
         this->nodes.insert(std::make_pair(side, this->node));
         this->physics->createCastleBlock(this->node,rotation,scale,position);
       }
@@ -175,6 +181,7 @@ void Castle::setTreasure(){
     core::vector3df position = core::vector3df(0.5f+this->position.X + x,0,this->position.Z + z);
     this->target = new Target(position,this->smgr,this->driver,this->physics);
     this->initialTargetPos = position;
+    log1("Treasure positioned");
 }
 core::vector3df Castle::calculateAbsoluteCenter(){
     core::vector3df relativeCenter = this->position;

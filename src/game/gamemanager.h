@@ -3,6 +3,7 @@
 #include <hud.h>
 #include "player.h"
 #include "keyboard.h"
+#include <Logger.h>
 using namespace irr;
 
 class GameManager{
@@ -19,8 +20,14 @@ class GameManager{
         void initKeyboard();
     public:
         bool stop;
-        GameManager(scene::ISceneManager* smgr, video::IVideoDriver* driver, IrrlichtDevice* device, core::vector3df worldPosition, Physics* physics);
-        void initGamePlay();
+        GameManager(
+          scene::ISceneManager* smgr,
+          video::IVideoDriver* driver,
+          IrrlichtDevice* device,
+          core::vector3df worldPosition,
+          Physics* physics,
+          core::stringw* names = 0);
+        void initGamePlay(core::stringw* names = 0);
         bool loop();
         void winner();
 

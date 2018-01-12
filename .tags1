@@ -4,8 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-Application	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/Application.cpp	/^Application::Application(){$/;"	function	line:9	class:Application	signature:()
-createInitWindow	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/Application.cpp	/^void Application::createInitWindow(){$/;"	function	line:30	class:Application	signature:()
-createWorldEnviroment	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/Application.cpp	/^void Application::createWorldEnviroment(){$/;"	function	line:32	class:Application	signature:()
-init	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/Application.cpp	/^bool Application::init(){$/;"	function	line:40	class:Application	signature:()
-loop	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/Application.cpp	/^bool Application::loop(){$/;"	function	line:62	class:Application	signature:()
+Player	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side){$/;"	function	line:11	class:Player	signature:(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side)
+getNode	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^scene::IMeshSceneNode* Player::getNode() {$/;"	function	line:26	class:Player	signature:()
+checkTarget	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^bool Player::checkTarget(){$/;"	function	line:29	class:Player	signature:()
+loop	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^bool Player::loop(HUD::HUD* hud){$/;"	function	line:32	class:Player	signature:(HUD::HUD* hud)
+getCannonRange	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^core::vector3df Player::getCannonRange(){$/;"	function	line:52	class:Player	signature:()
+focusCamera	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^void Player::focusCamera(){$/;"	function	line:55	class:Player	signature:()
+setCannon	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^void Player::setCannon(){$/;"	function	line:79	class:Player	signature:()
+reset	/home/singh/Documents/projects/Castle_Battle/CastleBattle/src/game/player.cpp	/^void Player::reset(){$/;"	function	line:88	class:Player	signature:()

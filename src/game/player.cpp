@@ -1,8 +1,7 @@
 #include "player.h"
 #include <iostream>
 #include <cmath>
-#include <exception>
-
+#include <Logger.h>
 using namespace irr;
 using namespace KEYBOARD;
 using namespace std;
@@ -21,7 +20,8 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     this->castle = new Castle(this->smgr,this->physics, device, this->driver, position);
     position = this->castle->calculateAbsoluteCenter() + core::vector3df(0,0,this->castle->getSideSize('l').X);
     this->cannon = new Cannon(device, smgr,driver,position,physics);
-
+    if(type == HUMAN) { log1("Player type HUMAN"); }
+    else { log1("Player type AI"); }
 }
 scene::IMeshSceneNode* Player::getNode() {
     return this->cannon->getCannon();
@@ -33,19 +33,18 @@ bool Player::loop(HUD::HUD* hud){
     Key* key = this->keyboard->IsKeyDown();
     ACTION_KEYBOARD action = key == 0 ? ACTION_NULL : key->action;
     if(!this->cannon->moveCannon(action)) return false;
-
     switch(action){
         case SHOOT:
                 hud->animatePower();
-
         break;
         default:
             if(this->keyboard->getLastKey()->action == SHOOT){
                 this->cannon->shoot(hud->getPower());
-
                 this->keyboard->resetLastKey();
+                #if (DEBUG_OUTPUT_MASK & 2)
+                   return false;
+                #endif
             }
-
         break;
     };
     return true;
@@ -54,6 +53,9 @@ core::vector3df Player::getCannonRange(){
 return this->cannon->getRange();
 }
 void Player::focusCamera(){
+  #if (DEBUG_OUTPUT_MASK & 2)
+      return;
+  #else
     if(this->type == HUMAN){
         core::vector3df offset;
         switch(this->side){
@@ -72,6 +74,7 @@ void Player::focusCamera(){
         core::vector3df rotation = this->cannon->getCannon()->getRotation();
         this->cannon->setCamera(offset,rotation,smgr,this->cannon->getCannon());
     }
+  #endif
 }
 void Player::setCannon(){
     switch(this->side){
@@ -85,7 +88,7 @@ void Player::setCannon(){
 void Player::reset(){
     core::vector3df position = this->cannon->getCannon()->getAbsolutePosition();
     core::vector3df rotation = this->cannon->rotation;
-
+    log1("Reset player");
     this->cannon->reset();
 
 

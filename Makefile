@@ -10,8 +10,10 @@ BULLET_INCLUDE_PATH = /usr/local/include/bullet
 #Compiler options
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
-RELEASE_OPTIONS = -O -Wswitch
-DEBUG_OPTIONS = -g
+#NDEBUG: disable assertion
+#DEBUG_MODE: enable assertion(only on debug mode)
+RELEASE_OPTIONS = -O -Wswitch -DNDEBUG
+DEBUG_OPTIONS = -g -Wswitch -DDEBUG_MODE
 CXXFLAGS_DEBUG = $(CXXFLAGS) $(DEBUG_OPTIONS)
 CXXFLAGS_RELEASE = $(CXXFLAGS) $(RELEASE_OPTIONS)
 
@@ -77,40 +79,43 @@ before_release:
 after_release:
 		@echo "Release version building finished!"
 
-out_release: before_release $(OBJECTS)
+out_release: before_release $(OBJECTS) after_release
 	$(CXX) $(CXXFLAGS) $(RELEASE_OPTIONS) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
 #Include dependecies
 ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
 
-#Debug version. Verbosity is automatically set to 1. Check VERBOSITY variable
-#debug: CXXFLAGS_DEBUG = $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
-debug: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
-debug: before_debug out_debug after_debug
-
-before_debug:
-		test -d $(OUT_DEBUG) || mkdir -p bin/Debug
-
-after_debug:
-		@echo "Debug version building finished!"
-
-out_debug: before_debug $(OBJECTS) after_debug
-	$(CXX) $(CXXFLAGS_DEBUG) -o $(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
-#Include dependecies
-ifneq "$(strip $(DEPENDENCIES))" ""
- -include $(DEPENDENCIES)
-endif
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
 
 
 
-.PHONY: cleanall clean_debug clean_release clean clean_depend debug depend run-debug run-release
+.PHONY: cleanall clean_debug clean_release clean clean_depend debug debug1 debug2 run-debug run-release depend
+
+debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
+debug1: out_debug run-debug
+debug2: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=2
+debug2: out_debug run-debug
+#Debug version. Verbosity is automatically set to 1. Check VERBOSITY variable
+debug:  CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
+debug: out_debug run-debug
+
+before_debug:
+			test -d $(OUT_DEBUG) || mkdir -p bin/Debug
+
+after_debug:
+			@echo "Debug version building finished!"
+out_debug: before_debug $(OBJECTS) after_debug
+	$(CXX) $(CXXFLAGS_DEBUG) -o ./$(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
+#Include dependecies
+ifneq "$(strip $(DEPENDENCIES))" ""
+-include $(DEPENDENCIES)
+endif
 
 run-debug:
-	./$(OUT_DEBUG)/$(PROJECT)
+	./$(OUT_DEBUG)$(PROJECT)
 
 run-release:
 	./$(OUT_RELEASE)/$(PROJECT)

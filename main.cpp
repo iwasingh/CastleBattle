@@ -10,8 +10,7 @@ using namespace irr;
 int main() {
   Application* app = new Application();
   srand (time(NULL));
-  if(app->init()) return app->loop();
-  return 1;
+  return (app->init()) ? app->loop() : 1;
 }
 
 #endif

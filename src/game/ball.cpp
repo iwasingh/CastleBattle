@@ -8,7 +8,9 @@ Ball::Ball(IrrlichtDevice* device, scene::ISceneManager* smgr,  video::IVideoDri
     this->irrBall->setMaterialTexture(0,driver->getTexture("media/cannon/cannonballtex.png"));
     this->btBall = physics->createCannonBall(this->irrBall,position, radius);
     this->btBall->activate(true);
-//    this->irrBall->setDebugDataVisible(scene::EDS_FULL);
+    #if (DEBUG_OUTPUT_MASK & 2)
+      this->irrBall->setDebugDataVisible((scene::E_DEBUG_SCENE_TYPE)scene::EDS_BBOX_BUFFERS);
+    #endif
     this->device = device;
     this->smgr = smgr;
 }
@@ -17,6 +19,7 @@ Ball::~Ball(){
 }
 //}
 void Ball::setCamera(scene::ICameraSceneNode* camera, core::vector3df rotation){
+    assert(camera != 0);
     this->parentCamera = camera;
    // camera->setPosition(this->irrBall->getAbsolutePosition());
 
@@ -31,6 +34,7 @@ void Ball::setCamera(scene::ICameraSceneNode* camera, core::vector3df rotation){
 
 }
 bool Ball::moveCamera(){
+    assert(this->camera != 0);
     if(!this->camera){
         return false;
     }
@@ -40,6 +44,8 @@ bool Ball::moveCamera(){
         return false;
     }
     int sig = sign(cos(this->parentCamera->getRotation().Y*core::DEGTORAD64));
+
+    assert(this->camera->camera != 0);
     core::vector3df diff = core::vector3df(
             this->irrBall->getAbsolutePosition() - core::vector3df(0,-0.4f,sig*CAMERA_OFFSET_BALL));
     this->camera->camera->setPosition(diff);
@@ -69,6 +75,7 @@ void Ball::deleteCamera(){
 //    animator->drop();
     delete this->camera;
     this->camera = 0;
+    assert(this->parentCamera != 0);
     this->smgr->setActiveCamera(this->parentCamera);
     }
 }

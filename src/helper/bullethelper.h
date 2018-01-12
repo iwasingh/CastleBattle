@@ -14,5 +14,6 @@ using namespace irr;
     f32* getMeshSize(scene::ISceneNode* mesh);
     video::SColor randomColor();
     int sign(int x);
+    core::stringc vectorToString(core::vector3df vector);
 
 #endif

@@ -17,7 +17,7 @@ Keyboard::Keyboard(){
 bool Keyboard::OnEvent(const SEvent& event) {
     if(event.EventType == EET_KEY_INPUT_EVENT)
             this->keyDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-
+            this->IsKeyDown();
 
     return false;
 }
@@ -51,6 +51,5 @@ Key* Keyboard::getLastKey(){
  return this->lastkey;
 }
 void Keyboard::resetLastKey(){
- delete this->lastkey;
+ this->lastkey = new Key(ACTION_NULL,irr::KEY_EREOF);
 }
-

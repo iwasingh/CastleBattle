@@ -1,6 +1,7 @@
 #include <irrlicht.h>
 #include <iostream>
 #include "hud.h"
+#include <Logger.h>
 using namespace irr;
 namespace HUD{
     void HUD::initHUD(){
@@ -44,10 +45,12 @@ namespace HUD{
                 this->power->setRelativePosition(power_pos);
                 core::rect<s32> rect  = this->power->getAbsolutePosition();
                 this->powerRatio = ((f32)rect.getHeight() / (f32)MAX_HEIGHT);
+                log2p("Power: ", this->powerRatio);
 
         }
 
     f32 HUD::getPower(){
+        log1p("Power bar: ", this->powerRatio);
         return (this->powerRatio > 1) ? 1 : this->powerRatio;
     }
 
@@ -59,7 +62,3 @@ namespace HUD{
 
     }
 }
-
-
-
-

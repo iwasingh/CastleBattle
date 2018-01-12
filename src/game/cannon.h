@@ -5,7 +5,7 @@
 
 using namespace irr;
 using namespace KEYBOARD;
-const f32 INCLINATE_FACTOR = 0.5f;
+const f32 INCLINATE_FACTOR = 0.1f;
 const f32 MAX_ANGLE_BOTTOM = 5.f;
 const f32 MAX_ANGLE_TOP = 45.f;
 const f32 MAX_ANGLE_LEFT = -20.f;

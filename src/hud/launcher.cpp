@@ -1,4 +1,5 @@
 #include "launcher.h"
+#include <Logger.h>
 using namespace irr;
 bool LauncherEventReceiver::OnEvent(const SEvent& event){
   if(event.EventType == EET_GUI_EVENT){
@@ -34,6 +35,7 @@ Launcher::Launcher(gui::IGUIEnvironment* env, IrrlichtDevice* device){
   this->start = this->gui->addButton(core::rect<s32>(300,500,500,550), 0, GUI_ID_START_BUTTON, L"START");
   this->listener = new LauncherEventReceiver();
   this->device->setEventReceiver(listener);
+  log1("Initialized beginning screen");
 }
 LauncherEventReceiver::~LauncherEventReceiver(){
 }
@@ -41,4 +43,6 @@ Launcher::~Launcher(){
 }
 void Launcher::clear(){
   this->gui->clear();
+  log1("Clearing GUI");
+
 }

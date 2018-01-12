@@ -81,3 +81,13 @@ video::SColor randomColor(){
  int sign(int x){
     return (int(0) < x) - (x < int(0));
 }
+core::stringc vectorToString(core::vector3df vector){
+  core::stringc string = core::stringc(" ");
+  string+=vector.X;
+  string+=" ";
+  string+=vector.Y;
+  string+=" ";
+  string+=vector.Z;
+  string+=" ";
+  return string.c_str();
+}
