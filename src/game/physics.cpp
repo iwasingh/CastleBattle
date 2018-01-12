@@ -6,7 +6,7 @@
 #include <iostream>
 #include <motionstatemanager.h>
 using namespace irr;
-;
+
 Physics::Physics(const core::aabbox3df irrBox){
 
     this->collisionConfiguration = new btDefaultCollisionConfiguration();

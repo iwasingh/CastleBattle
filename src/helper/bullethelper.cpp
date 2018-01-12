@@ -61,7 +61,6 @@ f32* getMeshSize(scene::ISceneNode* mesh){
    return arr;
 }
 video::SColor randomColor(){
-//get rgba with some randomness is not a good idea. Often you will get weird colors that not suit in the graphic scene
     video::SColor colors[10] = {
         video::SColor(255,0,0,255),
         video::SColor(255,0,255,0),

@@ -153,13 +153,6 @@ void Castle::createBlock(core::vector3df position, core::vector3df scale, core::
         this->physics->createCastleBlock(this->node,rotation,scale,position);
       }
 }
-/*
-There is  a problem: left/right side blocks scale is defined with X and a rotation(90°). So Z is 1.
-Whenever you call this function you get the width(X) not the actual size based on the irrlicht axis and the overall bounding box.
-Height is correct.
-
-So this will return the sum of the width attribute in xml for each side.
-*/
 core::vector3df Castle::getSideSize(char side){
     core::vector3df size_side = core::vector3df(0,0,0) ;
     std::pair<

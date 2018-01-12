@@ -30,8 +30,6 @@ Application::Application(){
 
 
 }
-void Application::createInitWindow(){
-}
 void Application::createWorldEnviroment(){
   core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
   this->terrain = new Terrain(smgr,driver,pathTexture,core::vector3df(250.f,0.0001f, 250.f));

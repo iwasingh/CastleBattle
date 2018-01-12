@@ -12,6 +12,10 @@ using namespace irr;
     core::vector3df toIrrlichtVector(btVector3 vec);
     f32 getRand(const f32 maxValue, const f32 offset = 0.f);
     f32* getMeshSize(scene::ISceneNode* mesh);
+    /** Get random color.
+    * There is predefined color palette. This because get rgba with some randomness is not a good idea because
+    * often you will get weird colors that will not suit in the graphic scene.
+    */
     video::SColor randomColor();
     int sign(int x);
     core::stringc vectorToString(core::vector3df vector);

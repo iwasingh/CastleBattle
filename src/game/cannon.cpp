@@ -261,7 +261,6 @@ void Cannon::setCamera(core::vector3df offset, core::vector3df rotation, scene::
 Camera* Cannon::getCamera(){
     return this->camera ? this->camera: 0;
 }
-/*NOT USED METHOD. STILL IN ALPHA OF ALPHA*/
 core::vector3df Cannon::getRange(){
 
     f32 angle = (MAX_ANGLE_TOP - getRand(15.f))* core::DEGTORAD64;
