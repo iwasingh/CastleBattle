@@ -72,6 +72,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="classMotionStateManager.html" title="MotionStateManager handles physics motion of objects. ">MotionStateManager</a> handles physics motion of objects.  
+ <a href="classMotionStateManager.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="motionstatemanager_8h_source.html">motionstatemanager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for MotionStateManager:</div>
@@ -85,22 +88,29 @@ Inheritance diagram for MotionStateManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a32b660f7aad9708600eb13e9fdb65016"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#a32b660f7aad9708600eb13e9fdb65016">MotionStateManager</a> (btTransform &amp;pos, scene::ISceneNode *<a class="el" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>)</td></tr>
+<tr class="memdesc:a32b660f7aad9708600eb13e9fdb65016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the private attributes.  <a href="#a32b660f7aad9708600eb13e9fdb65016">More...</a><br /></td></tr>
 <tr class="separator:a32b660f7aad9708600eb13e9fdb65016"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61abda304023ed3ff84b6354fb795cf2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#a61abda304023ed3ff84b6354fb795cf2">~MotionStateManager</a> ()</td></tr>
 <tr class="separator:a61abda304023ed3ff84b6354fb795cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ed7a4b9e753f1ec214b9355063a967f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#a8ed7a4b9e753f1ec214b9355063a967f">getWorldTransform</a> (btTransform &amp;wordTrans) const</td></tr>
+<tr class="memdesc:a8ed7a4b9e753f1ec214b9355063a967f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual method called by Bullet before setWorldTransform.  <a href="#a8ed7a4b9e753f1ec214b9355063a967f">More...</a><br /></td></tr>
 <tr class="separator:a8ed7a4b9e753f1ec214b9355063a967f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9a457ea44b4e3acf322e23551ac5a9b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#af9a457ea44b4e3acf322e23551ac5a9b">setWorldTransform</a> (const btTransform &amp;worldTrans)</td></tr>
+<tr class="memdesc:af9a457ea44b4e3acf322e23551ac5a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual method called by Bullet whenever there is a physics change to an object.  <a href="#af9a457ea44b4e3acf322e23551ac5a9b">More...</a><br /></td></tr>
 <tr class="separator:af9a457ea44b4e3acf322e23551ac5a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a741f79eebe5a523e8736de0d3c9b8572"><td class="memItemLeft" align="right" valign="top">scene::ISceneNode *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a></td></tr>
+<tr class="memdesc:a741f79eebe5a523e8736de0d3c9b8572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Graphic node to transform.  <a href="#a741f79eebe5a523e8736de0d3c9b8572">More...</a><br /></td></tr>
 <tr class="separator:a741f79eebe5a523e8736de0d3c9b8572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2ace1df81950bb87c3c79b010492a98"><td class="memItemLeft" align="right" valign="top">btTransform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a></td></tr>
+<tr class="memdesc:aa2ace1df81950bb87c3c79b010492a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initial state.  <a href="#aa2ace1df81950bb87c3c79b010492a98">More...</a><br /></td></tr>
 <tr class="separator:aa2ace1df81950bb87c3c79b010492a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class=""><a class="el" href="classMotionStateManager.html" title="MotionStateManager handles physics motion of objects. ">MotionStateManager</a> handles physics motion of objects. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a32b660f7aad9708600eb13e9fdb65016"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a32b660f7aad9708600eb13e9fdb65016">&#9670;&nbsp;</a></span>MotionStateManager()</h2>
 
@@ -126,8 +136,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                                                             {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    this-&gt;<a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a> = pos;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a> = <a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:12</div></div>
-<div class="ttc" id="classMotionStateManager_html_a741f79eebe5a523e8736de0d3c9b8572"><div class="ttname"><a href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">MotionStateManager::node</a></div><div class="ttdeci">scene::ISceneNode * node</div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:11</div></div>
+
+<p>Set the private attributes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>btTransform (translation and rotation) </td></tr>
+    <tr><td class="paramname">node</td><td>ISceneNode graphic object </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                                                                             {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    this-&gt;<a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a> = pos;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a> = <a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdoc">Initial state. </div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:14</div></div>
+<div class="ttc" id="classMotionStateManager_html_a741f79eebe5a523e8736de0d3c9b8572"><div class="ttname"><a href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">MotionStateManager::node</a></div><div class="ttdeci">scene::ISceneNode * node</div><div class="ttdoc">Graphic node to transform. </div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:12</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -153,7 +172,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{}</div></div><!-- fragment -->
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{}</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -180,7 +199,9 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                                                       {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    worldTrans = <a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a>;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:12</div></div>
+
+<p>Virtual method called by Bullet before setWorldTransform. </p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                                                       {</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    worldTrans = <a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a>;</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdoc">Initial state. </div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:14</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -207,10 +228,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                                                       {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <span class="keywordflow">if</span>(this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a> == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span>;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            btQuaternion rotation = worldTrans.getRotation();</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            btVector3 position = worldTrans.getOrigin();</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;setPosition(<a class="code" href="bullethelper_8cpp.html#acef9f80e0ed680c851db2877f56d7243">toIrrlichtVector</a>(position));</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;updateAbsolutePosition();</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;setRotation(<a class="code" href="bullethelper_8cpp.html#a5adfbd558b28a320da80d6d82622cc0a">QuaternionToEuler</a>(rotation));</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a> = worldTrans;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:12</div></div>
-<div class="ttc" id="bullethelper_8cpp_html_acef9f80e0ed680c851db2877f56d7243"><div class="ttname"><a href="bullethelper_8cpp.html#acef9f80e0ed680c851db2877f56d7243">toIrrlichtVector</a></div><div class="ttdeci">core::vector3df toIrrlichtVector(btVector3 vec)</div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:15</div></div>
-<div class="ttc" id="classMotionStateManager_html_a741f79eebe5a523e8736de0d3c9b8572"><div class="ttname"><a href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">MotionStateManager::node</a></div><div class="ttdeci">scene::ISceneNode * node</div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:11</div></div>
-<div class="ttc" id="bullethelper_8cpp_html_a5adfbd558b28a320da80d6d82622cc0a"><div class="ttname"><a href="bullethelper_8cpp.html#a5adfbd558b28a320da80d6d82622cc0a">QuaternionToEuler</a></div><div class="ttdeci">core::vector3df QuaternionToEuler(const btQuaternion &amp;TQuat)</div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:26</div></div>
+
+<p>Virtual method called by Bullet whenever there is a physics change to an object. </p>
+<p class="">This is the right place to update graphic objects. </p>
+<div class="fragment"><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                                                                       {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <span class="keywordflow">if</span>(this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a> == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span>;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            btQuaternion rotation = worldTrans.getRotation();</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            btVector3 position = worldTrans.getOrigin();</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;setPosition(<a class="code" href="bullethelper_8cpp.html#acef9f80e0ed680c851db2877f56d7243">toIrrlichtVector</a>(position));</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;updateAbsolutePosition();</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">node</a>-&gt;setRotation(<a class="code" href="bullethelper_8cpp.html#a5adfbd558b28a320da80d6d82622cc0a">QuaternionToEuler</a>(rotation));</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            this-&gt;<a class="code" href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">initialPosition</a> = worldTrans;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div><div class="ttc" id="classMotionStateManager_html_aa2ace1df81950bb87c3c79b010492a98"><div class="ttname"><a href="classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98">MotionStateManager::initialPosition</a></div><div class="ttdeci">btTransform initialPosition</div><div class="ttdoc">Initial state. </div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:14</div></div>
+<div class="ttc" id="bullethelper_8cpp_html_acef9f80e0ed680c851db2877f56d7243"><div class="ttname"><a href="bullethelper_8cpp.html#acef9f80e0ed680c851db2877f56d7243">toIrrlichtVector</a></div><div class="ttdeci">core::vector3df toIrrlichtVector(btVector3 vec)</div><div class="ttdoc">Inverse of toBulletVector() </div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:15</div></div>
+<div class="ttc" id="classMotionStateManager_html_a741f79eebe5a523e8736de0d3c9b8572"><div class="ttname"><a href="classMotionStateManager.html#a741f79eebe5a523e8736de0d3c9b8572">MotionStateManager::node</a></div><div class="ttdeci">scene::ISceneNode * node</div><div class="ttdoc">Graphic node to transform. </div><div class="ttdef"><b>Definition:</b> motionstatemanager.h:12</div></div>
+<div class="ttc" id="bullethelper_8cpp_html_a5adfbd558b28a320da80d6d82622cc0a"><div class="ttname"><a href="bullethelper_8cpp.html#a5adfbd558b28a320da80d6d82622cc0a">QuaternionToEuler</a></div><div class="ttdeci">core::vector3df QuaternionToEuler(const btQuaternion &amp;TQuat)</div><div class="ttdoc">Inverse of EulerToQuaternion() </div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:26</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -235,6 +259,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Initial state. </p>
+
 </div>
 </div>
 <a id="a741f79eebe5a523e8736de0d3c9b8572"></a>
@@ -256,6 +282,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Graphic node to transform. </p>
 
 </div>
 </div>

@@ -3,6 +3,7 @@
 #include <irrlicht.h>
 #include <bullethelper.h>
 using namespace irr;
+/** Logger class expansion */
 #define LOGGER(tag, level, _Message)              \
   Logger::getLogger()->print(                     \
     static_cast<LOG_TYPE>(tag),                   \
@@ -12,6 +13,7 @@ using namespace irr;
 #ifndef DEBUG_OUTPUT_MASK
   #define DEBUG_OUTPUT_MASK 0
 #endif
+/** Log a message. There is a bitwise AND with the DEBUG_OUTPUT_MASK */
 #define log(tag, level, _Message) if(level & DEBUG_OUTPUT_MASK) LOGGER(tag,level,_Message) else;
 #define log1(_Message) log(INFO,1, _Message)
 #define log1p(_Message, parameter) log1(static_cast<core::stringc>(_Message) + core::stringc(parameter))
@@ -24,28 +26,35 @@ using namespace irr;
   );
 
 
-enum LOG_TYPE{
+enum LOG_TYPE{ /*!< LOG_TYPE i think is useless. For now there are only INFO outputs. Maybe a name of the class who call the cout is better */
   INFO,
   WARN,
   ERROR
 };
-/*
-This class handles logs. In particulare the DEBUG_OUTPUT_MASK directive define the verbosity of the messages.
-1 mean enable all couts that have level = 1 on their calls
-2 mean enable all couts from 1 to 2 level
-3 mean enable all couts from 1 to 3 level
-ect.
-For now there are 2 level. The last level 3 will also activate a visual debugging(you can move around the map)
+/** This singleton class handles logs and debugging. In particular the DEBUG_OUTPUT_MASK directive define the verbosity of the messages.
+ DEBUG_OUTPUT_MASK 1 mean enable all couts that have level = 1 on their calls
+ DEBUG_OUTPUT_MASK 2 mean enable all couts that have level = 2 on their calls
+ DEBUG_OUTPUT_MASK 3 mean enable all tracing and debugging
+For now there are 2 level. The level 2 will also activate a visual debugging(you can move around the map)
 */
 class Logger{
 public:
-  static int level;
+  // static int level;
+  /** Return the instance  */
   static Logger* getLogger();
+  /** Print message
+  * @param type LOG_TYPE
+  * @param level int
+  * @param str stringc string to print
+  * @see: ::Logger
+  */
   void print(LOG_TYPE type, int level, core::stringc str);
 private:
+    /** Self instance  */
   static Logger* logger;
-  core::stringw label;
+  /** Init singleton logger */
   void initLogger();
+  /** Default constructor. Not used */
   Logger();
 };
 #endif

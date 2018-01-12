@@ -83,15 +83,18 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html">Logger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This singleton class handles logs and debugging.  <a href="classLogger.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a6fcbef001faef411d75c60e614391cda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Logger_8h.html#a6fcbef001faef411d75c60e614391cda">LOGGER</a>(tag,  level,  _Message)</td></tr>
+<tr class="memdesc:a6fcbef001faef411d75c60e614391cda"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classLogger.html" title="This singleton class handles logs and debugging. ">Logger</a> class expansion.  <a href="#a6fcbef001faef411d75c60e614391cda">More...</a><br /></td></tr>
 <tr class="separator:a6fcbef001faef411d75c60e614391cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e2d3051b3d68f32f9f965cf1609ae86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Logger_8h.html#a7e2d3051b3d68f32f9f965cf1609ae86">DEBUG_OUTPUT_MASK</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a7e2d3051b3d68f32f9f965cf1609ae86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67cda2d03819ff2238b91fde86706ef0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a>(tag,  level,  _Message)&#160;&#160;&#160;if(level &amp; <a class="el" href="Logger_8h.html#a7e2d3051b3d68f32f9f965cf1609ae86">DEBUG_OUTPUT_MASK</a>) <a class="el" href="Logger_8h.html#a6fcbef001faef411d75c60e614391cda">LOGGER</a>(tag,level,_Message) else;</td></tr>
+<tr class="memdesc:a67cda2d03819ff2238b91fde86706ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log a message.  <a href="#a67cda2d03819ff2238b91fde86706ef0">More...</a><br /></td></tr>
 <tr class="separator:a67cda2d03819ff2238b91fde86706ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b0f1fe80d849c78ec0f9d757a4919eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Logger_8h.html#a2b0f1fe80d849c78ec0f9d757a4919eb">log1</a>(_Message)&#160;&#160;&#160;<a class="el" href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a>(<a class="el" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a>,1, _Message)</td></tr>
 <tr class="separator:a2b0f1fe80d849c78ec0f9d757a4919eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,6 +161,9 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Log a message. </p>
+<p class="">There is a bitwise AND with the DEBUG_OUTPUT_MASK </p>
 
 </div>
 </div>
@@ -284,9 +290,11 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829">Logger::getLogger</a>()-&gt;<a class="code" href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">print</a>(                     \</div><div class="line">    static_cast&lt;LOG_TYPE&gt;(tag),                   \</div><div class="line">    level,                                        \</div><div class="line">    static_cast&lt;core::stringc&gt;(_Message)          \</div><div class="line">  );</div><div class="ttc" id="classLogger_html_aa6f6d11f892277aacaf0fe1db82e6829"><div class="ttname"><a href="classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829">Logger::getLogger</a></div><div class="ttdeci">static Logger * getLogger()</div><div class="ttdef"><b>Definition:</b> Logger.cpp:6</div></div>
-<div class="ttc" id="classLogger_html_a6d2ec146e21392f0b4934fffd4cfce42"><div class="ttname"><a href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">Logger::print</a></div><div class="ttdeci">void print(LOG_TYPE type, int level, core::stringc str)</div><div class="ttdef"><b>Definition:</b> Logger.cpp:11</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829">Logger::getLogger</a>()-&gt;<a class="code" href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">print</a>(                     \</div><div class="line">    static_cast&lt;LOG_TYPE&gt;(tag),                   \</div><div class="line">    level,                                        \</div><div class="line">    static_cast&lt;core::stringc&gt;(_Message)          \</div><div class="line">  );</div><div class="ttc" id="classLogger_html_aa6f6d11f892277aacaf0fe1db82e6829"><div class="ttname"><a href="classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829">Logger::getLogger</a></div><div class="ttdeci">static Logger * getLogger()</div><div class="ttdoc">Return the instance. </div><div class="ttdef"><b>Definition:</b> Logger.cpp:6</div></div>
+<div class="ttc" id="classLogger_html_a6d2ec146e21392f0b4934fffd4cfce42"><div class="ttname"><a href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">Logger::print</a></div><div class="ttdeci">void print(LOG_TYPE type, int level, core::stringc str)</div><div class="ttdoc">Print message. </div><div class="ttdef"><b>Definition:</b> Logger.cpp:11</div></div>
 </div><!-- fragment -->
+<p><a class="el" href="classLogger.html" title="This singleton class handles logs and debugging. ">Logger</a> class expansion. </p>
+
 </div>
 </div>
 <a id="aa3483e8cf13d945f9803e18fe20db92d"></a>
@@ -320,9 +328,9 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a>(<a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a>, level,                                                                      \</div><div class="line">    static_cast&lt;core::stringc&gt;(_Message)+                                               \</div><div class="line">    static_cast&lt;core::stringc&gt;(<a class="code" href="bullethelper_8cpp.html#afe616657f4b6a7c44f34fb44b9692df7">vectorToString</a>(static_cast&lt;core::vector3df&gt;(vector)))    \</div><div class="line">  );</div><div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a></div><div class="ttdef"><b>Definition:</b> Logger.h:28</div></div>
-<div class="ttc" id="Logger_8h_html_a67cda2d03819ff2238b91fde86706ef0"><div class="ttname"><a href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a></div><div class="ttdeci">#define log(tag, level, _Message)</div><div class="ttdef"><b>Definition:</b> Logger.h:15</div></div>
-<div class="ttc" id="bullethelper_8cpp_html_afe616657f4b6a7c44f34fb44b9692df7"><div class="ttname"><a href="bullethelper_8cpp.html#afe616657f4b6a7c44f34fb44b9692df7">vectorToString</a></div><div class="ttdeci">core::stringc vectorToString(core::vector3df vector)</div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:83</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a>(<a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a>, level,                                                                      \</div><div class="line">    static_cast&lt;core::stringc&gt;(_Message)+                                               \</div><div class="line">    static_cast&lt;core::stringc&gt;(<a class="code" href="bullethelper_8cpp.html#afe616657f4b6a7c44f34fb44b9692df7">vectorToString</a>(static_cast&lt;core::vector3df&gt;(vector)))    \</div><div class="line">  );</div><div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a></div><div class="ttdef"><b>Definition:</b> Logger.h:30</div></div>
+<div class="ttc" id="Logger_8h_html_a67cda2d03819ff2238b91fde86706ef0"><div class="ttname"><a href="Logger_8h.html#a67cda2d03819ff2238b91fde86706ef0">log</a></div><div class="ttdeci">#define log(tag, level, _Message)</div><div class="ttdoc">Log a message. </div><div class="ttdef"><b>Definition:</b> Logger.h:17</div></div>
+<div class="ttc" id="bullethelper_8cpp_html_afe616657f4b6a7c44f34fb44b9692df7"><div class="ttname"><a href="bullethelper_8cpp.html#afe616657f4b6a7c44f34fb44b9692df7">vectorToString</a></div><div class="ttdeci">core::stringc vectorToString(core::vector3df vector)</div><div class="ttdoc">Used for logger. </div><div class="ttdef"><b>Definition:</b> bullethelper.cpp:83</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -339,13 +347,14 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"></a>INFO&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"></a>INFO&#160;</td><td class="fielddoc"><p class="">LOG_TYPE i think is useless. For now there are only INFO outputs. Maybe a name of the class who call the cout is better </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676"></a>WARN&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90"></a>ERROR&#160;</td><td class="fielddoc"></td></tr>
 </table>
-<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;             {</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a>,</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676">WARN</a>,</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90">ERROR</a></div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div><div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a></div><div class="ttdef"><b>Definition:</b> Logger.h:28</div></div>
-<div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90">ERROR</a></div><div class="ttdef"><b>Definition:</b> Logger.h:30</div></div>
-<div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676">WARN</a></div><div class="ttdef"><b>Definition:</b> Logger.h:29</div></div>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;             { </div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a>,</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676">WARN</a>,</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90">ERROR</a></div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div><div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a748005382152808a72b1a9177d9dc806">INFO</a></div><div class="ttdef"><b>Definition:</b> Logger.h:30</div></div>
+<div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a2fd6f336d08340583bd620a7f5694c90">ERROR</a></div><div class="ttdef"><b>Definition:</b> Logger.h:32</div></div>
+<div class="ttc" id="Logger_8h_html_a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676"><div class="ttname"><a href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0a74dac7ac23d5b810db6d4067f14e8676">WARN</a></div><div class="ttdef"><b>Definition:</b> Logger.h:31</div></div>
 </div><!-- fragment -->
 </div>
 </div>

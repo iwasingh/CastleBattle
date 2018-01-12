@@ -66,9 +66,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classLogger-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -76,41 +74,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>This singleton class handles logs and debugging.  
+ <a href="classLogger.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Logger_8h_source.html">Logger.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d2ec146e21392f0b4934fffd4cfce42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">print</a> (<a class="el" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0">LOG_TYPE</a> type, int <a class="el" href="classLogger.html#a9e68e0b3d0746dba30b92affe912890a">level</a>, core::stringc str)</td></tr>
+<tr class="memitem:a6d2ec146e21392f0b4934fffd4cfce42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#a6d2ec146e21392f0b4934fffd4cfce42">print</a> (<a class="el" href="Logger_8h.html#a561075ca9543e33ad1c0358c20c2ead0">LOG_TYPE</a> type, int level, core::stringc str)</td></tr>
+<tr class="memdesc:a6d2ec146e21392f0b4934fffd4cfce42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print message.  <a href="#a6d2ec146e21392f0b4934fffd4cfce42">More...</a><br /></td></tr>
 <tr class="separator:a6d2ec146e21392f0b4934fffd4cfce42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa6f6d11f892277aacaf0fe1db82e6829"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classLogger.html">Logger</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829">getLogger</a> ()</td></tr>
+<tr class="memdesc:aa6f6d11f892277aacaf0fe1db82e6829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the instance.  <a href="#aa6f6d11f892277aacaf0fe1db82e6829">More...</a><br /></td></tr>
 <tr class="separator:aa6f6d11f892277aacaf0fe1db82e6829"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a9e68e0b3d0746dba30b92affe912890a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#a9e68e0b3d0746dba30b92affe912890a">level</a></td></tr>
-<tr class="separator:a9e68e0b3d0746dba30b92affe912890a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a96a194700a9ee08f34260ee6a7dd5a5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#a96a194700a9ee08f34260ee6a7dd5a5f">initLogger</a> ()</td></tr>
+<tr class="memdesc:a96a194700a9ee08f34260ee6a7dd5a5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init singleton logger.  <a href="#a96a194700a9ee08f34260ee6a7dd5a5f">More...</a><br /></td></tr>
 <tr class="separator:a96a194700a9ee08f34260ee6a7dd5a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc41bfb031d896170c7675fa96a6b30c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#abc41bfb031d896170c7675fa96a6b30c">Logger</a> ()</td></tr>
+<tr class="memdesc:abc41bfb031d896170c7675fa96a6b30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#abc41bfb031d896170c7675fa96a6b30c">More...</a><br /></td></tr>
 <tr class="separator:abc41bfb031d896170c7675fa96a6b30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aeb7b36e775cdda08ad2fbe30998f2c4a"><td class="memItemLeft" align="right" valign="top">core::stringw&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#aeb7b36e775cdda08ad2fbe30998f2c4a">label</a></td></tr>
-<tr class="separator:aeb7b36e775cdda08ad2fbe30998f2c4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a27beabe5af49a8ea78b02b3f236c7a05"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classLogger.html">Logger</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a> = NULL</td></tr>
+<tr class="memdesc:a27beabe5af49a8ea78b02b3f236c7a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self instance.  <a href="#a27beabe5af49a8ea78b02b3f236c7a05">More...</a><br /></td></tr>
 <tr class="separator:a27beabe5af49a8ea78b02b3f236c7a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p class="">This singleton class handles logs and debugging. </p>
+<p class="">In particular the DEBUG_OUTPUT_MASK directive define the verbosity of the messages. DEBUG_OUTPUT_MASK 1 mean enable all couts that have level = 1 on their calls DEBUG_OUTPUT_MASK 2 mean enable all couts that have level = 2 on their calls DEBUG_OUTPUT_MASK 3 mean enable all tracing and debugging For now there are 2 level. The level 2 will also activate a visual debugging(you can move around the map) </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abc41bfb031d896170c7675fa96a6b30c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc41bfb031d896170c7675fa96a6b30c">&#9670;&nbsp;</a></span>Logger()</h2>
 
@@ -133,6 +132,9 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Default constructor. </p>
+<p class="">Not used </p>
 <div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;              {</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
@@ -159,8 +161,10 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                         {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a> == NULL)</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a> = <span class="keyword">new</span> <a class="code" href="classLogger.html#abc41bfb031d896170c7675fa96a6b30c">Logger</a>();</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a>;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div><div class="ttc" id="classLogger_html_a27beabe5af49a8ea78b02b3f236c7a05"><div class="ttname"><a href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">Logger::logger</a></div><div class="ttdeci">static Logger * logger</div><div class="ttdef"><b>Definition:</b> Logger.h:46</div></div>
-<div class="ttc" id="classLogger_html_abc41bfb031d896170c7675fa96a6b30c"><div class="ttname"><a href="classLogger.html#abc41bfb031d896170c7675fa96a6b30c">Logger::Logger</a></div><div class="ttdeci">Logger()</div><div class="ttdef"><b>Definition:</b> Logger.cpp:14</div></div>
+
+<p>Return the instance. </p>
+<div class="fragment"><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                         {</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a> == NULL)</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a> = <span class="keyword">new</span> <a class="code" href="classLogger.html#abc41bfb031d896170c7675fa96a6b30c">Logger</a>();</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">logger</a>;</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div><div class="ttc" id="classLogger_html_a27beabe5af49a8ea78b02b3f236c7a05"><div class="ttname"><a href="classLogger.html#a27beabe5af49a8ea78b02b3f236c7a05">Logger::logger</a></div><div class="ttdeci">static Logger * logger</div><div class="ttdoc">Self instance. </div><div class="ttdef"><b>Definition:</b> Logger.h:54</div></div>
+<div class="ttc" id="classLogger_html_abc41bfb031d896170c7675fa96a6b30c"><div class="ttname"><a href="classLogger.html#abc41bfb031d896170c7675fa96a6b30c">Logger::Logger</a></div><div class="ttdeci">Logger()</div><div class="ttdoc">Default constructor. </div><div class="ttdef"><b>Definition:</b> Logger.cpp:14</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -186,6 +190,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Init singleton logger. </p>
 
 </div>
 </div>
@@ -220,54 +226,21 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Print message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>LOG_TYPE </td></tr>
+    <tr><td class="paramname">level</td><td>int </td></tr>
+    <tr><td class="paramname">str</td><td>stringc string to print </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd>: <a class="el" href="classLogger.html" title="This singleton class handles logs and debugging. ">Logger</a> </dd></dl>
 <div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                                            {</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  cout&lt;&lt;str.c_str()&lt;&lt;endl;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aeb7b36e775cdda08ad2fbe30998f2c4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb7b36e775cdda08ad2fbe30998f2c4a">&#9670;&nbsp;</a></span>label</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::stringw Logger::label</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9e68e0b3d0746dba30b92affe912890a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e68e0b3d0746dba30b92affe912890a">&#9670;&nbsp;</a></span>level</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int Logger::level</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a27beabe5af49a8ea78b02b3f236c7a05"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27beabe5af49a8ea78b02b3f236c7a05">&#9670;&nbsp;</a></span>logger</h2>
 
@@ -287,6 +260,8 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Self instance. </p>
 
 </div>
 </div>

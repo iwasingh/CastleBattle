@@ -11,7 +11,7 @@ var searchData=
   ['side',['side',['../classPlayer.html#abf5f92cf91f943a93a9848fc923907f4',1,'Player']]],
   ['sign',['sign',['../bullethelper_8cpp.html#a83da59ede262c2e8631f9180a4feba8a',1,'sign(int x):&#160;bullethelper.cpp'],['../bullethelper_8h.html#a83da59ede262c2e8631f9180a4feba8a',1,'sign(int x):&#160;bullethelper.cpp']]],
   ['skin',['skin',['../classHUD_1_1HUD.html#a714858f486ead6ce1ca7f22e1720baa8',1,'HUD::HUD']]],
-  ['sky',['Sky',['../classSky.html',1,'Sky'],['../classSky.html#ad2260c48ffd5240184b4b04415f68951',1,'Sky::Sky(scene::ISceneManager *smgr, video::IVideoDriver *driver, core::stringw texture, f32 radius)'],['../classSky.html#aafa5c9c9dc8f2533e7e13d7896704693',1,'Sky::sky()']]],
+  ['sky',['Sky',['../classSky.html',1,'Sky'],['../classSky.html#aafa5c9c9dc8f2533e7e13d7896704693',1,'Sky::sky()'],['../classSky.html#ad2260c48ffd5240184b4b04415f68951',1,'Sky::Sky(scene::ISceneManager *smgr, video::IVideoDriver *driver, core::stringw texture, f32 radius)']]],
   ['sky_2ecpp',['Sky.cpp',['../Sky_8cpp.html',1,'']]],
   ['sky_2eh',['Sky.h',['../Sky_8h.html',1,'']]],
   ['smgr',['smgr',['../classCastle.html#acf3f259abf1a096c3713dc7f77fef1ba',1,'Castle::smgr()'],['../classApplication.html#a3cfdd1d9052861122a3ac278b40029dc',1,'Application::smgr()'],['../classBall.html#aad87b9518da4ba43e5636ea62b477193',1,'Ball::smgr()'],['../classCamera.html#ae627bfaa836648042196e5fbb3045f06',1,'Camera::smgr()'],['../classCannon.html#a34b4f14c7be52406fe4177b984631450',1,'Cannon::smgr()'],['../classGameManager.html#a28e8da327befaf002d78783a03182d64',1,'GameManager::smgr()'],['../classPlayer.html#ae9054e6cd09af306272def2e93633248',1,'Player::smgr()'],['../classTarget.html#a69e5c9dfed4930e899b7a46b185a8831',1,'Target::smgr()']]],
@@ -19,7 +19,7 @@ var searchData=
   ['speed_5fhigh',['SPEED_HIGH',['../namespaceHUD.html#ae3124887f6ca0e0dd02c374615a3bac2',1,'HUD']]],
   ['speed_5flow',['SPEED_LOW',['../namespaceHUD.html#a1e19f5cf66f521b68379e87568e4b7da',1,'HUD']]],
   ['start',['start',['../classLauncher.html#a75989bdb1f820079249eaae2cab8f65a',1,'Launcher']]],
-  ['stateelement',['stateElement',['../classLauncherEventReceiver.html#a0264792311554fba3a12b51d74581aba',1,'LauncherEventReceiver']]],
+  ['stateelement',['stateElement',['../classLauncherEventReceiver.html#ae081dca654549c424a57c7cbfeb87ff0',1,'LauncherEventReceiver']]],
   ['stop',['stop',['../classGameManager.html#ac4d5556d95030dba37f1fc31865577e3',1,'GameManager']]],
   ['straight',['STRAIGHT',['../player_8h.html#a5d64545d914d336990d6981443400ffaa08707fd429345dc72f3d7b0cc867ef05',1,'player.h']]]
 ];
