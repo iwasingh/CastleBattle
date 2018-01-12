@@ -72,41 +72,40 @@ all: release
 release: before_release out_release after_release run-release
 
 before_release:
-		@echo "Checking directories"
-		test -d $(OUT_RELEASE) || mkdir -p bin/Release
-		$(eval CXXFLAGS += $(RELEASE_OPTIONS))
+	@echo "Checking directories"
+	test -d $(OUT_RELEASE) || mkdir -p bin/Release
+	$(eval CXXFLAGS += $(RELEASE_OPTIONS))
 
 after_release:
-		@echo "Release version building finished!"
+	@echo "Release version building finished!"
 
 out_release: before_release $(OBJECTS) after_release
-	$(CXX) $(CXXFLAGS) $(RELEASE_OPTIONS) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
+	$(CXX) $(CXXFLAGS) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
 #Include dependecies
 ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
 
-
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
-
-
 
 .PHONY: cleanall clean_debug clean_release clean clean_depend debug debug1 debug2 run-debug run-release depend
 
 debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
 debug1: out_debug run-debug
+
 debug2: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=2
 debug2: out_debug run-debug
+
 #Debug version. Verbosity is automatically set to 1. Check VERBOSITY variable
 debug:  CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
 debug: out_debug run-debug
 
 before_debug:
-			test -d $(OUT_DEBUG) || mkdir -p bin/Debug
+	test -d $(OUT_DEBUG) || mkdir -p bin/Debug
 
 after_debug:
-			@echo "Debug version building finished!"
+	@echo "Debug version building finished!"
 out_debug: before_debug $(OBJECTS) after_debug
 	$(CXX) $(CXXFLAGS_DEBUG) -o ./$(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
 #Include dependecies
@@ -121,12 +120,12 @@ run-release:
 	./$(OUT_RELEASE)/$(PROJECT)
 #Clean all objects, executables and dependecies files. @TODO: clean docs
 cleanall: clean
-				 rm -rf $(OUT_RELEASE)
-				 rm -rf $(OUT_DEBUG)
+	rm -rf $(OUT_RELEASE)
+	rm -rf $(OUT_DEBUG)
 
 clean:
-		 find . -name '*.o' -delete
-		 find . -name '*.depend' -delete
+	find . -name '*.o' -delete
+	find . -name '*.depend' -delete
 
 #Generate dependencies
 depend: $(DEPENDENCIES)
