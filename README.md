@@ -10,6 +10,7 @@
 ![Docs](https://img.shields.io/badge/docs-99%25-blue.svg) ![Open](https://camo.githubusercontent.com/2091d99fb3b1ea0dcacb2ce564d5a3fc099c9ee7/68747470733a2f2f6261646765732e66726170736f66742e636f6d2f6f732f76322f6f70656e2d736f757263652e7376673f763d313032)
 ![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![dependencies Status](https://david-dm.org/boennemann/badges/status.svg)
+![version](https://img.shields.io/badge/version-1.0-orange.svg)
 ## Story
 This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written.
 ## Prerequisites
