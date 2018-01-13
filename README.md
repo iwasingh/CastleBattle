@@ -36,8 +36,10 @@ make debug
 make debug2
 ```
 #### Debug level n
+To setup any level use the VERBOSITY variable.
+For example for level 5 you can run
 ```
-make VERBOSITY=3 debug
+make VERBOSITY=5 debug
 ```
 ## Documentation
 If you want, you can download documentation from this repository.
