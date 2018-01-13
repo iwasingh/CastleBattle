@@ -11,7 +11,7 @@
 ![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![dependencies Status](https://david-dm.org/boennemann/badges/status.svg)
 ![version](https://img.shields.io/badge/version-1.0-orange.svg)
-## Story
+## Some facts
 This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written.
 ## Prerequisites
 * Castle battle is cross platform, but for now it only compile on Linux
