@@ -196,6 +196,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
 void Cannon::initCannon(core::vector3df position, core::vector3df rotation){
         this->setPosition(position);
         this->setRotation(rotation);
+        this->rotation = rotation;
         initAngles();
 
 }
@@ -223,11 +224,13 @@ bool Cannon::moveCannon(ACTION_KEYBOARD action){
 
             case INCLINATE_LEFT:
                     this->getInclinateValues(INCLINATE_LEFT);
+                    this->rotation = this->cannon->getRotation();
                   //this->smgr->getMeshManipulator()->transform(this->cannon->getMesh(), this->getInclinateValues(INCLINATE_LEFT));
             break;
 
             case INCLINATE_RIGHT:
                     this->getInclinateValues(INCLINATE_RIGHT);
+                    this->rotation = this->cannon->getRotation();
             break;
     }
 

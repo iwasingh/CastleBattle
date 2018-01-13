@@ -88,7 +88,6 @@ void Player::reset(){
     core::vector3df position = this->cannon->getCannon()->getAbsolutePosition();
     core::vector3df rotation = this->cannon->rotation;
     log1("Reset player");
-    //this->cannon->reset();
-
+    this->cannon->setRotation(rotation);
 
 }

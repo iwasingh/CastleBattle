@@ -84,19 +84,21 @@ $(function() {
  <div class="image">
 <object type="image/svg+xml" data="https://img.shields.io/badge/version-1.0-orange.svg" alt="version"></object>
 </div>
- <h2>Story</h2>
+ <h2>Some facts</h2>
 <p class="">This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written. </p><h2>Prerequisites</h2>
 <ul>
-<li><a class="el" href="classCastle.html" title="The Castle handles all things related to the Castles Building, treasure, physics and collisions...">Castle</a> battle is cross platform, but for now it only compile on Linux</li>
 <li><a href="http://irrlicht.sourceforge.net">Irrlicht library</a></li>
 <li><a href="http://bulletphysics.org/wordpress">Bullet library</a></li>
 <li>C++11</li>
-<li>This source</li>
+<li>This source <h2>Compiling</h2>
+</li>
 </ul>
-<h3>Compile release mode</h3>
+<p class=""><a class="el" href="classCastle.html" title="The Castle handles all things related to the Castles Building, treasure, physics and collisions...">Castle</a> battle is cross-platform but for now it only compiles on Linux </p><h3>Compile release mode</h3>
 <p class="">From the root directory of the project run </p><div class="fragment"><div class="line">make</div></div><!-- fragment --> <h3>Compile debug mode</h3>
-<p class="">Don't forget to look Makefile for other commands and for more specifications #### Debug level 1 </p><div class="fragment"><div class="line">make debug</div></div><!-- fragment --><p> #### Debug level 2 </p><div class="fragment"><div class="line">make debug2</div></div><!-- fragment --><p> #### Debug level n </p><div class="fragment"><div class="line">make VERBOSITY=3 debug</div></div><!-- fragment --> <h2>Documentation</h2>
-<p class="">If you want, you can download documentation from this repository. Otherwise you can re-generate on your own but remember that you will need <a href="http://www.stack.nl/~dimitri/doxygen/index.html">doxygen</a> installed on your system: </p><div class="fragment"><div class="line">make doc</div></div><!-- fragment --> <h3>License</h3>
+<p class="">Don't forget to look Makefile for other commands and for more specifications #### Debug level 1 </p><div class="fragment"><div class="line">make debug</div></div><!-- fragment --><p> #### Debug level 2 </p><div class="fragment"><div class="line">make debug2</div></div><!-- fragment --> <h4>Debug level n</h4>
+<p class="">To setup any level use the VERBOSITY variable. For example for level 5 you can run </p><div class="fragment"><div class="line">make VERBOSITY=5 debug</div></div><!-- fragment --> <h2>Documentation</h2>
+<p class="">If you want, you can download documentation from this repository. Otherwise you can re-generate on your own but remember that you will need <a href="http://www.stack.nl/~dimitri/doxygen/index.html">doxygen</a> installed on your system: </p><div class="fragment"><div class="line">make doc</div></div><!-- fragment --> <h3>Show documentation</h3>
+<p class="">To show documentation run </p><div class="fragment"><div class="line">make doc-show</div></div><!-- fragment --> <h3>License</h3>
 <div class="fragment"><div class="line">The MIT License</div><div class="line"></div><div class="line">Copyright (c) 2018 Singh Amarjot</div><div class="line"></div><div class="line">Permission is hereby granted, free of charge, to any person</div><div class="line">obtaining a copy of this software and associated documentation</div><div class="line">files (the &quot;Software&quot;), to deal in the Software without</div><div class="line">restriction, including without limitation the rights to use,</div><div class="line">copy, modify, merge, publish, distribute, sublicense, and/or sell</div><div class="line">copies of the Software, and to permit persons to whom the</div><div class="line">Software is furnished to do so, subject to the following</div><div class="line">conditions:</div><div class="line"></div><div class="line">The above copyright notice and this permission notice shall be</div><div class="line">included in all copies or substantial portions of the Software.</div><div class="line"></div><div class="line">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</div><div class="line">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</div><div class="line">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</div><div class="line">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</div><div class="line">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</div><div class="line">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</div><div class="line">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</div><div class="line">OTHER DEALINGS IN THE SOFTWARE.</div></div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
