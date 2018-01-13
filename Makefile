@@ -77,7 +77,6 @@ after_release:
 
 out_release: before_release $(OBJECTS) after_release
 	$(CXX) $(CXXFLAGS) -o $(OUT_RELEASE)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
-#Include dependecies
 ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
@@ -103,7 +102,6 @@ after_debug:
 
 out_debug: before_debug $(OBJECTS) after_debug
 	$(CXX) $(CXXFLAGS_DEBUG) -o ./$(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
-#Include dependecies
 ifneq "$(strip $(DEPENDENCIES))" ""
 -include $(DEPENDENCIES)
 endif
