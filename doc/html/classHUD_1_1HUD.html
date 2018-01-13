@@ -97,8 +97,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9a68b07791ff029ae02280d8d7f5f28"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHUD_1_1HUD.html#ae9a68b07791ff029ae02280d8d7f5f28">setPlayerName</a> (core::stringw name)</td></tr>
 <tr class="memdesc:ae9a68b07791ff029ae02280d8d7f5f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set player name.  <a href="#ae9a68b07791ff029ae02280d8d7f5f28">More...</a><br /></td></tr>
 <tr class="separator:ae9a68b07791ff029ae02280d8d7f5f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab539bf2d1edbb0a5bf999603d85151a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHUD_1_1HUD.html#ab539bf2d1edbb0a5bf999603d85151a9">youWin</a> ()</td></tr>
-<tr class="separator:ab539bf2d1edbb0a5bf999603d85151a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67bb88cff2e67bb6648747b4c4fd0a7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHUD_1_1HUD.html#a67bb88cff2e67bb6648747b4c4fd0a7f">resetPower</a> ()</td></tr>
+<tr class="memdesc:a67bb88cff2e67bb6648747b4c4fd0a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset power.  <a href="#a67bb88cff2e67bb6648747b4c4fd0a7f">More...</a><br /></td></tr>
+<tr class="separator:a67bb88cff2e67bb6648747b4c4fd0a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -272,6 +273,26 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a67bb88cff2e67bb6648747b4c4fd0a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67bb88cff2e67bb6648747b4c4fd0a7f">&#9670;&nbsp;</a></span>resetPower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HUD::HUD::resetPower </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset power. </p>
+<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                        {</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        core::rect&lt;s32&gt; power_pos = this-&gt;<a class="code" href="classHUD_1_1HUD.html#a1bed19e08137972e89318ac56d9a982d">power</a>-&gt;getAbsoluteClippingRect();</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        power_pos.UpperLeftCorner.Y = power_pos.LowerRightCorner.Y-1;</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        this-&gt;<a class="code" href="classHUD_1_1HUD.html#a1bed19e08137972e89318ac56d9a982d">power</a>-&gt;setRelativePosition(core::rect&lt;s32&gt;(power_pos));</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div><div class="ttc" id="classHUD_1_1HUD_html_a1bed19e08137972e89318ac56d9a982d"><div class="ttname"><a href="classHUD_1_1HUD.html#a1bed19e08137972e89318ac56d9a982d">HUD::HUD::power</a></div><div class="ttdeci">gui::IGUIImage * power</div><div class="ttdoc">Image power bar. </div><div class="ttdef"><b>Definition:</b> hud.h:32</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="ae9a68b07791ff029ae02280d8d7f5f28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae9a68b07791ff029ae02280d8d7f5f28">&#9670;&nbsp;</a></span>setPlayerName()</h2>
 
@@ -291,24 +312,6 @@ Private Attributes</h2></td></tr>
 <p>Set player name. </p>
 <div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                           {</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span>(this-&gt;<a class="code" href="classHUD_1_1HUD.html#ace8ff1cc6a19ea67c965ee05314cca77">playerName</a>)</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            this-&gt;<a class="code" href="classHUD_1_1HUD.html#ace8ff1cc6a19ea67c965ee05314cca77">playerName</a>-&gt;setText(name.c_str());</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div><div class="ttc" id="classHUD_1_1HUD_html_ace8ff1cc6a19ea67c965ee05314cca77"><div class="ttname"><a href="classHUD_1_1HUD.html#ace8ff1cc6a19ea67c965ee05314cca77">HUD::HUD::playerName</a></div><div class="ttdeci">gui::IGUIStaticText * playerName</div><div class="ttdoc">Player name. </div><div class="ttdef"><b>Definition:</b> hud.h:28</div></div>
 </div><!-- fragment -->
-</div>
-</div>
-<a id="ab539bf2d1edbb0a5bf999603d85151a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab539bf2d1edbb0a5bf999603d85151a9">&#9670;&nbsp;</a></span>youWin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void HUD::HUD::youWin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000008">Deprecated:</a></b></dt><dd></dd></dl>
-<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    {</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div></div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>

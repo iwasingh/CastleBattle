@@ -3,7 +3,7 @@
 #include <irrlicht.h>
 #include <vector>
 #include "physics.h"
-#include <bullethelper.h>
+#include "bullethelper.h"
 #include "camera.h"
 using namespace irr;
 

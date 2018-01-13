@@ -1,12 +1,12 @@
-#include "Application.h"
-#include <Sky.h>
-#include <stdlib.h>
-#include <Logger.h>
-#include <driverChoice.h>
-#include <launcher.h>
-#include <iostream>
-#include <bullethelper.h>
 #include <cassert>
+#include <stdlib.h>
+#include <iostream>
+#include <driverChoice.h>
+
+#include "Application.h"
+#include "Sky.h"
+#include "Logger.h"
+#include "bullethelper.h"
 using namespace irr;
 Application::Application(){
   // ask user for driver
@@ -25,10 +25,7 @@ Application::Application(){
   this->smgr->setAmbientLight(video::SColor(0,255,255,204));
   log(INFO,1,"Turn on lights");
   this->gui = this->device->getGUIEnvironment();
-  this->createInitWindow();
   this->createWorldEnviroment();
-
-
 }
 void Application::createWorldEnviroment(){
   core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
@@ -39,7 +36,7 @@ void Application::createWorldEnviroment(){
   log(INFO,1,"Law of physics successfully created");
 }
 bool Application::init(){
-  Launcher* screen = new Launcher(this->gui, this->device);
+  this->screen = new Launcher(this->gui, this->device);
   assert(screen != 0);
   while(device->run() && driver){
    if (device->isWindowActive()){
@@ -54,7 +51,8 @@ bool Application::init(){
    }
  }
  if(!driver) return false;
-  core::stringw names[2];
+  // this->names = new core::stringw[2];
+  core::stringw* names = new core::stringw[2];
   names[0] = (screen->players[0]->getText());
   names[1] = (screen->players[1]->getText());
   screen->clear();
@@ -66,6 +64,17 @@ bool Application::init(){
   this->device->getCursorControl()->setVisible(false);
   log1("Gameplay initialized.");
   return true;
+}
+bool Application::end(){
+    this->screen->endScreen(this->gameManager->getNames(), this->gameManager->getWinner());
+    while(device->run() && driver){
+     if (device->isWindowActive()){
+        driver->beginScene(true, true, video::SColor(255,200,200,200));
+         this->gui->drawAll();
+         driver->endScene();
+     }
+   }
+   return 0;
 }
 bool Application::loop(){
   u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
@@ -98,6 +107,10 @@ bool Application::loop(){
                     lastFPS = fps;
                 }
   }
-  if(flagWin) { log(1,INFO,"Thanks for playing. Goodbye!"); return 0; }
+  if(flagWin) {
+      std::cout<<"Thanks for playing. Goodbye!"<<std::endl;
+      this->end();
+  }
+  return 1;
 
 }

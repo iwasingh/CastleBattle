@@ -1,10 +1,10 @@
 #include <btBulletCollisionCommon.h>
 #include <btBulletDynamicsCommon.h>
 #include <irrlicht.h>
-#include "physics.h"
-#include <bullethelper.h>
 #include <iostream>
-#include <motionstatemanager.h>
+#include "motionstatemanager.h"
+#include "physics.h"
+#include "bullethelper.h"
 using namespace irr;
 
 Physics::Physics(const core::aabbox3df irrBox){

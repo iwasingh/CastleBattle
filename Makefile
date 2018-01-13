@@ -59,13 +59,9 @@ ifeq ($(VERBOSITY),)
 VERBOSITY = 1
 endif
 
-#Generate dependecy files
-%.depend: %.cpp
-	$(CXX) -MM $< -MT "$*.o $*.depend" -MF $*.depend
-
 
 #DEFAULT TARGET is set to release mode
-#Put here $(DEPENDENCIES) to refresh dependecies of the each file if something header has changed. Otherwise simply run make depend
+#Put here $(DEPENDENCIES) to refresh dependecies of the each file every make if something header has changed. Otherwise simply run make depend
 all: release
 
 #Release version
@@ -86,10 +82,8 @@ ifneq "$(strip $(DEPENDENCIES))" ""
  -include $(DEPENDENCIES)
 endif
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
 
-.PHONY: cleanall clean_debug clean_release clean clean_depend debug debug1 debug2 run-debug run-release depend doc
+.PHONY: cleanall clean debug debug1 debug2 run-debug run-release doc
 
 debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
 debug1: out_debug run-debug
@@ -106,6 +100,7 @@ before_debug:
 
 after_debug:
 	@echo "Debug version building finished!"
+
 out_debug: before_debug $(OBJECTS) after_debug
 	$(CXX) $(CXXFLAGS_DEBUG) -o ./$(OUT_DEBUG)$(PROJECT) $(OBJECTS) $(LIBDIR) $(INCLUDE)
 #Include dependecies
@@ -118,14 +113,28 @@ run-debug:
 
 run-release:
 	./$(OUT_RELEASE)/$(PROJECT)
-#Clean all objects, executables and dependecies files. @TODO: clean docs
+#Clean all objects, executables, docs and dependecies files
 cleanall: clean
 	rm -rf $(OUT_RELEASE)
 	rm -rf $(OUT_DEBUG)
+	rm -rf ./doc
 
 clean:
 	find . -name '*.o' -delete
-	find . -name '*.depend' -delete
+	find . -name '*.depend*' -delete
 
+#Generate documentation
+doc:
+	doxygen Doxyfile
+
+
+#Generate object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
+#Generate dependecy files
+%.depend: %.cpp
+	$(CXX) $(INCLUDE_SUBDIRS)  -MM $< -MT "$*.o" -MF $*.depend
+
+.PHONY: depend
 #Generate dependencies
 depend: $(DEPENDENCIES)

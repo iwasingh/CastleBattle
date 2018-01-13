@@ -13,6 +13,7 @@ var searchData=
   ['getlastkey',['getLastKey',['../classKEYBOARD_1_1Keyboard.html#ae525706bfa7ec5bb458a086405067141',1,'KEYBOARD::Keyboard']]],
   ['getlogger',['getLogger',['../classLogger.html#aa6f6d11f892277aacaf0fe1db82e6829',1,'Logger']]],
   ['getmeshsize',['getMeshSize',['../bullethelper_8cpp.html#a91ebd0b64842ee5c5334eb16bcdb17bd',1,'getMeshSize(scene::ISceneNode *mesh):&#160;bullethelper.cpp'],['../bullethelper_8h.html#a91ebd0b64842ee5c5334eb16bcdb17bd',1,'getMeshSize(scene::ISceneNode *mesh):&#160;bullethelper.cpp']]],
+  ['getnames',['getNames',['../classGameManager.html#a9a875f868ccf7ac4cab4bf3160e74beb',1,'GameManager']]],
   ['getnode',['getNode',['../classPlayer.html#a76fc2f8191830a264f904338c25c2a74',1,'Player']]],
   ['getpower',['getPower',['../classHUD_1_1HUD.html#a2fd0ad48c063a4227f939ec32be1ef81',1,'HUD::HUD']]],
   ['getrand',['getRand',['../bullethelper_8cpp.html#aa29d8a9bfeca74dc31a54705425c3173',1,'getRand(f32 maxValue, f32 offset):&#160;bullethelper.cpp'],['../bullethelper_8h.html#a5be60c555e3e859a23781b35279fc314',1,'getRand(const f32 maxValue, const f32 offset=0.f):&#160;bullethelper.cpp']]],
@@ -20,5 +21,6 @@ var searchData=
   ['getsidesize',['getSideSize',['../classCastle.html#ab371683c3d7d9d32e52b8243c4229b3c',1,'Castle']]],
   ['getterrain',['getTerrain',['../classTerrain.html#a846de6bbc76db707f2e628c418f27007',1,'Terrain']]],
   ['getterrainbox',['getTerrainBox',['../classTerrain.html#a81cb66a780dfbe803cfaac58d9182950',1,'Terrain']]],
+  ['getwinner',['getWinner',['../classGameManager.html#aa10151dd9fea210b7d7be40e0a0370b0',1,'GameManager']]],
   ['getworldtransform',['getWorldTransform',['../classMotionStateManager.html#a8ed7a4b9e753f1ec214b9355063a967f',1,'MotionStateManager']]]
 ];

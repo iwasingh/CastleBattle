@@ -5,8 +5,8 @@
 #include "ball.h"
 #include "target.h"
 #include "camera.h"
-#include <hud.h>
-#include <castle.h>
+#include "hud.h"
+#include "castle.h"
 #include "cannon.h"
 using namespace irr;
 using namespace KEYBOARD;

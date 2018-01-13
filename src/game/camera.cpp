@@ -1,6 +1,7 @@
-#include "camera.h"
 #include <iostream>
 #include <cassert>
+#include "camera.h"
+
 using namespace irr;
 Camera::Camera(scene::ICameraSceneNode* camera, scene::ISceneManager* smgr){
     this->camera = camera;

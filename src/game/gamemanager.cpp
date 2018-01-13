@@ -21,6 +21,7 @@ GameManager::GameManager(
 
 void GameManager::initGamePlay(core::stringw* names){
     //for now all the players will have the same HUD
+
     this->hud = new HUD::HUD(device,driver);
     log1("HUD initialized");
     this->players[0] = new Player(
@@ -49,12 +50,19 @@ void GameManager::initGamePlay(core::stringw* names){
         this->hud->setPlayerName(this->players[0]->name);
         this->turn = true;
         this->keyboard.resetLastKey();
+        this->names = names;
         log1("Default turn start: PLAYER 1");
 
 }
 void GameManager::initKeyboard(){
     this->device->setEventReceiver(&this->keyboard);
     log1("Keyboard mapped");
+}
+int GameManager::getWinner(){
+    return turn ? 0 : 1; // return !turn is better?
+}
+core::stringw* GameManager::getNames(){
+    return this->names;
 }
 bool GameManager::loop(){
     this->hud->env->drawAll();
@@ -65,6 +73,7 @@ bool GameManager::loop(){
             this->players[1]->reset();
             this->players[1]->focusCamera();
             hud->setPlayerName(this->players[1]->name);
+            hud->resetPower();
             log1("TURN: PLAYER2");
         }
         if(this->players[1]->checkTarget()){ stop = true; return true; }
@@ -76,6 +85,7 @@ bool GameManager::loop(){
             this->players[0]->reset();
             this->players[0]->focusCamera();
             hud->setPlayerName(this->players[0]->name);
+            hud->resetPower();
             log1("TURN: PLAYER1");
         }
         if(this->players[0]->checkTarget()){ stop = true; return true; }

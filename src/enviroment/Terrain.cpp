@@ -1,5 +1,5 @@
-#include "Terrain.h"
 #include <iostream>
+#include "Terrain.h"
 using namespace irr;
 Terrain::Terrain(scene::ISceneManager* smgr, video::IVideoDriver* driver, const core::stringw* pathTexture, const core::vector3df &scale){
  this->terrain = smgr->addTerrainSceneNode(

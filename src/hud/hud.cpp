@@ -1,7 +1,7 @@
 #include <irrlicht.h>
 #include <iostream>
 #include "hud.h"
-#include <Logger.h>
+#include "Logger.h"
 using namespace irr;
 namespace HUD{
     void HUD::initHUD(){
@@ -58,7 +58,9 @@ namespace HUD{
         if(this->playerName)
             this->playerName->setText(name.c_str());
     }
-    void HUD::youWin(){
-
+    void HUD::resetPower(){
+        core::rect<s32> power_pos = this->power->getAbsoluteClippingRect();
+        power_pos.UpperLeftCorner.Y = power_pos.LowerRightCorner.Y-1;
+        this->power->setRelativePosition(core::rect<s32>(power_pos));
     }
 }

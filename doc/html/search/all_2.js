@@ -6,7 +6,7 @@ var searchData=
   ['camera_2eh',['camera.h',['../camera_8h.html',1,'']]],
   ['camera_5foffset_5fball',['CAMERA_OFFSET_BALL',['../ball_8h.html#a24a226aa053ed54673a1a9882aded57f',1,'ball.h']]],
   ['camerastartposition',['cameraStartPosition',['../classBall.html#a1c45cfb6d44ba089d2cfcafe49289c52',1,'Ball']]],
-  ['cannon',['Cannon',['../classCannon.html',1,'Cannon'],['../classCannon.html#a4fdd91880edd7a514ae8760a4596e3dc',1,'Cannon::cannon()'],['../classPlayer.html#af88faf19b1fda6452baf6675b428e228',1,'Player::cannon()'],['../classCannon.html#a2207b44f1734bccfd5b8439eda65becc',1,'Cannon::Cannon()']]],
+  ['cannon',['Cannon',['../classCannon.html',1,'Cannon'],['../classCannon.html#a2207b44f1734bccfd5b8439eda65becc',1,'Cannon::Cannon(IrrlichtDevice *device, scene::ISceneManager *smgr, video::IVideoDriver *driver, core::vector3df position, Physics *physics)'],['../classCannon.html#a4fdd91880edd7a514ae8760a4596e3dc',1,'Cannon::cannon()'],['../classPlayer.html#af88faf19b1fda6452baf6675b428e228',1,'Player::cannon()']]],
   ['cannon_2ecpp',['cannon.cpp',['../cannon_8cpp.html',1,'']]],
   ['cannon_2eh',['cannon.h',['../cannon_8h.html',1,'']]],
   ['cannon_5fpower',['CANNON_POWER',['../cannon_8h.html#a511e5224eca13ebf7d6babc6072523c3',1,'cannon.h']]],

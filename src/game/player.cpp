@@ -1,7 +1,7 @@
-#include "player.h"
 #include <iostream>
 #include <cmath>
-#include <Logger.h>
+#include "Logger.h"
+#include "player.h"
 using namespace irr;
 using namespace KEYBOARD;
 using namespace std;
@@ -88,7 +88,7 @@ void Player::reset(){
     core::vector3df position = this->cannon->getCannon()->getAbsolutePosition();
     core::vector3df rotation = this->cannon->rotation;
     log1("Reset player");
-    this->cannon->reset();
+    //this->cannon->reset();
 
 
 }

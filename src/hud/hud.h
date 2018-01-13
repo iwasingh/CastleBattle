@@ -54,8 +54,8 @@ namespace HUD{
             f32 getPower();
             /** Set player name */
             void setPlayerName(core::stringw name);
-            /** @deprecated */
-            void youWin();
+            /** Reset power */
+            void resetPower();
 
 
 

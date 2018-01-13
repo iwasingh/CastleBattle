@@ -1,9 +1,9 @@
 #include <irrlicht.h>
 #include "physics.h"
-#include <hud.h>
+#include "hud.h"
 #include "player.h"
 #include "keyboard.h"
-#include <Logger.h>
+#include "Logger.h"
 using namespace irr;
 /** GameManager is the main manager of the gameplay.
 * It will create the players, castle, cannons and will start the loop of the gameplay.
@@ -24,6 +24,8 @@ class GameManager{
         HUD::HUD* hud;
         /** The keyboard map of each players. For now all players will have same Keyboard map */
         Keyboard keyboard;
+        /** Player names.        */
+        core::stringw* names;
         /** Set the Irrlicht device event receiver with a Keyboard instance */
         void initKeyboard();
     public:
@@ -55,7 +57,10 @@ class GameManager{
         * @see ::Player::loop().
         */
         bool loop();
-        /** @deprecated winner method. Is not used  */
-        void winner();
+        /** Get the winner  */
+        int getWinner();
+        /** Get player names        */
+        core::stringw* getNames();
+
 
 };

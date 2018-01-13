@@ -3,10 +3,11 @@
 #define CASTLE_H
 #include <irrlicht.h>
 #include <vector>
-#include <physics.h>
-#include <bullethelper.h>
 #include <map>
-#include <target.h>
+#include "target.h"
+#include "bullethelper.h"
+#include "physics.h"
+
 
 using namespace irr;
 const f32 BLOCKS_OFFSET = 0.05f;/*!< Distance between blocks */

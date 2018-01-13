@@ -1,2 +1,2 @@
-src/enviroment/Terrain.o src/enviroment/Terrain.depend: \
- src/enviroment/Terrain.cpp src/enviroment/Terrain.h
+src/enviroment/Terrain.o: src/enviroment/Terrain.cpp \
+ src/enviroment/Terrain.h
