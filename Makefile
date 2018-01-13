@@ -126,7 +126,7 @@ clean:
 #Generate documentation
 doc:
 	doxygen Doxyfile
-doc-show: doc
+doc-show:
 		sensible-browser ./doc/html/index.html
 
 #Generate object files
