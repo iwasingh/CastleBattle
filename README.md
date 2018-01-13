@@ -14,12 +14,12 @@
 ## Some facts
 This game is made in C++ with Irrlicht engine for 3D graphic rendering and Bullet Engine for physics simulation. It is made for learning purpose and for an exam at university. Also i didn't developed this type of game before: since i'm a web developer i only developed few 2D HTML5 games at college. That's why it was a little tricky to develop this game, both for time and difficulty reasons. Fortunately Irrlicht documentation is well written.
 ## Prerequisites
-* Castle battle is cross platform, but for now it only compiles on Linux
 * [Irrlicht library](http://irrlicht.sourceforge.net)
 * [Bullet library](http://bulletphysics.org/wordpress)
 * C++11
 * This source
-
+## Compiling
+Castle battle is cross-platform but for now it only compiles on Linux
 ### Compile release mode
 From the root directory of the project run
 ```
