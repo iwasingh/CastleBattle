@@ -39,7 +39,8 @@ make debug2
 make VERBOSITY=3 debug
 ```
 ## Documentation
-If you want, you can download documentation from this repository. Otherwise you can re-generate on your own:
+If you want, you can download documentation from this repository.
+Otherwise you can re-generate on your own but remember that you will need ![doxygen](http://www.stack.nl/~dimitri/doxygen/index.html) installed on your system:
 ```
 make doc
 ```
