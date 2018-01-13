@@ -60,6 +60,7 @@ class Player{
         * @see ::Castle
         */
         Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side = STRAIGHT);
+        ~Player();
         /** Get cannon irrlicht node @return IMeshscene node*/
         scene::IMeshSceneNode* getNode();
         /** Get how far Z the cannon can SHOOT. The value is random withing cannon power.

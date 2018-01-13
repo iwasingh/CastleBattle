@@ -33,6 +33,7 @@ class Physics{
         * @param irrBox aabbox3df irrlicht world bounding box
         */
         Physics(const core::aabbox3df irrBox);
+        ~Physics();
         /**
         * Init physics instances of the World. Like ground, collision configuration, gravity and friction.
         * A ground is created.

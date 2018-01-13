@@ -30,7 +30,7 @@ Application::Application(){
 void Application::createWorldEnviroment(){
   core::stringw pathTexture[2] = {"media/terrain/grass_green_old.jpg","media/terrain/grass_green_thin.jpg"};
   this->terrain = new Terrain(smgr,driver,pathTexture,core::vector3df(250.f,0.0001f, 250.f));
-  Sky* sky = new Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
+  Sky(smgr,driver,"media/terrain/sky.jpg",1000.0f);
   log1("World created");
   this->physics = new Physics(terrain->getTerrainBox());
   log(INFO,1,"Law of physics successfully created");
@@ -67,13 +67,32 @@ bool Application::init(){
 }
 bool Application::end(){
     this->screen->endScreen(this->gameManager->getNames(), this->gameManager->getWinner());
-    while(device->run() && driver){
-     if (device->isWindowActive()){
-        driver->beginScene(true, true, video::SColor(255,200,200,200));
-         this->gui->drawAll();
-         driver->endScene();
-     }
-   }
+    driver->beginScene(true, true, video::SColor(255,200,200,200));
+    this->gui->drawAll();
+    driver->endScene();
+   //  while(device->run() && driver){
+   //   if (device->isWindowActive()){
+   //   }
+   //   break;
+   // }
+   /** Free memory */
+   /**
+   * From Irrlicht docs:.
+   * This method can free a lot of memory!
+   * Please note that after calling this,
+   * the pointer to the ITexture may no longer be valid, if it was not grabbed before by other parts of the engine for storing it longer.
+   * So it is a good idea to set all materials which are using this texture to 0 or another texture first.
+   */
+   this->driver->removeAllTextures();
+   /** Clear every scene node */
+   this->smgr->clear();
+   /** Remove bullet memory  */
+   delete this->physics;
+   int exit;
+   std::cout<<"Memory liberated"<<std::endl;
+   std::cout<<"Press something to close game"<<std::endl;
+   std::cin>>exit;
+   this->gui->clear();
    return 0;
 }
 bool Application::loop(){

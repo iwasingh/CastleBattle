@@ -18,6 +18,9 @@ GameManager::GameManager(
     initGamePlay(names);
     initKeyboard();
 }
+GameManager::~GameManager(){
+    // delete this->players;
+}
 
 void GameManager::initGamePlay(core::stringw* names){
     //for now all the players will have the same HUD

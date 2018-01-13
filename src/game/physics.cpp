@@ -17,8 +17,13 @@ Physics::Physics(const core::aabbox3df irrBox){
 
 	this->dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	this->solver = new btSequentialImpulseConstraintSolver();
-
 	this->initWorld();
+}
+Physics::~Physics(){
+    delete this->collisionConfiguration;
+    delete this->broadPhase;
+    delete this->dispatcher;
+    delete this->solver;
 }
 void Physics::initWorld(){
 

@@ -27,6 +27,10 @@ Terrain::Terrain(scene::ISceneManager* smgr, video::IVideoDriver* driver, const 
  #endif
 
 }
+Terrain::~Terrain(){
+    delete this->terrain;
+    
+}
 core::vector3df Terrain::getCenter(){
 
             return this->terrain->getTerrainCenter();

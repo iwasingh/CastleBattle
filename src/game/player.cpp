@@ -23,6 +23,10 @@ Player::Player(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideo
     if(type == HUMAN) { log1("Player type HUMAN"); }
     else { log1("Player type AI"); }
 }
+Player::~Player(){
+    // delete this->castle;
+    // delete this->cannon;
+}
 scene::IMeshSceneNode* Player::getNode() {
     return this->cannon->getCannon();
 }

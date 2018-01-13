@@ -48,6 +48,8 @@ class GameManager{
           core::vector3df worldPosition,
           Physics* physics,
           core::stringw* names = 0);
+
+          ~GameManager();
          /** Create players and start gameplay. */
         void initGamePlay(core::stringw* names = 0);
         /** Main Gameplay loop.
