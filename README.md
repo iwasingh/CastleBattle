@@ -45,6 +45,11 @@ Otherwise you can re-generate on your own but remember that you will need [doxyg
 ```
 make doc
 ```
+### Show documentation
+To update and show documentation run
+```
+make doc-show
+```
 ### License
 ```
 The MIT License

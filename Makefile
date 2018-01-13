@@ -83,7 +83,7 @@ ifneq "$(strip $(DEPENDENCIES))" ""
 endif
 
 
-.PHONY: cleanall clean debug debug1 debug2 run-debug run-release doc
+.PHONY: cleanall clean debug debug1 debug2 run-debug run-release doc doc-show
 
 debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
 debug1: out_debug run-debug
@@ -126,7 +126,8 @@ clean:
 #Generate documentation
 doc:
 	doxygen Doxyfile
-
+doc-show: doc
+		sensible-browser ./doc/html/index.html
 
 #Generate object files
 %.o: %.cpp
