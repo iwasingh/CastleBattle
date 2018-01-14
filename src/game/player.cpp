@@ -80,16 +80,19 @@ void Player::focusCamera(){
     }
 }
 void Player::setCannon(){
+    core::vector3df position = core::vector3df(0,0,0);
     switch(this->side){
 
         case OPPOSITE:
-            core::vector3df position = this->castle->calculateAbsoluteCenter() - core::vector3df(0,0,this->castle->getSideSize('l').X);
+            position = this->castle->calculateAbsoluteCenter() - core::vector3df(0,0,this->castle->getSideSize('l').X);
             this->cannon->initCannon(position, core::vector3df(0,180,0));
             break;
+
+        default: break;
     }
 }
 void Player::reset(){
-    core::vector3df position = this->cannon->getCannon()->getAbsolutePosition();
+    // core::vector3df position = this->cannon->getCannon()->getAbsolutePosition();
     core::vector3df rotation = this->cannon->rotation;
     log1("Reset player");
     this->cannon->setRotation(rotation);

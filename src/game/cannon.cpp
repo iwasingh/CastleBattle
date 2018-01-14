@@ -43,8 +43,8 @@ Cannon::~Cannon(){
 
 }
 void Cannon::initAngles(){
-    core::aabbox3df box2 = this->barrel->getBoundingBox();
-    core::aabbox3df lower = this->wagon->getBoundingBox();
+    // core::aabbox3df box2 = this->barrel->getBoundingBox();
+    // core::aabbox3df lower = this->wagon->getBoundingBox();
     core::vector3df med = this->barrel->getBoundingBox().getCenter();
     core::vector3df init = this->barrel->getBoundingBox().MinEdge;
     core::vector3df last;
@@ -94,7 +94,7 @@ void Cannon::shoot(f32 power){
               log1("Positioning ball");
           #else
              if(this->btBall->camera) return;
-          #endif;
+          #endif
 
     }
     f32 angle = this->refreshAngle() * core::DEGTORAD64;
@@ -104,7 +104,7 @@ void Cannon::shoot(f32 power){
 
     f32 height = edges[0].Y + sin(angle) * this->initBarrelVector.getLength();
     core::vector3df absolute = this->cannon->getAbsolutePosition();
-    f32 left_right_angle = this->cannon->getRotation().Y * core::DEGTORAD64;
+    // f32 left_right_angle = this->cannon->getRotation().Y * core::DEGTORAD64;
     core::vector3df adj = this->initBarrelVector;
     adj = adj.normalize();
     core::matrix4 m;
@@ -190,8 +190,11 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
             log2p("INCLINATE RIGHT cannon degrees ", this->cannon->getRotation().Y);
      break;
 
+     default: break;
+
     }
 
+    return m;
 }
 void Cannon::initCannon(core::vector3df position, core::vector3df rotation){
         this->setPosition(position);
@@ -232,6 +235,8 @@ bool Cannon::moveCannon(ACTION_KEYBOARD action){
                     this->getInclinateValues(INCLINATE_RIGHT);
                     this->rotation = this->cannon->getRotation();
             break;
+
+            default: break;
     }
 
     this->barrel->recalculateBoundingBox();

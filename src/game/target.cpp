@@ -7,7 +7,7 @@ using namespace irr;
 Target::Target(core::vector3df position, scene::ISceneManager* smgr, video::IVideoDriver* driver, Physics* physics){
     this->smgr = smgr;
     this->physics = physics;
-    scene::IMesh* mesh = smgr->getMesh("media/chest/chest.obj");
+    // scene::IMesh* mesh = smgr->getMesh("media/chest/chest.obj");
     core::vector3df scale = core::vector3df(1,1,1);
     this->irrTarget = smgr->addCubeSceneNode(1,0,-1,position, scale);
     //this->irrTarget = smgr->addMeshSceneNode(mesh,0,-1,position, scale);

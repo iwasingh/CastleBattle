@@ -97,7 +97,7 @@ bool Application::end(){
 }
 bool Application::loop(){
   u32 TimeStamp = device->getTimer()->getTime(), DeltaTime = 0;
-  int lastFPS = -1;
+  u32 lastFPS = 0;
   bool flagWin = false;
   while(device->run() && device) {
 

@@ -1,4 +1,4 @@
-#include "gamemanager.h";
+#include "gamemanager.h"
 using namespace irr;
 using namespace std;
 GameManager::GameManager(
@@ -95,6 +95,6 @@ bool GameManager::loop(){
 
 
     }
-
-
+    // never goes here;
+    return false;
 }

@@ -34,8 +34,8 @@ bool Castle::buildCastle(core::vector3df center){
         core::stringw currentSection; //keep track of our current section
         const stringw blockTag(L"block"); //constant for blocktag
         core::stringc position, lastposition;
-        float width, height, distance;
-        core::vector3d<f32> * edges = new core::vector3d<f32>[8];
+        float width, height, distance = 0.f;
+        // core::vector3d<f32> * edges = new core::vector3d<f32>[8];
         f32 offsets[4]={0,0,0,0};
         u32 reading = -1 ;
         core::vector3df pos;
@@ -43,15 +43,13 @@ bool Castle::buildCastle(core::vector3df center){
         core::matrix4 transformer;
         std::multimap<char, scene::IMeshSceneNode*>::iterator first, last;
         //while there is more to read
-        log1("Building castle");
+        log1("Reading XML castle file and building castle");
         while (xml->read())
         {
             //check the node type
-            switch (xml->getNodeType())
-            {
+            switch (xml->getNodeType()){
                 //we found a new element
-                case irr::io::EXN_ELEMENT:
-                {
+                case irr::io::EXN_ELEMENT:{
 
                     //we currently are in the empty or mygame section and find the side tag so we set our current block
                     if (currentSection.empty() && sideTag.equals_ignore_case(xml->getNodeName()))
@@ -124,6 +122,8 @@ bool Castle::buildCastle(core::vector3df center){
                 case irr::io::EXN_ELEMENT_END:
                     if(currentSection.equals_ignore_case(xml->getNodeName())) {position = ""; currentSection = ""; };
                 break;
+
+                default: break;
             }
         }
 
