@@ -56,7 +56,7 @@ class Player{
         * @param side ::PLAYER_POSITION side of player
         * @see ::Cannon
         * @see ::GameManager::loop();
-        * @see ::Keyboard::OnEvent();
+        * @see ::KEYBOARD::Keyboard::OnEvent();
         * @see ::Castle
         */
         Player(IrrlichtDevice* device,scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics, Keyboard* keyboard, PLAYER_TYPE type, PLAYER_POSITION side = STRAIGHT);
