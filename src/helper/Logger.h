@@ -10,24 +10,42 @@ using namespace irr;
     level,                                        \
     static_cast<core::stringc>(_Message)          \
   );
+/** Comment this if needed. */
 #ifndef DEBUG_OUTPUT_MASK
   #define DEBUG_OUTPUT_MASK 0
 #endif
-/** Log a message. There is a bitwise AND with the DEBUG_OUTPUT_MASK */
+
+/** Uncomment if you dont want to use the Makefile dynamic definition of MASK.*/
+//#define DEBUG_OUTPUT_MASK 1
+
+/** Log a message.
+There is a bitwise AND with the DEBUG_OUTPUT_MASK
+*/
 #define log(tag, level, _Message) if(level & DEBUG_OUTPUT_MASK) LOGGER(tag,level,_Message) else;
+/** Log message of 1 level verbosity. */
 #define log1(_Message) log(INFO,1, _Message)
+
+/** Log message of 1 level verbosity with a paramter(not string) */
 #define log1p(_Message, parameter) log1(static_cast<core::stringc>(_Message) + core::stringc(parameter))
+
+/** Log message of 2 level verbosity with a paramter(not string) */
+
 #define log2p(_Message, parameter) log2(static_cast<core::stringc>(_Message) + core::stringc(parameter))
+
+/** Log message of 2 level verbosity */
+
 #define log2(_Message) log(INFO,2, _Message)
+
+/** Log a core::vector3d irrlicht object */
 #define logVector(level, _Message, vector)                                              \
   log(INFO, level,                                                                      \
     static_cast<core::stringc>(_Message)+                                               \
     static_cast<core::stringc>(vectorToString(static_cast<core::vector3df>(vector)))    \
   );
 
-
-enum LOG_TYPE{ /*!< LOG_TYPE i think is useless. For now there are only INFO outputs. Maybe a name of the class who call the cout is better */
-  INFO,
+/** For now there are only INFO outputs. Maybe a name of the class who call the cout is better */
+enum LOG_TYPE{
+  INFO, /*!< Only used */
   WARN,
   ERROR
 };
