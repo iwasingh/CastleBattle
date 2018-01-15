@@ -1,3 +1,0 @@
-src/enviroment/castle.o: src/enviroment/castle.cpp \
- src/enviroment/castle.h src/game/target.h src/game/physics.h \
- src/helper/bullethelper.h src/game/physics.h src/helper/Logger.h

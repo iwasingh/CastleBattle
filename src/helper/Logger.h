@@ -4,19 +4,21 @@
 #include <bullethelper.h>
 using namespace irr;
 /** Logger class expansion */
-#define LOGGER(tag, level, _Message)              \
-  Logger::getLogger()->print(                     \
-    static_cast<LOG_TYPE>(tag),                   \
-    level,                                        \
-    static_cast<core::stringc>(_Message)          \
-  );
 /** Comment this if needed. */
 #ifndef DEBUG_OUTPUT_MASK
   #define DEBUG_OUTPUT_MASK 0
 #endif
 
+#define LOGGER(tag, level, _Message)                        \
+        Logger::getLogger()->print(                         \
+            static_cast<LOG_TYPE>(tag),                     \
+            level,                                          \
+            static_cast<core::stringc>(_Message)            \
+        );
+
+
 /** Uncomment if you dont want to use the Makefile dynamic definition of MASK.*/
-//#define DEBUG_OUTPUT_MASK 1
+ // #define DEBUG_OUTPUT_MASK 1
 
 /** Log a message.
 There is a bitwise AND with the DEBUG_OUTPUT_MASK
@@ -25,10 +27,10 @@ There is a bitwise AND with the DEBUG_OUTPUT_MASK
 /** Log message of 1 level verbosity. */
 #define log1(_Message) log(INFO,1, _Message)
 
-/** Log message of 1 level verbosity with a paramter(not string) */
+/** Log message of 1 level verbosity with a parameter(not string) */
 #define log1p(_Message, parameter) log1(static_cast<core::stringc>(_Message) + core::stringc(parameter))
 
-/** Log message of 2 level verbosity with a paramter(not string) */
+/** Log message of 2 level verbosity with a parameter(not string) */
 
 #define log2p(_Message, parameter) log2(static_cast<core::stringc>(_Message) + core::stringc(parameter))
 

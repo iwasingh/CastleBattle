@@ -82,7 +82,7 @@ ifneq "$(strip $(DEPENDENCIES))" ""
 endif
 
 
-.PHONY: cleanall clean debug debug1 debug2 run-debug run-release doc doc-show
+.PHONY: cleanall clean debug debug1 debug2 run-debug run-release doc doc-show depend-unic depend
 
 debug1: CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=1
 debug1: out_debug run-debug
@@ -93,6 +93,9 @@ debug2: out_debug run-debug
 #Debug version. Verbosity is automatically set to 1. Check VERBOSITY variable
 debug:  CXXFLAGS += $(DEBUG_OPTIONS) -DDEBUG_OUTPUT_MASK=$(VERBOSITY)
 debug: out_debug run-debug
+
+debug-noflag: CXXFLAGS += $(DEBUG_OPTIONS)
+debug-noflag: out_debug run-debug
 
 before_debug:
 	test -d $(OUT_DEBUG) || mkdir -p bin/Debug
@@ -120,6 +123,7 @@ cleanall: clean
 clean:
 	find . -name '*.o' -delete
 	find . -name '*.depend*' -delete
+	find . -name 'dependecies' -delete
 
 #Generate documentation
 doc:
@@ -130,10 +134,15 @@ doc-show:
 #Generate object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
-#Generate dependecy files
+#Automatically generate dependecy files in each respective sub-dir. This approach is much more modular and better than an unic dependecies file.
+#You can also put -MMD when compiling each file to generate automatically a .d file, but i use this.
+#Only this type of file generation will be used by g++ in the compiling process.
 %.depend: %.cpp
 	$(CXX) $(INCLUDE_SUBDIRS)  -MM $< -MT "$*.o" -MF $*.depend
 
-.PHONY: depend
 #Generate dependencies
-depend: $(DEPENDENCIES)
+depend: $(DEPENDECIES)
+
+#if you want to generate an unique file with all dependecies
+depend-unic:
+	$(CXX) $(INCLUDE_SUBDIRS) -MM $(SOURCES) > dependecies
