@@ -118,7 +118,7 @@ run-release:
 cleanall: clean
 	rm -rf $(OUT_RELEASE)
 	rm -rf $(OUT_DEBUG)
-	rm -rf ./doc
+	rm -rf ./docs
 
 clean:
 	find . -name '*.o' -delete
