@@ -129,7 +129,7 @@ clean:
 doc:
 	doxygen Doxyfile
 doc-show:
-		sensible-browser ./doc/html/index.html
+	sensible-browser ./docs/html/index.html
 
 #Generate object files
 %.o: %.cpp
