@@ -146,3 +146,5 @@ depend: $(DEPENDECIES)
 #if you want to generate an unique file with all dependecies
 depend-unic:
 	$(CXX) $(INCLUDE_SUBDIRS) -MM $(SOURCES) > dependecies
+gotorepo:
+	sensible-browser https://github.com/iwasingh/CastleBattle
