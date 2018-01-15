@@ -52,6 +52,9 @@ To show documentation run
 ```
 make doc-show
 ```
+### Documentation online
+Visit the online version of the documentation at 
+https://iwasingh.github.io/CastleBattle
 ### License
 ```
 The MIT License
