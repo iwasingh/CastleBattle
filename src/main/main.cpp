@@ -8,8 +8,8 @@
 using namespace irr;
 /** Initialize seed and start ::Application */
 int main() {
-  Application* app = new Application();
+  Application app = Application();
   srand (time(NULL));
-  return (app->init()) ? app->loop() : 1;
+  return (app.init()) ? app.loop() : 1;
 }
 #endif
