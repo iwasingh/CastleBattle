@@ -39,6 +39,8 @@ namespace HUD{
             /** Percentage of power respect to the total area */
             f32 powerRatio;
             /** Private. Initialize HUD, font, set all items on the screen. */
+
+            core::rect<s32> initialPosPower;
             void initHUD();
 
         public:

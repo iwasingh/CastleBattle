@@ -7,5 +7,6 @@ var searchData=
   ['reset',['reset',['../classPlayer.html#a1af5d39f7bac2aeaa1e30c7dda2332fa',1,'Player']]],
   ['resetlastkey',['resetLastKey',['../classKEYBOARD_1_1Keyboard.html#a7b88505bde7283cdce420343e7158aaf',1,'KEYBOARD::Keyboard']]],
   ['resetpower',['resetPower',['../classHUD_1_1HUD.html#a67bb88cff2e67bb6648747b4c4fd0a7f',1,'HUD::HUD']]],
-  ['rotation',['rotation',['../classCannon.html#a7b4c25becb915b376514df71491634e2',1,'Cannon']]]
+  ['rotation',['rotation',['../classCannon.html#a7b4c25becb915b376514df71491634e2',1,'Cannon']]],
+  ['rotationconstraint',['rotationconstraint',['../classCannon.html#a5daf768e0cb726f026a79286e94a4db9',1,'Cannon']]]
 ];

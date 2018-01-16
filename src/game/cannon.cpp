@@ -173,7 +173,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
             return m;
         break;
      case INCLINATE_LEFT:
-            if(this->cannon->getRotation().Y >  (this->rotation.Y + MAX_ANGLE_LEFT))
+            if(this->cannon->getRotation().Y >  (this->rotationconstraint.Y + MAX_ANGLE_LEFT))
                 velocity = 1;
             else velocity = 0;
 
@@ -182,7 +182,7 @@ core::matrix4 Cannon::getInclinateValues(ACTION_KEYBOARD key){
             log2p("INCLINATE LEFT cannon degrees ", this->cannon->getRotation().Y);
      break;
      case INCLINATE_RIGHT:
-                     if(this->cannon->getRotation().Y < (this->rotation.Y + MAX_ANGLE_RIGHT))
+                     if(this->cannon->getRotation().Y <  (this->rotationconstraint.Y + MAX_ANGLE_RIGHT))
                 velocity = 1;
             else velocity = 0;
             this->cannon->setRotation(core::vector3df(0,this->cannon->getRotation().Y+(INCLINATE_FACTOR * velocity),0));
@@ -200,6 +200,7 @@ void Cannon::initCannon(core::vector3df position, core::vector3df rotation){
         this->setPosition(position);
         this->setRotation(rotation);
         this->rotation = rotation;
+        this->rotationconstraint = rotation;
         initAngles();
 
 }

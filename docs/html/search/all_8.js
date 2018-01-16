@@ -15,6 +15,7 @@ var searchData=
   ['inithud',['initHUD',['../classHUD_1_1HUD.html#a509b54e1f69124123cf50e5e5ab13787',1,'HUD::HUD']]],
   ['initialbarrelvector',['initialBarrelVector',['../classCannon.html#a9e28271abace153028f8d335693dbadf',1,'Cannon']]],
   ['initialposition',['initialPosition',['../classMotionStateManager.html#aa2ace1df81950bb87c3c79b010492a98',1,'MotionStateManager']]],
+  ['initialpospower',['initialPosPower',['../classHUD_1_1HUD.html#a74e2d6bff010d428f4e97e4a6212f9f9',1,'HUD::HUD']]],
   ['initialtargetpos',['initialTargetPos',['../classCastle.html#a6211e058ea5dc4612bb845bd8d5c4995',1,'Castle']]],
   ['initkeyboard',['initKeyboard',['../classGameManager.html#a539fcdcdaaee97f9ab24df0b075076f9',1,'GameManager']]],
   ['initlogger',['initLogger',['../classLogger.html#a96a194700a9ee08f34260ee6a7dd5a5f',1,'Logger']]],

@@ -19,6 +19,7 @@ namespace HUD{
                     core::position2di(((pos.UpperLeftCorner.X+pos.LowerRightCorner.X)/4)+50,pos.LowerRightCorner.Y-45));
                 this->power_rect = pos_power;
                 pos_power.UpperLeftCorner.Y = pos_power.LowerRightCorner.Y-1;
+                this->initialPosPower = pos_power;
                 this->power = this->env->addImage(pos_power,0,POWER_BAR);
                 this->power->setImage(image);
                 this->power->setScaleImage(true);
@@ -59,8 +60,8 @@ namespace HUD{
             this->playerName->setText(name.c_str());
     }
     void HUD::resetPower(){
-        core::rect<s32> power_pos = this->power->getAbsoluteClippingRect();
-        power_pos.UpperLeftCorner.Y = power_pos.LowerRightCorner.Y-1;
-        this->power->setRelativePosition(core::rect<s32>(power_pos));
+        // core::rect<s32> power_pos = this->power->getAbsoluteClippingRect();
+        // power_pos.UpperLeftCorner.Y = power_pos.LowerRightCorner.Y-1;
+        this->power->setRelativePosition(core::rect<s32>(this->initialPosPower));
     }
 }

@@ -50,6 +50,7 @@ class Cannon{
         * @param physics Physics physics instance
         * @see ::Ball, ::Camera, ::Keyboard
         */
+        core::vector3df rotationconstraint;
         Cannon(IrrlichtDevice* device, scene::ISceneManager* smgr, video::IVideoDriver* driver, core::vector3df position, Physics* physics);
         ~Cannon();
         /** Set angle variable and calculate the angle between the plane and the initBarrelVector. */
