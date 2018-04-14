@@ -134,7 +134,7 @@ doc-show:
 #Generate object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@ $(INCLUDE)
-#Automatically generate dependecy files in each respective sub-dir. This approach is much more modular and better than an unic dependecies file.
+#Automatically generate dependecy files in each respective sub-dir. This approach is much more modular and better than an unique dependecies file.
 #You can also put -MMD when compiling each file to generate automatically a .d file, but i use this.
 #Only this type of file generation will be used by g++ in the compiling process.
 %.depend: %.cpp
@@ -144,7 +144,7 @@ doc-show:
 depend: $(DEPENDECIES)
 
 #if you want to generate an unique file with all dependecies
-depend-unic:
+depend-unique:
 	$(CXX) $(INCLUDE_SUBDIRS) -MM $(SOURCES) > dependecies
 gotorepo:
 	sensible-browser https://github.com/iwasingh/CastleBattle
