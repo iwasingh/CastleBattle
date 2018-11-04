@@ -2,7 +2,7 @@
     <img src="http://irrlicht.sourceforge.net/images/irrlicht_logo.png" alt="Irrlicht logo" title="Irrlicht" align="right" height="60" />
 </a>
 <a href="http://bulletphysics.org/wordpress/">
-    <img src="http://bulletphysics.org/wordpress/wp-content/themes/atahualpa333/images/bullet_logo-210-86.png" alt="Bullet logo" title="Bullet" align="right" height="60" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Bullet_Physics_Library_Logo.png" alt="Bullet logo" title="Bullet" align="right" height="60" />
 </a>
 
 # Castle Battle
